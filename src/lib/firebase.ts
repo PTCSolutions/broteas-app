@@ -22,3 +22,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
+// onAuthStateChanged(auth, (user) => {
+//     if (user) {
+//       // User is signed in, see docs for a list of available properties
+//       // https://firebase.google.com/docs/reference/js/auth.user
+//       const uid = user.uid;
+//       // ...
+//     } else {
+//       // User is signed out
+//       // ...
+//     }
+//   });
