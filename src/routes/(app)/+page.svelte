@@ -16,9 +16,9 @@
 
 	let post: Post = {
 		postId: 'xxxxx',
-		creator: user,
+		creatorId: "12345",
 		date: serverTimestamp(),
-		objectId: 'string',
+		objectId: 'yyyyy',
 		likes: ['11111'],
 		comments: [],
 	};
