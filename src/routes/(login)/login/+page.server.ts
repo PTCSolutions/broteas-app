@@ -12,10 +12,11 @@ export const actions = {
         if (email != null && password != null) {
             createUserWithEmailAndPassword(auth, email, password)
                 .then(() => {
-                    throw redirect(300, "/");
+                    console.log()
                 })
                 .catch(() => {
                 });
         }
+        throw redirect(303, "/");
     },
 };

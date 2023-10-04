@@ -1,7 +1,4 @@
-<script>
-	import { auth } from '$lib/firebase';
-	import { createUserWithEmailAndPassword } from 'firebase/auth';
-</script>
+<script></script>
 
 <form method="POST">
 	<label>
