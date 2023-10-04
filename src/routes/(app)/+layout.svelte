@@ -7,5 +7,5 @@
 	<NavBar />
 	<slot />
 	<div class="grow"></div>
-	<a href="/login">Login</a>
+	<div><a href="/login">Login</a></div>
 </div>
