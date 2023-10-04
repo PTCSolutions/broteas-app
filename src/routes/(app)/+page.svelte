@@ -1,5 +1,5 @@
 <script>
-    import PostWidget from "./PostWidget.svelte";
+    import PostWidget from "./components/PostWidget.svelte";
 </script>
 
 <div>
