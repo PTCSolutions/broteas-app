@@ -1,12 +1,12 @@
 import type { User } from "./user";
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc, FieldValue } from "firebase/firestore"; 
 import { db } from "./firebase";
 
 
 export interface Post {
     postId: string;
     creator: User;
-    date: Date;
+    date: FieldValue;
     objectId: string;
     likes: Array<string>;
     comments: Array<PostComment>;
@@ -18,12 +18,10 @@ interface PostComment {
     date: Date;
 }
 
-export async function NewPost() {
+export async function NewPost(post: Post) {
     try {
-        const docRef = await addDoc(collection(db, "users"), {
-            first: "Ada",
-            last: "Lovelace",
-            born: 1815
+        const docRef = await addDoc(collection(db, "posts"), {
+            post
         });
         console.log("Document written with ID: ", docRef.id);
     } catch (e) {
