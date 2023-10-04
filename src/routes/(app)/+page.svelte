@@ -15,21 +15,7 @@
 <div>
 	<h1>Project Broteas HOME</h1>
 	<PostWidget user="Mike" />
-	<!-- <button on:click={() => NewPost(post)}> New Post </button> -->
-
-	<!-- <form method="POST">
-		<label>
-			Text
-			<input name="text" />
-		</label>
-		<label>
-			objectId
-			<input name="objectId" />
-		</label>
-		<button>Post</button>
-	</form> -->
-
-	<div class="w-3/6 mt-4 rounded-sm p-8 bg-slate-100">
+	<div class="w-128 mt-4 rounded-sm p-8 bg-gray-200">
 		<form class="my-4" method="POST">
 			<div>
 				<label class="label text-slate-500 mr-4" for="name">Text </label>
