@@ -15,3 +15,4 @@
     <div>{`Following: ${data?.following.length}`}</div>
     {/if}
 </div>
+<div class="grow" />
