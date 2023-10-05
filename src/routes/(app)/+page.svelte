@@ -32,6 +32,7 @@
 				<input
 					type="text"
 					name="text"
+                    autocomplete="off"
 					placeholder="Type here"
 					class="ring-1 ring-slate-200 focus:outline-none rounded-sm input w-full"
 				/>
@@ -41,6 +42,7 @@
 				<input
 					type="text"
 					name="objectId"
+                    autocomplete="off"
 					placeholder="Type here"
 					class="ring-1 ring-slate-200 focus:outline-none rounded-sm input w-full"
 				/>

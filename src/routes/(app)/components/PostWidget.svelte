@@ -13,10 +13,12 @@
 	<div>
 		Shared by user {post.creatorId}
 	</div>
-	<div class="flex-row">
+	<div class="flex-row flex">
 		<div>
 			Likes: {post.likes.length}
 		</div>
+        <div class="w-4">
+        </div>
 		<div>
 			Comments: {post.comments.length}
 		</div>
