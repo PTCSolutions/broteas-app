@@ -2,12 +2,22 @@
 	import type { PostMeta } from '$lib/post';
 	import type { User } from '$lib/user';
 	import { getUser } from '$lib/user';
+	import { linkWithRedirect } from 'firebase/auth';
 	export let post: PostMeta;
 
 	let poster: User | null;
 	getUser(post.creatorId).then((user) => {
 		poster = user;
 	});
+
+    async function Like() {
+        await fetch("src/routes/(app)/api/like", {
+
+        }
+
+        )
+        
+    }
 </script>
 
 <div class="w-96 p-2 bg-white flex-col">
@@ -32,7 +42,9 @@
 			/>
 		</div>
 		<div class="flex-col flex justify-center items-center pl-2">
-			<div>like</div>
+            <a href={`/api/like?postId=${post.postId}`}>
+                <div>like</div>
+            </a>
 			<div class="text-xs">{post.likes.length}</div>
 			<div class="h-4" />
 			<div>com</div>

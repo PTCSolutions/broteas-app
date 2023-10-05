@@ -1,4 +1,4 @@
-import { collection, addDoc, getDocs, FieldValue, orderBy, query } from "firebase/firestore";
+import { collection, addDoc, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "./firebase";
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -10,7 +10,7 @@ export interface Post {
 // Uncomment this when we want to read posts
 export interface PostMeta extends Post {
     postId: string;
-    date: FieldValue;
+    date: Date;
     likes: Array<string>;
     comments: Array<PostComment>;
 }
