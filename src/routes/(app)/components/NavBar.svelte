@@ -2,7 +2,7 @@
 	import MenuItem from './MenuItem.svelte';
 </script>
 
-<div class="bg-gray-100 w-32 min-h-screen p-2 flex fixed">
+<div class="bg-gray-100 w-32 min-h-screen p-2 flex fixed border-r-2">
 	<div class="flex-col flex">
 		<div>
 			<a href="/">Logo</a>

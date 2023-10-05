@@ -21,7 +21,7 @@
 	});
 </script>
 
-<div>
+<div class="bg-gray-100 grow">
 	<h1>Project Broteas HOME</h1>
 
 	<button on:click={() => (showModal = true)}
