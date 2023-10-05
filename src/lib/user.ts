@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc, DocumentSnapshot } from "firebase/firestore";
+import { doc, setDoc, getDoc, DocumentSnapshot, updateDoc, arrayUnion, arrayRemove} from "firebase/firestore";
 import { db } from "./firebase";
 
 export interface User {
@@ -26,11 +26,11 @@ export async function newUser(user: User) {
     }
 }
 
-export async function getUser(uid: string) : Promise<User | null> {
+export async function getUser(uid: string): Promise<User | null> {
     const docSnapshot: DocumentSnapshot = await getDoc(doc(db, "users", uid));
     const data = docSnapshot.data();
     if (data != undefined) {
-        const user : User = {
+        const user: User = {
             firstName: data.firstName,
             lastName: data.lastName,
             email: data.email,
@@ -41,4 +41,51 @@ export async function getUser(uid: string) : Promise<User | null> {
         return user;
     }
     return null;
+}
+
+export async function followUser(follower: string, followed: string) {
+    // Check if the followed really does exist
+    const docSnapshot: DocumentSnapshot = await getDoc(doc(db, "users", followed));
+    if (docSnapshot.exists()) {
+        // First add the follower to the followed's "Followers"
+        try {
+            await updateDoc(doc(db, "users", followed), {
+                followers: arrayUnion(follower)
+            });
+        } catch (error) {
+            console.log(error);
+        }
+
+        // Now add the followed to the follower's "Following"
+        try {
+            await updateDoc(doc(db, "users", follower), {
+                following: arrayUnion(followed)
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export async function unfollowUser(follower: string, followed: string) {
+    // Check if the followed really does exist
+    const docSnapshot: DocumentSnapshot = await getDoc(doc(db, "users", followed));
+    if (docSnapshot.exists()) {
+        // First remove the follower from the followed's "Followers"
+        try {
+            await updateDoc(doc(db, "users", followed), {
+                followers: arrayRemove(follower)
+            });
+        } catch (error) {
+            console.log(error);
+        }
+        // Now remove the followed from the follower's "Following"
+        try {
+            await updateDoc(doc(db, "users", follower), {
+                following: arrayRemove(followed)
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
