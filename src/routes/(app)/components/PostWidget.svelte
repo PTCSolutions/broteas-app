@@ -21,15 +21,22 @@
 	</div>
 	<div class="h-4" />
 	<div class="flex-row flex">
-		<div class="w-80 h-80 bg-gray-100 rounded-lg">
+		<!-- <div class="w-80 h-80 bg-gray-100 rounded-lg">
 			Object id is {post.objectId}
+		</div> -->
+		<div class="w-80 h-80 rounded-lg">
+			<img
+            class="rounded-lg"
+				src="https://img.buzzfeed.com/buzzfeed-static/complex/images/bebllwzjpsujz9ffwp6s/tyler-the-creator-scum-fuck-flower-boy-cover.png?output-format=jpg&output-quality=auto"
+				alt=""
+			/>
 		</div>
-		<div class="flex-col flex justify-center items-center">
+		<div class="flex-col flex justify-center items-center pl-2">
 			<div>like</div>
-			<div>{post.likes.length}</div>
+			<div class="text-xs">{post.likes.length}</div>
 			<div class="h-4" />
-			<div>comment</div>
-			<div>{post.comments.length}</div>
+			<div>com</div>
+			<div class="text-xs">{post.comments.length}</div>
 			<div class="h-4" />
 			<div>share</div>
 		</div>

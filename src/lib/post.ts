@@ -1,4 +1,4 @@
-import { collection, addDoc, getDocs, FieldValue } from "firebase/firestore";
+import { collection, addDoc, getDocs, FieldValue, orderBy, query } from "firebase/firestore";
 import { db } from "./firebase";
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -40,7 +40,7 @@ export async function NewPost(post: Post) {
 }
 
 export async function GetPosts() : Promise<Array<PostMeta>> {
-    const querySnapshot = await getDocs(collection(db, "posts"));
+    const querySnapshot = await getDocs(query(collection(db, "posts"), orderBy("date", "desc")));
     const posts : Array<PostMeta> = [];
     querySnapshot.forEach((doc) => {
         const post = doc.data();
