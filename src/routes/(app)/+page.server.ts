@@ -3,15 +3,15 @@ import type { Post } from '$lib/post.js';
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-    default: async ({ request }) => {
+    default: async ({ request, cookies }) => {
+        const uid = cookies.get('uid');
         const data = await request.formData();
         const text = data.get('text') as string;
         const objectId = data.get('objectId') as string;
-        if (text != null && objectId != null) {
+        if (text != null && objectId != null && uid != null) {
             const post: Post = {
-                creatorId: '12345',
+                creatorId: uid,
                 text: text,
-                
                 objectId: objectId,
             };
             NewPost(post);

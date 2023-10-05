@@ -1,18 +1,8 @@
 <script lang="ts">
 	import PostWidget from './components/PostWidget.svelte';
-	import type { User } from '$lib/user';
 	import { GetPosts } from '$lib/post';
 	import type { PostMeta } from '$lib/post';
 	import Modal from './components/Modal.svelte';
-
-	let user: User = {
-		firstName: 'Rich',
-		lastName: 'Harris',
-		uid: '12345',
-		email: 'richharris@music.me',
-		following: ['11111'],
-		followers: ['11111']
-	};
 
 	let showModal = false;
 	let posts: Array<PostMeta> = [];

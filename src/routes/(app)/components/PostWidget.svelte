@@ -1,6 +1,13 @@
 <script lang="ts">
 	import type { PostMeta } from '$lib/post';
+	import type { User } from '$lib/user';
+	import { getUser } from '$lib/user';
 	export let post: PostMeta;
+
+	let poster: User | null;
+	getUser(post.creatorId).then((user) => {
+		poster = user;
+	});
 </script>
 
 <div class="w-96 p-2 bg-white flex-col">
@@ -8,7 +15,7 @@
 		<div class=" w-10 h-10 rounded-full bg-green-200" />
 		<div class="w-2" />
 		<div class="flex-col flex">
-			<div>{post.creatorId}</div>
+			<div>{poster?.firstName} {poster?.lastName}</div>
 			<div class="text-xs">{post.date}</div>
 		</div>
 	</div>
@@ -23,7 +30,7 @@
 			<div class="h-4" />
 			<div>comment</div>
 			<div>{post.comments.length}</div>
-            <div class="h-4" />
+			<div class="h-4" />
 			<div>share</div>
 		</div>
 	</div>
