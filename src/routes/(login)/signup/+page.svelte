@@ -13,7 +13,7 @@
 		Password
 		<input name="password" type="password" />
 	</label>
-	<button>Log In</button>
+	<button>Sign Up</button>
 </form>
 <!-- If there is an error on submitting the form, show it in red underneath-->
 {#if form?.error != undefined}
