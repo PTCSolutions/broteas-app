@@ -10,7 +10,6 @@
 <div class="flex-row flex">
 	<div class="w-32"></div>
 	<slot />
-	<div class="grow"></div>
 	<!--If there is no logged in user show Login and signup buttons-->
 	{#if uid == ""}
 	<div class="flex flex-col">
