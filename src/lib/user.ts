@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc, DocumentSnapshot, updateDoc, arrayUnion, arrayRemove} from "firebase/firestore";
+import { doc, setDoc, getDoc, DocumentSnapshot, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from "./firebase";
 
 export interface User {
@@ -64,6 +64,8 @@ export async function followUser(follower: string, followed: string) {
         } catch (error) {
             console.log(error);
         }
+    } else {
+        throw "The person you entered doesn't exist";
     }
 }
 
@@ -87,5 +89,7 @@ export async function unfollowUser(follower: string, followed: string) {
         } catch (error) {
             console.log(error);
         }
+    } else {
+        throw "The person you entered doesn't exist";
     }
 }

@@ -10,7 +10,11 @@ export const actions = {
         const follower = cookies.get('uid');
         // Try to add follower
         if (follower != null) {
-            await followUser(follower, followed);
+            try {
+                await followUser(follower, followed);
+            } catch (error) {
+                return {error: error};
+            }
         }
     },
     unfollow: async ({ request, cookies }) => {
@@ -21,7 +25,11 @@ export const actions = {
         const follower = cookies.get('uid');
         // Try to add follower
         if (follower != null) {
-            await unfollowUser(follower, followed);
+            try {
+                await unfollowUser(follower, followed);
+            } catch (error) {
+                return {error: error};
+            }
         }
     },
 };
