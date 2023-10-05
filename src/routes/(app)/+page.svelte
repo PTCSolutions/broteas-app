@@ -1,6 +1,8 @@
 <script lang="ts">
 	import PostWidget from './components/PostWidget.svelte';
 	import type { User } from '$lib/user';
+	import { GetPosts } from '$lib/post';
+	import type { PostMeta } from '$lib/post';
 
 	let user: User = {
 		firstName: 'Rich',
@@ -10,11 +12,19 @@
 		following: ['11111'],
 		followers: ['11111']
 	};
+
+	let posts: Array<PostMeta> = [];
+	GetPosts().then((res) => {
+		posts = res;
+	});
 </script>
 
 <div>
 	<h1>Project Broteas HOME</h1>
-	<PostWidget user="Mike" />
+	<!-- <PostWidget user="Mike" /> -->
+	<!-- <button on:click={GetPosts}>
+        RELOAD
+    </button> -->
 	<div class="w-128 mt-4 rounded-sm p-8 bg-gray-200">
 		<form class="my-4" method="POST">
 			<div>
@@ -36,8 +46,13 @@
 				/>
 			</div>
 			<div>
-                <button>Post</button>
-            </div>
+				<button>Post</button>
+			</div>
 		</form>
 	</div>
+	{#each posts as post}
+		<div class="p-4">
+			<PostWidget {post} />
+		</div>
+	{/each}
 </div>

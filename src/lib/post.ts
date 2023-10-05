@@ -1,4 +1,4 @@
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, FieldValue } from "firebase/firestore";
 import { db } from "./firebase";
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -8,18 +8,18 @@ export interface Post {
     objectId: string;
 }
 // Uncomment this when we want to read posts
-// interface PostMeta extends Post {
-//     postId: string;
-//     date: FieldValue;
-//     likes: Array<string>;
-//     comments: Array<PostComment>;
-// }
+export interface PostMeta extends Post {
+    postId: string;
+    date: FieldValue;
+    likes: Array<string>;
+    comments: Array<PostComment>;
+}
 
-// interface PostComment {
-//     commentorId: string;
-//     text: string;
-//     date: Date;
-// }
+interface PostComment {
+    commentorId: string;
+    text: string;
+    date: Date;
+}
 
 export async function NewPost(post: Post) {
     try {
@@ -37,4 +37,16 @@ export async function NewPost(post: Post) {
     } catch (e) {
         console.error("Error adding document: ", e);
     }
+}
+
+export async function GetPosts() : Promise<Array<PostMeta>> {
+    const querySnapshot = await getDocs(collection(db, "posts"));
+    const posts : Array<PostMeta> = [];
+    querySnapshot.forEach((doc) => {
+        const post = doc.data();
+        post.postId = doc.id;
+        posts.push(post as PostMeta);
+        // doc.data() is never undefined for query doc snapshots
+    });
+    return posts;
 }
