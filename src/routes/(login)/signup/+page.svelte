@@ -3,8 +3,18 @@
 	/** @type {import('./$types').ActionData} */
 	export let form;
 </script>
+
 <!-- Use progressive enhancement so that we can get nice transitions if js enabled-->
 <form method="POST" use:enhance>
+	<!-- TODO: Make this use form validation instead of html validation-->
+	<label>
+		First Name
+		<input name="firstName" required />
+	</label>
+	<label>
+		Last Name
+		<input name="lastName" required />
+	</label>
 	<label>
 		Email
 		<input name="email" type="email" />
@@ -24,5 +34,9 @@
 <style>
 	.redText {
 		color: red;
+	}
+
+	input {
+		border: solid 1px black;
 	}
 </style>

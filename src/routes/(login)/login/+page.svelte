@@ -25,4 +25,8 @@
 	.redText {
 		color: red;
 	}
+	
+	input {
+		border: solid 1px black;
+	}
 </style>

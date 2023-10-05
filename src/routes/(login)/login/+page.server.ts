@@ -1,5 +1,6 @@
 import { auth } from '$lib/firebase';
 import { redirect } from '@sveltejs/kit';
+import type {FirebaseError } from 'firebase/app';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 /** @type {import('./$types').Actions} */
@@ -16,7 +17,7 @@ export const actions = {
             success = true;
         // Return error message if there is one
         } catch (error) {
-            return { error: error.message };
+            return { error: (error as FirebaseError).message };
         }
         // If succesfully signed in, redirect to home page and set the uid in cookies
         if (success && auth.currentUser != null) {
