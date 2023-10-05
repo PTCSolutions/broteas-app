@@ -11,7 +11,7 @@
 	});
 </script>
 
-<div class="bg-gray-50 grow flex-col flex items-center">
+<div class="bg-gray-50 flex-col flex items-center">
 	<button on:click={() => (showModal = true)} class="fixed right-4 bottom-4"
 		>
         <div class="bg-green-100 w-14 h-14 rounded-full">
