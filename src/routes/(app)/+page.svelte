@@ -1,14 +1,9 @@
 <script lang="ts">
 	import PostWidget from './components/PostWidget.svelte';
 	import { GetPosts } from '$lib/post';
-	import type { PostMeta } from '$lib/post';
 	import Modal from './components/Modal.svelte';
 
 	let showModal = false;
-	let posts: Array<PostMeta> = [];
-	GetPosts().then((res) => {
-		posts = res;
-	});
 </script>
 
 <div class="bg-gray-50 flex-col flex items-center">
@@ -58,9 +53,16 @@
 
 	<div class="text-lg">Latest Posts:</div>
 
-	{#each posts as post}
+    {#await GetPosts()}
+        <div>
+            Loading...
+        </div>
+    {:then posts} 
+        {#each posts as post}
 		<div class="p-4">
 			<PostWidget {post} />
 		</div>
 	{/each}
+    {/await}
+	
 </div>
