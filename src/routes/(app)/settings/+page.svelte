@@ -5,8 +5,8 @@
 	export let data: User | null;
 	export let form;
 
-    // A silly little function to tell the user if the id they entered doesnt exist.
-    // TODO: Make this legit
+	// A silly little function to tell the user if the id they entered doesnt exist.
+	// TODO: Make this legit
 	let canIAlert = (value: any) => {
 		if (value != null) {
 			if (value.error != undefined) {
@@ -30,26 +30,37 @@
 		<div class="h-14" />
 		<div>Enter the uid of your friends below, and click the button to follow them!</div>
 		<form method="POST" action="?/follow" use:enhance>
-			<label>
-				UID
-				<input name="uid" type="text" />
-			</label>
-			<button>Follow!</button>
+            <div class="flex flex-row gap-10 w-full">
+                <label class="w-1/2">
+                    <input
+                        name="uid"
+                        type="text"
+                        placeholder="uid to follow"
+                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                    />
+                </label>
+                <button
+                    class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                    >Follow!</button
+                >
+            </div>
 		</form>
 		<div>Or unfollow them!</div>
 		<form method="POST" action="?/unfollow" use:enhance>
-			<label>
-				UID
-				<input name="uid" type="text" />
+            <div class="flex flex-row gap-10 w-full">
+                <label class="w-1/2">
+				<input
+					name="uid"
+					type="text"
+					placeholder="uid to unfollow"
+					class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+				/>
 			</label>
-			<button>Unfollow!</button>
+			<button
+				class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+				>Unfollow!</button
+			>
 		</form>
 	{/if}
 </div>
 <div class="grow" />
-
-<style>
-	input {
-		border: solid 1px black;
-	}
-</style>
