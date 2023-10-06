@@ -3,6 +3,8 @@
 	import type { Song } from '$lib/spotify';
 	import SongCard from './SongCard.svelte';
 	import SongWidget from './SongWidget.svelte';
+	export let showModal: boolean;
+	export let songSelected: Song;
 
 	let searchText: string;
 	let songs: Array<Song> = [];
@@ -51,6 +53,13 @@
 	</div>
 	<div class="h-4" />
 	{#each songs as song}
-		<SongCard {song} />
+		<button
+			on:click={() => {
+				showModal = true;
+				songSelected = song;
+			}}
+		>
+			<SongCard {song} />
+		</button>
 	{/each}
 </div>

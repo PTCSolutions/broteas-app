@@ -6,7 +6,6 @@
 	export let form;
 
 	// A silly little function to tell the user if the id they entered doesnt exist.
-	// TODO: Make this legit
 	let canIAlert = (value: any) => {
 		if (value != null) {
 			if (value.error != undefined) {
