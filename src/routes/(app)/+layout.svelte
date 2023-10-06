@@ -3,14 +3,16 @@
 	import NavBar from './components/NavBar.svelte';
 	import { getUser } from '$lib/user';
 	import type { User } from '$lib/user';
-	// Get uid of current user from our load function
-	export let data;
-	let uid = data.uid;
+	import {uid} from "$lib/stores/stores";
+	// // Get uid of current user from our load function
+	// export let data;
+	// let uid = data.uid;
 
 	let currentUser: User | null;
-	getUser(uid).then((user) => {
+	getUser($uid).then((user) => {
 		currentUser = user;
 	});
+
 </script>
 
 <NavBar />
@@ -20,7 +22,7 @@
 		<slot />
 	</div>
 	<!--If there is no logged in user show Login and signup buttons-->
-	{#if uid == ''}
+	{#if $uid == ''}
 		<div class="flex flex-col">
 			<div><a href="/login">Log In</a></div>
 			<div><a href="/signup">Sign Up</a></div>
