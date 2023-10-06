@@ -1,3 +1,4 @@
+import type { User } from "$lib/user";
 import { writable, type Writable } from "svelte/store";
 
-export const uid: Writable<string> = writable("");
+export const userStore: Writable<User | null> = writable(null);

@@ -1,8 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp, getApps, deleteApp, getApp } from "firebase/app";
-import { getFirestore} from "firebase/firestore";
-import { getAuth, onAuthStateChanged} from "firebase/auth";
-import { uid } from "./stores/stores";
+import { getFirestore } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getUser } from "./user";
+import {userStore} from "./stores/stores"
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -32,12 +33,17 @@ if (!getApps().length) {
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 if (auth.currentUser != null) {
-  uid.set(auth.currentUser.uid);
+  const setUser = await getUser(auth.currentUser.uid);
+  userStore.set(setUser);
+  console.log(`Just initialised userStore to ${setUser}`)
 }
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (user) {
-    uid.set(user.uid);
+    const setUser = await getUser(user.uid);
+    userStore.set(setUser);
+    console.log(`Log in: Just set userStore to ${setUser?.uid}`)
   } else {
-    uid.set("");
+    userStore.set(null);
+    console.log(`Log out: Just set userStore to null`)
   }
 });
