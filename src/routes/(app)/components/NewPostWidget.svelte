@@ -5,7 +5,7 @@
 </script>
 
 <div class="w-128 mt-4 rounded-sm p-8 bg-gray-200">
-	<form class="my-4" method="POST" action="?/newPost">
+	<form class="my-4" method="POST" action="/?/newPost">
 		<div>
 			<label class="label text-slate-500 mr-4" for="name">Text </label>
 			<input
@@ -19,7 +19,7 @@
 		<div>
 			<label class="label text-slate-500 mr-4" for="name">ID </label>
 			<input
-				value = {song?.id}
+				value = {song== null ? "" : song?.id}
 				type="text"
 				name="objectId"
 				autocomplete="off"

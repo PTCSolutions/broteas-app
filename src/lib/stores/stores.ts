@@ -19,8 +19,12 @@ const subscribeToMessages = async () => {
                 const post = doc.data();
                 // Add in posts id.
                 post.postId = doc.id;
-                // Change posts date, from timestamp to Date
-                post.date = (post.date as Timestamp).toDate();
+                // Change posts date, from timestamp to Date.
+                // Only do once post.date is not null because it initially is
+                // TODO: Work out why this is
+                if (post.date != null) {
+                    post.date = (post.date as Timestamp).toDate();
+                }
                 posts.push(post as PostMeta);
             });
 

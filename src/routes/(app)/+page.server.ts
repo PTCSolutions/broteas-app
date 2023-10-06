@@ -1,22 +1,10 @@
-import { NewPost } from '$lib/post.js';
-import type { Post } from '$lib/post.js';
+import { newPost } from '$lib/post.js';
 import { CLIENT_SECRET, CLIENT_ID } from '$env/static/private';
 
 /** @type {import('./$types').Actions} */
 export const actions = {
     newPost: async ({ request, cookies }) => {
-        const uid = cookies.get('uid');
-        const data = await request.formData();
-        const text = data.get('text') as string;
-        const objectId = data.get('objectId') as string;
-        if (text != null && objectId != null && uid != null) {
-            const post: Post = {
-                creatorId: uid,
-                text: text,
-                objectId: objectId,
-            };
-            NewPost(post);
-        }
+        await newPost(cookies, request);
     },
     search: async ({ request }) => {
         const data = await request.formData();
