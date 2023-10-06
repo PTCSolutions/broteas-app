@@ -5,6 +5,7 @@
 	export let post: PostMeta;
 	export let accessToken: string;
 	import { format } from 'timeago.js';
+    import SongWidget from './SongWidget.svelte';
 	// See: https://github.com/hustcc/timeago.js/tree/master
 
 	let poster: User | null;
@@ -43,7 +44,7 @@
 			{#await getSongJSON()}
 				<div>Waiting</div>
 			{:then json}
-				<img class="rounded-lg" src={json.album.images[0].url} alt="" />
+                <SongWidget src={json.album.images[0].url} artistName={json.artists[0].name} songName={json.name} />
 			{:catch error}
 				<div>{error}</div>
 			{/await}
