@@ -9,7 +9,7 @@
 	let searchText: string;
 	let songs: Array<Song> = [];
 
-	async function search() {
+	async function search(searchText: string) {
 		const response = await fetch(`https://api.spotify.com/v1/search?q=${searchText}&type=track`, {
 			method: 'GET',
 			headers: {
@@ -24,6 +24,10 @@
             songs = [];
         }
 	}
+	// Reactive declaration means search runs whenever the reactive variable it
+	// depends on (in this case `searchText`) changes. This is ensures that
+	// list of songs is always calibrated with searchText
+	$ : search(searchText)
 </script>
 
 <div class="flex-col flex">
@@ -37,7 +41,6 @@
 				autocomplete="off"
 				bind:value={searchText}
 				on:input
-				on:keydown={search}
 			/>
 		</div>
 		<div class="w-4" />
@@ -45,7 +48,7 @@
 			<button
 				class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
 				type="button"
-				on:click={search}
+				on:click={() => search(searchText)}
 			>
 				Search
 			</button>
