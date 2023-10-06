@@ -1,10 +1,12 @@
 <script lang="ts">
 	export let accessToken: string;
+    import type { Song } from "$lib/spotify";
+	import SongCard from "./SongCard.svelte";
+	import SongWidget from "./SongWidget.svelte";
 
 	let searchText: string;
-	let songNames: Array<string> = [];
+	let songs: Array<Song> = [];
 
-	let result: string = '';
 	async function search() {
 		const response = await fetch(`https://api.spotify.com/v1/search?q=${searchText}&type=track`, {
 			method: 'GET',
@@ -15,7 +17,7 @@
 		});
 
 		let json = await response.json();
-		songNames = json.tracks.items.map((json: { name: any }) => json.name);
+		songs = json.tracks.items;
 	}
 </script>
 
@@ -44,12 +46,7 @@
 		</div>
 	</div>
 	<div class="h-4" />
-	<!-- <div>
-{result}
-    </div> -->
-	{#each songNames as songName}
-		<div class="p-4">
-			{songName}
-		</div>
+	{#each songs as song}
+		<SongCard {song} />
 	{/each}
 </div>
