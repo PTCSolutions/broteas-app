@@ -23,7 +23,7 @@
        <NewPostWidget />
 	</Modal>
 
-	<div class="text-lg">Latest Posts:</div>
+	<div class="text-lg p-1">Latest Posts:</div>
 
 	{#await GetPosts()}
 		<div>Loading...</div>

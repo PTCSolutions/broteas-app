@@ -1,1 +1,6 @@
-<h1>NEWS</h1>
+<script lang="ts">
+    import SearchWidget from "../components/SearchWidget.svelte";
+</script>
+
+<SearchWidget />
+
