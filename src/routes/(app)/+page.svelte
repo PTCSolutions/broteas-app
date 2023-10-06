@@ -2,7 +2,8 @@
 	import PostWidget from './components/PostWidget.svelte';
 	import { GetPosts } from '$lib/post';
 	import Modal from './components/Modal.svelte';
-
+	export let data;
+    let accessToken: string = data?.accessToken;
 	let showModal = false;
 </script>
 
@@ -55,7 +56,7 @@
 	{:then posts}
 		{#each posts as post}
 			<div class="p-4">
-				<PostWidget {post} />
+				<PostWidget {post} {accessToken} />
 			</div>
 		{/each}
 	{/await}

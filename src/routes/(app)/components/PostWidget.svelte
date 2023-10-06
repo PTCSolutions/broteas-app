@@ -3,13 +3,29 @@
 	import type { User } from '$lib/user';
 	import { getUser } from '$lib/user';
 	export let post: PostMeta;
+	export let accessToken: string;
 	import { format } from 'timeago.js';
-    // See: https://github.com/hustcc/timeago.js/tree/master
+	// See: https://github.com/hustcc/timeago.js/tree/master
 
 	let poster: User | null;
 	getUser(post.creatorId).then((user) => {
 		poster = user;
 	});
+
+	async function getSongJSON() {
+		try {
+			const response = await fetch(`https://api.spotify.com/v1/tracks/${post.objectId}`, {
+				method: 'GET',
+				headers: {
+					// Accept: 'application/json'
+					Authorization: `Bearer ${accessToken}`
+				}
+			});
+			return response.json();
+		} catch (error) {
+            return "";
+        }
+	}
 </script>
 
 <div class="w-96 p-2 bg-white flex-col">
@@ -24,12 +40,15 @@
 	<div class="h-4" />
 	<div class="flex-row flex">
 		<div class="w-80 h-80 rounded-lg">
-			<img
-				class="rounded-lg"
-				src="https://img.buzzfeed.com/buzzfeed-static/complex/images/bebllwzjpsujz9ffwp6s/tyler-the-creator-scum-fuck-flower-boy-cover.png?output-format=jpg&output-quality=auto"
-				alt=""
-			/>
+			{#await getSongJSON()}
+				<div>Waiting</div>
+			{:then json}
+				<img class="rounded-lg" src={json.album.images[0].url} alt="" />
+			{:catch error}
+				<div>{error}</div>
+			{/await}
 		</div>
+
 		<div class="flex-col flex justify-center items-center pl-2">
 			<a href={`/api/like?postId=${post.postId}`}>
 				<div>like</div>
@@ -46,5 +65,6 @@
 	<div class="font-medium">
 		{post.text}
 	</div>
+
 	<div class="h-2" />
 </div>

@@ -22,7 +22,7 @@ export const actions = {
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load() {
-    let response = await fetch("https://accounts.spotify.com/api/token",
+    const response = await fetch("https://accounts.spotify.com/api/token",
         {
             method: "POST",
             headers: {
@@ -30,12 +30,8 @@ export async function load() {
             },
             body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
         });
-    let token = await response.json();
-    let access_token = token.access_token;
-    let drakeInfo = await fetch("https://api.spotify.com/v1/artists/3TVXtAsR1Inumwj472S9r4", {
-        headers: {
-            "Authorization": `Bearer  ${access_token}`
-        },
-    },);
-    return { drakeInfo: drakeInfo.json() };
+    const token = await response.json();
+    const accessToken = token.access_token;
+    console.log(accessToken);
+    return { accessToken: accessToken };
 }
