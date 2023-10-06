@@ -1,8 +1,8 @@
 <script lang="ts">
 	export let accessToken: string;
-    import type { Song } from "$lib/spotify";
-	import SongCard from "./SongCard.svelte";
-	import SongWidget from "./SongWidget.svelte";
+	import type { Song } from '$lib/spotify';
+	import SongCard from './SongCard.svelte';
+	import SongWidget from './SongWidget.svelte';
 
 	let searchText: string;
 	let songs: Array<Song> = [];
@@ -15,9 +15,12 @@
 				Authorization: `Bearer ${accessToken}`
 			}
 		});
-
-		let json = await response.json();
-		songs = json.tracks.items;
+		if (response.status == 200) {
+			let json = await response.json();
+			songs = json.tracks.items;
+		} else {
+            songs = [];
+        }
 	}
 </script>
 
@@ -32,6 +35,7 @@
 				autocomplete="off"
 				bind:value={searchText}
 				on:input
+				on:keydown={search}
 			/>
 		</div>
 		<div class="w-4" />

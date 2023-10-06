@@ -9,7 +9,7 @@
 	}
 </script>
 
-<div class="flex-row flex bg-gray-100 m-2 p-2 items-center rounded-lg">
+<div class="flex-row flex bg-gray-100 m-2 p-2 items-center rounded-lg max-w-xl">
 	<div class="w-12 h-12 bg-blue-500 rounded">
 		<img class="rounded" src={song.album.images[0].url} alt="" />
 	</div>
