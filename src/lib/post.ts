@@ -1,4 +1,4 @@
-import { collection, addDoc, getDocs, orderBy, query, Timestamp } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { db } from "./firebase";
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -39,17 +39,3 @@ export async function NewPost(post: Post) {
     }
 }
 
-export async function GetPosts() : Promise<Array<PostMeta>> {
-    const querySnapshot = await getDocs(query(collection(db, "posts"), orderBy("date", "desc")));
-    const posts : Array<PostMeta> = [];
-    querySnapshot.forEach((doc) => {
-        const post = doc.data();
-        // Add in posts id.
-        post.postId = doc.id;
-        // Change posts date, from timestamp to Date
-        post.date = (post.date as Timestamp).toDate();
-        posts.push(post as PostMeta);
-        // doc.data() is never undefined for query doc snapshots
-    });
-    return posts;
-}

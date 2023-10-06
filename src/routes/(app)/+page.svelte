@@ -1,10 +1,10 @@
 <script lang="ts">
 	import PostWidget from './components/PostWidget.svelte';
-	import { GetPosts } from '$lib/post';
 	import Modal from './components/Modal.svelte';
     import NewPostWidget from './components/NewPostWidget.svelte';
+	import { postStore } from '$lib/stores/stores';
 	export let data;
-    let accessToken: string = data?.accessToken;
+	let accessToken: string = data?.accessToken;
 	let showModal = false;
 </script>
 
@@ -25,13 +25,9 @@
 
 	<div class="text-lg p-1">Latest Posts:</div>
 
-	{#await GetPosts()}
-		<div>Loading...</div>
-	{:then posts}
-		{#each posts as post}
-			<div class="p-4">
-				<PostWidget {post} {accessToken} />
-			</div>
-		{/each}
-	{/await}
+	{#each $postStore as post}
+		<div class="p-4">
+			<PostWidget {post} {accessToken} />
+		</div>
+	{/each}
 </div>
