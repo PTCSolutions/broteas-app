@@ -1,35 +1,58 @@
 <script export lang="ts">
-	import type { Song } from "$lib/spotify";
+	import type { Song } from '$lib/spotify';
 
 	export let song: Song | null = null;
 </script>
 
-<div class="w-128 mt-4 rounded-sm p-8 bg-gray-200">
+<div class="w-full mt-4 rounded-sm p-8 bg-gray-200">
 	<form class="my-4" method="POST" action="/?/newPost">
-		<div>
-			<label class="label text-slate-500 mr-4" for="name">Text </label>
+		{#if song != null}
+			<div class="flex flex-col items-center gap-8">
+				<div class="flex flex-row gap-10">
+					<img class="rounded w-1/4 h-1/4" src={song.album.images[0].url} alt="" />
+					<textarea
+						name="text"
+						autocomplete="off"
+						placeholder={`Talk about ${song.name}!`}
+						class="bg-white appearance-none border border-black rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-purple-500"
+					/>
+				</div>
+				<button
+					class="shadow w-1/3 bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+					>Post</button
+				>
+			</div>
 			<input
-				type="text"
-				name="text"
-				autocomplete="off"
-				placeholder="Type here"
-				class="ring-1 ring-slate-200 focus:outline-none rounded-sm input w-full"
-			/>
-		</div>
-		<div>
-			<label class="label text-slate-500 mr-4" for="name">ID </label>
-			<input
-				value = {song== null ? "" : song?.id}
-				type="text"
-				name="objectId"
-				autocomplete="off"
-				placeholder="Type here"
-				class="ring-1 ring-slate-200 focus:outline-none rounded-sm input w-full"
-			/>
-		</div>
-		<div class="h-2" />
-		<div>
-			<button>Post</button>
-		</div>
+					value={song.id}
+					type="hidden"
+					name="objectId"
+				/>
+		{:else}
+			<div>
+				<label class="label text-slate-500 mr-4" for="name">Text </label>
+				<input
+					type="text"
+					name="text"
+					autocomplete="off"
+					placeholder="Type here"
+					class="bg-white appearance-none border border-black rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-purple-500"
+				/>
+			</div>
+			<div>
+				<label class="label text-slate-500 mr-4" for="name">ID </label>
+				<input
+					value=""
+					type="text"
+					name="objectId"
+					autocomplete="off"
+					placeholder="Type here"
+					class="bg-white appearance-none border border-black rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-purple-500"
+				/>
+			</div>
+			<div class="h-2" />
+			<div>
+				<button>Post</button>
+			</div>
+		{/if}
 	</form>
 </div>
