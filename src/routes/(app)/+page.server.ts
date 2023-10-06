@@ -4,7 +4,7 @@ import { CLIENT_SECRET, CLIENT_ID } from '$env/static/private';
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-    default: async ({ request, cookies }) => {
+    newPost: async ({ request, cookies }) => {
         const uid = cookies.get('uid');
         const data = await request.formData();
         const text = data.get('text') as string;
@@ -16,6 +16,32 @@ export const actions = {
                 objectId: objectId,
             };
             NewPost(post);
+        }
+    },
+    search: async ({ request }) => {
+        const data = await request.formData();
+        const text = data.get('text') as string;
+        if (text != null) {
+            const tokenResponse = await fetch("https://accounts.spotify.com/api/token",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
+                });
+            const tokenJson = await tokenResponse.json()
+            const accessToken = tokenJson.access_token;
+            const response = await fetch(`https://api.spotify.com/v1/search`,
+                {
+                    method: 'GET',
+                    headers: {
+                        // Accept: 'application/json'
+                        Authorization: `Bearer ${accessToken}`
+                    },
+                    body: `q=${text}&type=track`
+                });
+            return response.json();
         }
     },
 };
