@@ -10,24 +10,26 @@
 	let songs: Array<Song> = [];
 
 	async function search(searchText: string) {
-		const response = await fetch(`https://api.spotify.com/v1/search?q=${searchText}&type=track`, {
-			method: 'GET',
-			headers: {
-				// Accept: 'application/json'
-				Authorization: `Bearer ${accessToken}`
+		if (searchText != null) {
+			const response = await fetch(`https://api.spotify.com/v1/search?q=${searchText}&type=track`, {
+				method: 'GET',
+				headers: {
+					// Accept: 'application/json'
+					Authorization: `Bearer ${accessToken}`
+				}
+			});
+			if (response.status == 200) {
+				let json = await response.json();
+				songs = json.tracks.items;
+			} else {
+				songs = [];
 			}
-		});
-		if (response.status == 200) {
-			let json = await response.json();
-			songs = json.tracks.items;
-		} else {
-            songs = [];
-        }
+		}
 	}
 	// Reactive declaration means search runs whenever the reactive variable it
 	// depends on (in this case `searchText`) changes. This is ensures that
 	// list of songs is always calibrated with searchText
-	$ : search(searchText)
+	$: search(searchText);
 </script>
 
 <div class="flex-col flex">
