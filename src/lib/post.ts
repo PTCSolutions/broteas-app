@@ -1,4 +1,4 @@
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { db } from "./firebase";
 import { serverTimestamp } from 'firebase/firestore';
 import type { Cookies } from "@sveltejs/kit";
@@ -35,7 +35,7 @@ export async function newPost(cookies: Cookies, request: Request) {
         };
         try {
             console.log("Trying");
-            
+
             const docRef = await addDoc(collection(db, "posts"),
                 {
                     creatorId: post.creatorId,
@@ -51,5 +51,9 @@ export async function newPost(cookies: Cookies, request: Request) {
             console.error("Error adding document: ", e);
         }
     }
+}
+
+export async function deletePost(id: string) {
+    await deleteDoc(doc(db, "posts", id));
 }
 

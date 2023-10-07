@@ -25,7 +25,7 @@
 
 	<div class="text-lg p-1">Latest Posts:</div>
 
-	{#each $postStore as post}
+	{#each $postStore as post (post.postId)}
 		<div class="p-4">
 			<PostWidget {post} {accessToken} />
 		</div>
