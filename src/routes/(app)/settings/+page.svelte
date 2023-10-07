@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { User } from '$lib/user';
-	import { expect } from '@playwright/test';
 	// Get User from load page, and form data from form actions
 	export let data: User | null;
 	let user = data;
