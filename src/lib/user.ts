@@ -27,18 +27,20 @@ export async function newUser(user: User) {
 }
 
 export async function getUser(uid: string): Promise<User | null> {
-    const docSnapshot: DocumentSnapshot = await getDoc(doc(db, "users", uid));
-    const data = docSnapshot.data();
-    if (data != undefined) {
-        const user: User = {
-            firstName: data.firstName,
-            lastName: data.lastName,
-            email: data.email,
-            following: data.following,
-            followers: data.followers,
-            uid: uid
-        };
-        return user;
+    if (uid != null && uid != "") {
+        const docSnapshot: DocumentSnapshot = await getDoc(doc(db, "users", uid));
+        if (docSnapshot.exists()) {
+            const data = docSnapshot.data();
+            const user: User = {
+                firstName: data.firstName,
+                lastName: data.lastName,
+                email: data.email,
+                following: data.following,
+                followers: data.followers,
+                uid: uid
+            };
+            return user;
+        }
     }
     return null;
 }
