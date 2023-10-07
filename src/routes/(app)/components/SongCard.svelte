@@ -14,7 +14,7 @@
 		<img class="rounded" src={song.album.images[0].url} alt="" />
 	</div>
 	<div class="w-4" />
-	<div class="flex-col flex">
+	<div class="flex-col flex items-start">
 		<div class="text-lg font-medium">
 			{song.name}
 		</div>
