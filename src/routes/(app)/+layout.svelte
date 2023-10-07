@@ -18,8 +18,9 @@
 
 <NavBar />
 <div class="flex-row flex">
-	<div class="w-32" />
-	<div class="w-6"></div>
+	<div class="w-32 m-2" />
+	<div class="w-2"></div>
+
 	<div class="grow">
 		<slot />
 	</div>
