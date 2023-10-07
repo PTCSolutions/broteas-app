@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { deletePost, type PostMeta } from '$lib/post';
+	import { deletePost, likePost, type PostMeta } from '$lib/post';
 	import type { User } from '$lib/user';
 	import { getUser } from '$lib/user';
 	import { format } from 'timeago.js';
@@ -15,7 +15,7 @@
 		poster = user;
 	});
 	// Get the uid of the currentUser from context
-	let currentUid: String | null = getContext('uid');
+	let currentUid: string | null = getContext('uid');
 	// Get the json info of the song in the post widget
 	async function getSongJSON() {
 		try {
@@ -31,8 +31,13 @@
 			return '';
 		}
 	}
-
+	// Import like and delete post functions
 	let deletePostFunction = () => deletePost(post.postId);
+	let likePostFuntion = () => {
+		if (currentUid != null && post.postId != null) {
+			likePost(post.postId, currentUid);
+		}
+	} 
 </script>
 
 <div class="w-96 p-2 bg-white flex-col">
@@ -65,9 +70,9 @@
 		</div>
 
 		<div class="flex-col flex justify-center items-center pl-2">
-			<a href={`/api/like?postId=${post.postId}`}>
+			<button on:click={likePostFuntion}>
 				<div>like</div>
-			</a>
+			</button>
 			<div class="text-xs">{post.likes.length}</div>
 			<div class="h-4" />
 			<div>com</div>

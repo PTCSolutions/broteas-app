@@ -1,4 +1,4 @@
-import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc, getDoc, DocumentSnapshot, updateDoc, arrayRemove, arrayUnion } from "firebase/firestore";
 import { db } from "./firebase";
 import { serverTimestamp } from 'firebase/firestore';
 import type { Cookies } from "@sveltejs/kit";
@@ -55,5 +55,26 @@ export async function newPost(cookies: Cookies, request: Request) {
 
 export async function deletePost(id: string) {
     await deleteDoc(doc(db, "posts", id));
+}
+
+export async function likePost(postId: string, uid: string) {
+    // Get document associated with post
+    const docRef = doc(db, "posts", postId);
+    const docSnapshot: DocumentSnapshot = await getDoc(docRef);
+    // If the document exists, add or remove like.
+    if (docSnapshot.exists()) {
+        const likes: Array<string> = docSnapshot.data().likes;
+
+        if (likes.includes(uid)) {
+            await updateDoc(docRef, {
+                likes: arrayRemove(uid)
+            });
+        } else {
+            await updateDoc(docRef, {
+                likes: arrayUnion(uid)
+            });
+        }
+
+    }
 }
 
