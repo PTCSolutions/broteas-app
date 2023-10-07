@@ -3,10 +3,13 @@
 	import NavBar from './components/NavBar.svelte';
 	import { getUser } from '$lib/user';
 	import type { User } from '$lib/user';
+	import { setContext } from 'svelte';
 	// Get uid of current user from our load function
 	export let data;
 	let uid = data.uid;
-
+	// Set the uid for the user in context, so it can be accessed downstream in the component tree
+	setContext('uid', uid);
+	// Get a user object from the uid loaded in
 	let currentUser: User | null;
 	getUser(uid).then((user) => {
 		currentUser = user;

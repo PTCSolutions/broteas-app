@@ -7,9 +7,12 @@ export const actions = {
         await newPost(cookies, request);
     },
     search: async ({ request }) => {
+        // Get text from the search form
         const data = await request.formData();
         const text = data.get('text') as string;
+        // If the text is not empty
         if (text != null) {
+            // First get an access token from spotify
             const tokenResponse = await fetch("https://accounts.spotify.com/api/token",
                 {
                     method: "POST",
@@ -20,6 +23,7 @@ export const actions = {
                 });
             const tokenJson = await tokenResponse.json()
             const accessToken = tokenJson.access_token;
+            // Next make a request to spotify search api with correct body
             const response = await fetch(`https://api.spotify.com/v1/search`,
                 {
                     method: 'GET',
@@ -27,6 +31,7 @@ export const actions = {
                         // Accept: 'application/json'
                         Authorization: `Bearer ${accessToken}`
                     },
+                    // Search for tracks with the input song title
                     body: `q=${text}&type=track`
                 });
             return response.json();
@@ -35,6 +40,7 @@ export const actions = {
 };
 
 /** @type {import('./$types').PageServerLoad} */
+// Load spotify access token to use in the page
 export async function load() {
     const response = await fetch("https://accounts.spotify.com/api/token",
         {
