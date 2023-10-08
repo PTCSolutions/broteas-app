@@ -5,6 +5,7 @@
 	import { format } from 'timeago.js';
 	import SongWidget from './SongWidget.svelte';
 	import { getContext } from 'svelte';
+	import { getSongJson } from '$lib/spotify';
 	// The post in question
 	export let post: PostMeta;
 	// The access token for spotify calls
@@ -15,29 +16,15 @@
 		poster = user;
 	});
 	// Get the uid of the currentUser from context
-	let currentUid: string | null = getContext('uid');
-	// Get the json info of the song in the post widget
-	async function getSongJSON() {
-		try {
-			const response = await fetch(`https://api.spotify.com/v1/tracks/${post.objectId}`, {
-				method: 'GET',
-				headers: {
-					// Accept: 'application/json'
-					Authorization: `Bearer ${accessToken}`
-				}
-			});
-			return response.json();
-		} catch (error) {
-			return '';
-		}
-	}
-	// Import like and delete post functions
+	let currentUid: string | null = getContext('uid');	
+	// Import like, delete post, get song functions
 	let deletePostFunction = () => deletePost(post.postId);
 	let likePostFuntion = () => {
 		if (currentUid != null && post.postId != null) {
 			likePost(post.postId, currentUid);
 		}
 	} 
+	let getSongJsonFunction = () => getSongJson(post.objectId, accessToken);
 </script>
 
 <div class="w-96 p-2 bg-white flex-col">
@@ -56,7 +43,7 @@
 	<div class="h-4" />
 	<div class="flex-row flex">
 		<div class="w-80 h-80 rounded-lg">
-			{#await getSongJSON()}
+			{#await getSongJsonFunction()}
 				<div>Waiting</div>
 			{:then json}
 				<SongWidget
