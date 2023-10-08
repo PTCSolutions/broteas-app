@@ -7,7 +7,7 @@
 	export let showModal: boolean;
 	export let songSelected: Song;
 
-	let searchText: string;
+	let searchText: string = "";
 	let songs: Array<Song> = [];
 	// Function which returns a list of songs from spotify
 	async function search(searchText: string) {
@@ -36,7 +36,7 @@
 <div class="flex-col flex">
 	<div class="flex-row flex">
 		<div class="md:w-2/3">
-			<Input id="search" type="text" placeholder="Enter Search Term" autocomplete={false} bind:value={searchText} bind={true}/>
+			<Input id="search" type="text" placeholder="Enter Search Term" autocomplete={false} bind:boundValue={searchText}/>
 		</div>
 		<div class="w-4" />
 		<div class="md:w-2/3">
