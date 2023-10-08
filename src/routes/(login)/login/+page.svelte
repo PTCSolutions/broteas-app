@@ -1,21 +1,20 @@
 <script>
 	import { enhance } from '$app/forms';
+	import Input from '../../(app)/components/forms/Input.svelte';
 	/** @type {import('./$types').ActionData} */
 	export let form;
 </script>
+
 <!-- Use progressive enhancement so that we can get nice transitions if js enabled-->
 <form method="POST" use:enhance>
-	<label>
-		Email
-		<input name="email" type="email" />
-	</label>
-	<label>
-		Password
-		<input name="password" type="password" />
-	</label>
+	<div class="flex flex-col pl-5 w-1/2 gap-2 pt-5">
+		<Input id="email" type="email" placeholder="Email" />
+		<Input id="password" type="password" placeholder="Password" />
+	</div>
+	
 	<button>Log In</button>
 </form>
-<!-- If there is an error on submitting the form, show it in red underneath-->
+<!-- If there is an error on submitting the form , show it in red underneath-->
 {#if form?.error != undefined}
 	<!-- TODO: Have used normal css because cant get tailwind to work-->
 	<div class="redText">{form.error}</div>
@@ -24,9 +23,5 @@
 <style>
 	.redText {
 		color: red;
-	}
-	
-	input {
-		border: solid 1px black;
 	}
 </style>

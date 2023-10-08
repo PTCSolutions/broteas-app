@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { User } from '$lib/user';
-	import Input from '../components/Input.svelte';
+	import Input from '../components/forms/Input.svelte';
 	// Get User from load page, and form data from form actions
 	export let data: User | null;
 	let user = data;

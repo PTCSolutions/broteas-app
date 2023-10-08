@@ -5,20 +5,22 @@
 	export let type: string;
     // placeholder for input
 	export let placeholder: string;
+	// bind
+	export let bind : boolean = false;
     // whether to bind to input value
-	export let boundValue : string | null =null;
+	export let value : string = "";
     // should input autocomplete
 	export let autocomplete: boolean = true;
 </script>
 
-{#if boundValue != null}
+{#if bind}
 	<input
 		class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
 		name={id}
 		type="text"
 		{placeholder}
 		autocomplete = {autocomplete ? "on" : "off"}
-		bind:value={boundValue}
+		bind:value={value}
 	/>
 {:else}
 	<input

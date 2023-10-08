@@ -1,15 +1,15 @@
 <script lang="ts">
 	export let accessToken: string;
 	import type { Song } from '$lib/spotify';
-	import Input from './Input.svelte';
+	import Button from './forms/Button.svelte';
+	import Input from './forms/Input.svelte';
 	import SongCard from './SongCard.svelte';
-	import SongWidget from './SongWidget.svelte';
 	export let showModal: boolean;
 	export let songSelected: Song;
 
 	let searchText: string;
 	let songs: Array<Song> = [];
-
+	// Function which returns a list of songs from spotify
 	async function search(searchText: string) {
 		if (searchText != null) {
 			const response = await fetch(`https://api.spotify.com/v1/search?q=${searchText}&type=track`, {
@@ -36,17 +36,11 @@
 <div class="flex-col flex">
 	<div class="flex-row flex">
 		<div class="md:w-2/3">
-			<Input id="search" type="text" placeholder="Enter Search Term" autocomplete={false} bind:boundValue={searchText} />
+			<Input id="search" type="text" placeholder="Enter Search Term" autocomplete={false} bind:value={searchText} bind={true}/>
 		</div>
 		<div class="w-4" />
 		<div class="md:w-2/3">
-			<button
-				class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-				type="button"
-				on:click={() => search(searchText)}
-			>
-				Search
-			</button>
+			<Button text="Search" onClick={() => search(searchText)}/>
 		</div>
 	</div>
 	<div class="h-4" />
