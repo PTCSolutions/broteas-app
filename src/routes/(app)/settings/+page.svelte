@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { User } from '$lib/user';
+	import Input from '../components/Input.svelte';
 	// Get User from load page, and form data from form actions
 	export let data: User | null;
 	let user = data;
@@ -35,14 +36,12 @@
 		<form method="POST" action="?/follow" use:enhance>
 			<div class="flex flex-row gap-10 w-full">
 				<input name="currentUid" type="hidden" value={user?.uid} />
-				<label class="w-1/2">
-					<input
-						name="followedUid"
-						type="text"
-						placeholder="uid to follow"
-						class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+				<div class="w-1/2">
+					<Input id="followedUid"
+					type="text"
+					placeholder="uid to follow"
 					/>
-				</label>
+				</div>
 				<button
 					class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
 					>Follow!</button
@@ -53,14 +52,12 @@
 		<form method="POST" action="?/unfollow" use:enhance>
 			<div class="flex flex-row gap-10 w-full">
 				<input name="currentUid" type="hidden" value={user?.uid} />
-				<label class="w-1/2">
-					<input
-						name="followedUid"
-						type="text"
-						placeholder="uid to unfollow"
-						class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+				<div class="w-1/2">
+					<Input id="followedUid"
+					type="text"
+					placeholder="uid to unfollow"
 					/>
-				</label>
+				</div>
 				<button
 					class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
 					>Unfollow!</button

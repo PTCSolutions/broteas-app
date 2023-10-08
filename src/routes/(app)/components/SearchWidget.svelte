@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let accessToken: string;
 	import type { Song } from '$lib/spotify';
+	import Input from './Input.svelte';
 	import SongCard from './SongCard.svelte';
 	import SongWidget from './SongWidget.svelte';
 	export let showModal: boolean;
@@ -35,15 +36,7 @@
 <div class="flex-col flex">
 	<div class="flex-row flex">
 		<div class="md:w-2/3">
-			<input
-				class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-				id="search"
-				type="text"
-				placeholder="Enter Search Term"
-				autocomplete="off"
-				bind:value={searchText}
-				on:input
-			/>
+			<Input id="search" type="text" placeholder="Enter Search Term" autocomplete={false} bind:boundValue={searchText} />
 		</div>
 		<div class="w-4" />
 		<div class="md:w-2/3">
