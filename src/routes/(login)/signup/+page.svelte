@@ -1,5 +1,7 @@
 <script>
 	import { enhance } from '$app/forms';
+	import Button from '../../(app)/components/forms/Button.svelte';
+	import Input from '../../(app)/components/forms/Input.svelte';
 	/** @type {import('./$types').ActionData} */
 	export let form;
 </script>
@@ -7,23 +9,15 @@
 <!-- Use progressive enhancement so that we can get nice transitions if js enabled-->
 <form method="POST" use:enhance>
 	<!-- TODO: Make this use form validation instead of html validation-->
-	<label>
-		First Name
-		<input name="firstName" required />
-	</label>
-	<label>
-		Last Name
-		<input name="lastName" required />
-	</label>
-	<label>
-		Email
-		<input name="email" type="email" />
-	</label>
-	<label>
-		Password
-		<input name="password" type="password" />
-	</label>
-	<button>Sign Up</button>
+	<div class="p-6 w-1/2 gap-2 flex flex-col">
+		<div class="flex flex-row gap-2">
+			<Input id="firstName" type="text" placeholder="First Name" required={true}/>
+			<Input id="lastName" type="text" placeholder="Last Name" required={true}/>
+		</div>
+		<Input id="email" type="email" placeholder="Email" />
+		<Input id="password" type="password" placeholder="Password" />
+		<div class="w-1/6"><Button text="Log In" /></div>
+	</div>
 </form>
 <!-- If there is an error on submitting the form, show it in red underneath-->
 {#if form?.error != undefined}
@@ -36,7 +30,4 @@
 		color: red;
 	}
 
-	input {
-		border: solid 1px black;
-	}
 </style>

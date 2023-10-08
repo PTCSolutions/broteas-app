@@ -9,6 +9,8 @@
 	export let boundValue : string | null = null;
     // should input autocomplete
 	export let autocomplete: boolean = true;
+	// is input required
+	export let required : boolean = false;
 </script>
 
 {#if boundValue != null}
@@ -19,6 +21,7 @@
 		{placeholder}
 		autocomplete = {autocomplete ? "on" : "off"}
 		bind:value={boundValue}
+		{required}
 	/>
 {:else}
 	<input
@@ -27,5 +30,6 @@
 		{type}
 		{placeholder}
 		autocomplete = {autocomplete ? "on" : "off"}
+		{required}
 	/>
 {/if}

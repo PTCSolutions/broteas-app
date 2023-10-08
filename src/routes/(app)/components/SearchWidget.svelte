@@ -35,11 +35,11 @@
 
 <div class="flex-col flex">
 	<div class="flex-row flex">
-		<div class="md:w-2/3">
+		<div class="w-1/2">
 			<Input id="search" type="text" placeholder="Enter Search Term" autocomplete={false} bind:boundValue={searchText}/>
 		</div>
 		<div class="w-4" />
-		<div class="md:w-2/3">
+		<div class="w-1/8">
 			<Button text="Search" onClick={() => search(searchText)}/>
 		</div>
 	</div>
