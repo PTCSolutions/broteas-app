@@ -91,7 +91,7 @@
 	{#if commentsOpen}
 		<!-- This panel horizontally slides in and out on clicking the comment button-->
 		<div
-			class="w-60 bg-[#f2f2f0] flex flex-col whitespace-nowrap"
+			class="w-60 bg-[#f2f2f0] flex flex-col"
 			transition:horizontalSlide={{ axis: 'x', duration: 400 }}
 		>
 			<!-- If no comments show "NO comments" text-->
@@ -100,7 +100,7 @@
 			{:else}
 				<!-- Else display comments-->
 				{#each post.comments as comment (comment.id)}
-					<div>{`Comment: ${comment.id}`}</div>
+					<p>{`User ${comment.commentorId}: ${comment.text}`}</p>
 				{/each}
 			{/if}
 		</div>
