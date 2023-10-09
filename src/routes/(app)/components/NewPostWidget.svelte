@@ -2,6 +2,7 @@
 	import type { Song } from '$lib/spotify';
 	import { getContext } from 'svelte';
 	import Button from './forms/Button.svelte';
+	import { enhance } from '$app/forms';
 	let uid = getContext('uid');
 	// Disable button if there is no uid
 	$: disabled = uid == '' || uid == null;
@@ -10,7 +11,7 @@
 </script>
 
 <div class="w-full mt-4 rounded-sm p-8 bg-gray-200">
-	<form class="my-4" method="POST" action="/?/newPost">
+	<form class="my-4" method="POST" action="/?/newPost" use:enhance>
 		<div class="flex flex-col items-center gap-8">
 			{#if song != null}
 				<div class="flex flex-row gap-10">
