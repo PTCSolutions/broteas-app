@@ -1,9 +1,9 @@
 <script lang="ts">
-	export let accessToken: string;
 	import type { Song } from '$lib/spotify';
 	import Button from './forms/Button.svelte';
 	import Input from './forms/Input.svelte';
 	import SongCard from './SongCard.svelte';
+	import { accessToken } from '$lib/stores/accessToken';
 	export let showModal: boolean;
 	export let songSelected: Song;
 

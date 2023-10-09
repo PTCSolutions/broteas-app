@@ -4,8 +4,6 @@
     import NewPostWidget from './components/NewPostWidget.svelte';
 	import { postStore } from '$lib/stores/stores';
 	import { fade } from 'svelte/transition';
-	export let data;
-	let accessToken: string = data?.accessToken;
 	let showModal = false;
 </script>
 
@@ -29,7 +27,7 @@
 	{#each $postStore as post (post.postId)}
 	<!-- Each post widget fades in and out on creation and deletion-->
 		<div class="p-4" transition:fade>
-			<PostWidget {post} {accessToken} />
+			<PostWidget {post}/>
 		</div>
 	{/each}
 </div>

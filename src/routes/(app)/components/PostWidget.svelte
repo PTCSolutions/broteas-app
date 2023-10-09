@@ -6,12 +6,10 @@
 	import SongWidget from './SongWidget.svelte';
 	import { getContext } from 'svelte';
 	import { getSongJson } from '$lib/spotify';
-	import { slide } from 'svelte/transition';
+	import { accessToken } from '$lib/stores/accessToken';
 	import { horizontalSlide } from '$lib/transition/transition';
 	// The post in question
 	export let post: PostMeta;
-	// The access token for spotify calls
-	export let accessToken: string;
 
 	// Get user who posted the post
 	let poster: User | null;
@@ -32,7 +30,7 @@
 			likePost(post.postId, currentUid);
 		}
 	};
-	let getSongJsonFunction = () => getSongJson(post.objectId, accessToken);
+	let getSongJsonFunction = () => getSongJson(post.objectId, $accessToken);
 </script>
 
 <div class="flex flex-row h-auto">
