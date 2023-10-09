@@ -3,6 +3,7 @@
 	import Modal from './components/Modal.svelte';
     import NewPostWidget from './components/NewPostWidget.svelte';
 	import { postStore } from '$lib/stores/stores';
+	import { fade } from 'svelte/transition';
 	export let data;
 	let accessToken: string = data?.accessToken;
 	let showModal = false;
@@ -26,7 +27,8 @@
 	<div class="text-lg p-1">Latest Posts:</div>
 
 	{#each $postStore as post (post.postId)}
-		<div class="p-4">
+	<!-- Each post widget fades in and out on creation and deletion-->
+		<div class="p-4" transition:fade>
 			<PostWidget {post} {accessToken} />
 		</div>
 	{/each}
