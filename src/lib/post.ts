@@ -17,6 +17,7 @@ export interface PostMeta extends Post {
 }
 
 interface PostComment {
+    id : string;
     commentorId: string;
     text: string;
     date: Date;
