@@ -18,9 +18,9 @@
 		<div class="text-lg font-medium">
 			{song.name}
 		</div>
-		<div>
+		<a href={`/artists/${song.artists[0].id}`} class="hover:text-blue-600">
 			{song.artists[0].name}
-		</div>
+		</a>
 	</div>
     <div class="grow"></div>
     <div>
