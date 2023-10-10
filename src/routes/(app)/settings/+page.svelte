@@ -3,10 +3,6 @@
 	import type { User } from '$lib/user';
 	import Input from '../components/forms/Input.svelte';
 	import { userStore, userProfileStore } from '$lib/stores/userStore';
-
-	// Get User from load page, and form data from form actions
-	export let data: User | null;
-	let user = data;
 	export let form;
 
 	// A silly little function to tell the user if the id they entered doesnt exist.
@@ -24,20 +20,20 @@
 <div class="flex flex-col">
 	<h1>SETTINGS</h1>
 	<h2>Your profile:</h2>
-	<!--TODO: Solve error when no logged in user-->
-	{#if $userStore?.uid != ""}
+	<!--TODO: Work out whether which of the below it will be-->
+	{#if $userProfileStore?.user?.uid != "" && $userProfileStore?.user?.uid != undefined && !$userProfileStore?.loading}
 	<!--Run down of users info-->
-		<div>{`Uid: ${user?.uid}`}</div>
-		<div>{`First Name: ${user?.firstName}`}</div>
-		<div>{`Last Name: ${user?.lastName}`}</div>
-		<div>{`Followers: ${user?.followers.length}`}</div>
-		<div>{`Following: ${user?.following.length}`}</div>
+		<div>{`Uid: ${$userProfileStore?.user?.uid}`}</div>
+		<div>{`First Name: ${$userProfileStore?.user?.firstName}`}</div>
+		<div>{`Last Name: ${$userProfileStore?.user?.lastName}`}</div>
+		<div>{`Followers: ${$userProfileStore?.user?.followers.length}`}</div>
+		<div>{`Following: ${$userProfileStore?.user?.following.length}`}</div>
 		<div class="h-14" />
 		<!--Forms to follow or unfollow other users-->
 		<div>Enter the uid of your friends below, and click the button to follow them!</div>
 		<form method="POST" action="?/follow" use:enhance>
 			<div class="flex flex-row gap-10 w-full">
-				<input name="currentUid" type="hidden" value={user?.uid} />
+				<input name="currentUid" type="hidden" value={$userProfileStore?.user?.uid} />
 				<div class="w-1/2">
 					<Input id="followedUid"
 					type="text"
@@ -53,7 +49,7 @@
 		<div>Or unfollow them!</div>
 		<form method="POST" action="?/unfollow" use:enhance>
 			<div class="flex flex-row gap-10 w-full">
-				<input name="currentUid" type="hidden" value={user?.uid} />
+				<input name="currentUid" type="hidden" value={$userProfileStore?.user?.uid} />
 				<div class="w-1/2">
 					<Input id="followedUid"
 					type="text"

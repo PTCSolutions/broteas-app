@@ -1,10 +1,16 @@
-import { derived, writable, type Readable } from 'svelte/store';
+import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import { getUser, type User } from '$lib/user';
 
-export const userStore = writable({ uid: null, loading: true });
+interface UserStore {
+    user: User | null;
+    loading: boolean;
+}
+const initialUserStore : UserStore = {user: null, loading: true}
 
-export const userProfileStore: Readable<User | null> = derived(userStore, ($userStore, set) => {
-    if ($userStore.uid != null) {
-        getUser($userStore.uid).then((user: User | null) => set(user));
+export const userStore : Writable<string | null> = writable(null);
+
+export const userProfileStore: Readable<UserStore | null> = derived(userStore, ($userStore, set) => {
+    if ($userStore != null) {
+        getUser($userStore).then((user: User | null) => set({user: user, loading: false}));
     }
-});
+}, initialUserStore);

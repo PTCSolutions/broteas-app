@@ -1,8 +1,7 @@
 <script lang="ts">
 	import '../../app.css';
 	import NavBar from './components/NavBar.svelte';
-	import { getUser } from '$lib/user';
-	import type { User } from '$lib/user';
+
 	import { onMount, setContext } from 'svelte';
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	import { userStore, userProfileStore } from '$lib/stores/userStore';
@@ -14,7 +13,7 @@
 	let access_token = data.token;
 	onMount(() => {
 		$accessToken = access_token;
-		$userStore = { uid: uid, loading: false };
+		$userStore = uid;
 	});
 </script>
 
@@ -27,21 +26,21 @@
 		<slot />
 	</div>
 	<div class="w-1/12">
+		{#if $userProfileStore?.loading}
+		<div class="flex flex-col p-4 bg-gray-50" />
 		<!--If there is no logged in user show Login and signup buttons-->
-		{#if $userStore.uid == '' || $userStore.uid == undefined}
+		{:else if $userProfileStore?.user?.uid == '' || $userProfileStore?.user?.uid == undefined}
 			<div class="flex flex-col">
 				<div><a href="/login">Log In</a></div>
 				<div><a href="/signup">Sign Up</a></div>
 			</div>
-			<!-- Otherwise if users info has loaded, show them log out button-->
-		{:else if $userProfileStore?.firstName != undefined}
-			<div class="flex flex-col p-4 bg-gray-50">
-				<div in:fade>{`Hello ${$userProfileStore?.firstName}`}</div>
+		<!-- Otherwise if users info has loaded, show them log out button-->
+		{:else}
+			<div in:fade class="flex flex-col p-4 bg-gray-50">
+				<div>{`Hello ${$userProfileStore?.user?.firstName}`}</div>
 				<div><a href="/logout">Logout</a></div>
 			</div>
 			<!-- Otherwise show empty row-->
-		{:else}
-			<div class="flex flex-col p-4 bg-gray-50" />
 		{/if}
 	</div>
 </div>
