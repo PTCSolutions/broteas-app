@@ -20,6 +20,9 @@ export interface Song {
         }
     ],
     duration_ms: number,
+    external_urls: {
+        spotify: string
+    }
     href: string,
     id: string,
     name: string,
