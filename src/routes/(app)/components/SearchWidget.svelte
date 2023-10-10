@@ -72,7 +72,7 @@
 
 <div class="flex-col flex">
 	<div class="flex-row flex">
-		<div class="w-1/2">
+		<div>
 			<Input
 				id="search"
 				type="text"

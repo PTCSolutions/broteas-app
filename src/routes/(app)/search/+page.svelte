@@ -7,7 +7,7 @@
 	let songSelected: Song;
 </script>
 
-<div class="py-4">
+<div class="py-4 max-w-[600px]">
 	<SearchWidget bind:showModal bind:songSelected />
 </div>
 
