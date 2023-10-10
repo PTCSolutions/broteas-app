@@ -48,7 +48,7 @@
 				</div>
 			{/if}
 			<div class="w-1/3">
-				<Button text="Post" />
+				<Button text="Post" {disabled} />
 			</div>
 		</div>
 	</form>
