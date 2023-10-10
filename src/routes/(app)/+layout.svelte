@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../../app.css';
-	import NavBar from './components/NavBar.svelte';
+	import NavBar from '$lib/components/NavBar.svelte';
 
 	import { onMount, setContext } from 'svelte';
 	import { accessToken } from '$lib/stores/accessTokenStore';

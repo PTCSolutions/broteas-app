@@ -1,6 +1,6 @@
 <script export lang="ts">
 	import type { Song } from '$lib/spotify';
-	import Button from './forms/Button.svelte';
+	import Button from '$lib/components/forms/Button.svelte';
 	import { enhance } from '$app/forms';
 	import { userProfileStore } from '$lib/stores/userStore';
 	

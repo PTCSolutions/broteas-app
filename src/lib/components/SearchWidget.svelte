@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { Song, Artist, Album } from '$lib/spotify';
-	import Button from './forms/Button.svelte';
-	import Input from './forms/Input.svelte';
+	import Button from '$lib/components/forms/Button.svelte';
+	import Input from '$lib/components/forms/Input.svelte';
 	import SongCard from './SongCard.svelte';
-	import Radio from './forms/Radio.svelte';
+	import Radio from '$lib/components/forms/Radio.svelte';
 	import ArtistCard from './ArtistCard.svelte';
 	import AlbumCard from './AlbumCard.svelte';
 	import { accessToken } from '$lib/stores/accessTokenStore';

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { User } from '$lib/user';
-	import Input from '../components/forms/Input.svelte';
+	import Input from '../../../lib/components/forms/Input.svelte';
 	import { userStore, userProfileStore } from '$lib/stores/userStore';
 	export let form;
 

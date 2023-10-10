@@ -1,7 +1,7 @@
 <script lang="ts">
-	import SearchWidget from '../components/SearchWidget.svelte';
-	import Modal from '../components/Modal.svelte';
-	import NewPostWidget from '../components/NewPostWidget.svelte';
+	import SearchWidget from '$lib/components/SearchWidget.svelte';
+	import Modal from '$lib/components/Modal.svelte';
+	import NewPostWidget from '$lib/components/NewPostWidget.svelte';
 	import type { Song } from '$lib/spotify';
 	let showModal = false;
 	let songSelected: Song;
