@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { accessToken } from '$lib/stores/accessToken';
+	import { accessToken } from '$lib/stores/accessTokenStore';
 	export let data;
 
 	async function getArtistData() {
