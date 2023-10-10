@@ -1,11 +1,14 @@
 <script lang="ts">
-	import type { Song } from '$lib/spotify';
+	import type { Song, Artist, Album } from '$lib/spotify';
 	import Button from './forms/Button.svelte';
 	import Input from './forms/Input.svelte';
 	import SongCard from './SongCard.svelte';
 	import Radio from './forms/Radio.svelte';
+	import ArtistCard from './ArtistCard.svelte';
+	import AlbumCard from './AlbumCard.svelte';
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	export let showModal: boolean;
+	export let songSelected: Song;
 
 	const options = [
 		{
@@ -29,8 +32,8 @@
 	let searchCatagory: string = 'track';
 	let searchText: string = '';
 	let songs: Array<Song> = [];
-	let artists: Array<{ name: string }> = [];
-	let albums: Array<{ name: string }> = [];
+	let artists: Array<Artist> = [];
+	let albums: Array<Album> = [];
 	// Function which returns a list of songs from spotify
 	async function search(searchText: string, searchCatagory: string) {
 		if (searchText != null) {
@@ -93,6 +96,7 @@
 			<button
 				on:click={() => {
 					showModal = true;
+					songSelected = song;
 				}}
 			>
 				<SongCard {song} />
@@ -100,15 +104,11 @@
 		{/each}
 	{:else if searchCatagory == 'artist'}
 		{#each artists as artist}
-			<div>
-				{artist.name}
-			</div>
+			<ArtistCard {artist} />
 		{/each}
 	{:else if searchCatagory == 'album'}
 		{#each albums as album}
-			<div>
-				{album.name}
-			</div>
+			<AlbumCard {album} />
 		{/each}
 	{:else if searchCatagory == 'user'}
 		<div>Cars</div>
