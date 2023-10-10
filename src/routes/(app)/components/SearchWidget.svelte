@@ -6,17 +6,24 @@
 	import { accessToken } from '$lib/stores/accessToken';
 	export let showModal: boolean;
 	export let songSelected: Song;
+	
+	let token: string | null;
+
+accessToken.subscribe((value) => {
+	token = value;
+});
 
 	let searchText: string = "";
 	let songs: Array<Song> = [];
 	// Function which returns a list of songs from spotify
 	async function search(searchText: string) {
+
 		if (searchText != null) {
 			const response = await fetch(`https://api.spotify.com/v1/search?q=${searchText}&type=track`, {
 				method: 'GET',
 				headers: {
 					// Accept: 'application/json'
-					Authorization: `Bearer ${accessToken}`
+					Authorization: `Bearer ${token}`
 				}
 			});
 			if (response.status == 200) {
