@@ -2,11 +2,18 @@
 	import { accessToken } from '$lib/stores/accessToken';
 	export let data;
 
+	let token: string | null;
+
+	accessToken.subscribe((value) => {
+		token = value;
+	});
+
 	async function getArtistData() {
+		console.log(token);
 		const response = await fetch(`https://api.spotify.com/v1/artists/${data.artistId}`, {
 			method: 'GET',
 			headers: {
-				Authorization: `Bearer ${accessToken}`
+				Authorization: `Bearer ${token}`
 			}
 		});
 		if (response.status == 200) {
@@ -23,6 +30,7 @@
 	{#await getArtistData()}
 		<p>loading</p>
 	{:then json}
+		<p>{json.name}</p>
 		<p>{json.popularity}</p>
 	{:catch error}
 		<div>{error}</div>

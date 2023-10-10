@@ -6,18 +6,17 @@
 	import { accessToken } from '$lib/stores/accessToken';
 	export let showModal: boolean;
 	export let songSelected: Song;
-	
+
 	let token: string | null;
 
-accessToken.subscribe((value) => {
-	token = value;
-});
+	accessToken.subscribe((value) => {
+		token = value;
+	});
 
-	let searchText: string = "";
+	let searchText: string = '';
 	let songs: Array<Song> = [];
 	// Function which returns a list of songs from spotify
 	async function search(searchText: string) {
-
 		if (searchText != null) {
 			const response = await fetch(`https://api.spotify.com/v1/search?q=${searchText}&type=track`, {
 				method: 'GET',
@@ -43,11 +42,17 @@ accessToken.subscribe((value) => {
 <div class="flex-col flex">
 	<div class="flex-row flex">
 		<div class="w-1/2">
-			<Input id="search" type="text" placeholder="Enter Search Term" autocomplete={false} bind:boundValue={searchText}/>
+			<Input
+				id="search"
+				type="text"
+				placeholder="Enter Search Term"
+				autocomplete={false}
+				bind:boundValue={searchText}
+			/>
 		</div>
 		<div class="w-4" />
 		<div class="w-1/8">
-			<Button text="Search" onClick={() => search(searchText)}/>
+			<Button text="Search" onClick={() => search(searchText)} />
 		</div>
 	</div>
 	<div class="h-4" />
