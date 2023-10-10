@@ -57,9 +57,7 @@
 					<div>Waiting</div>
 				{:then json}
 					<SongWidget
-						src={json.album.images[0].url}
-						artistName={json.artists[0].name}
-						songName={json.name}
+						song={json}
 					/>
 				{:catch error}
 					<div>{error}</div>
