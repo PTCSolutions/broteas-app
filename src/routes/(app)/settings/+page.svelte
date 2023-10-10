@@ -2,6 +2,8 @@
 	import { enhance } from '$app/forms';
 	import type { User } from '$lib/user';
 	import Input from '../components/forms/Input.svelte';
+	import { userStore, userProfileStore } from '$lib/stores/userStore';
+
 	// Get User from load page, and form data from form actions
 	export let data: User | null;
 	let user = data;
@@ -23,7 +25,7 @@
 	<h1>SETTINGS</h1>
 	<h2>Your profile:</h2>
 	<!--TODO: Solve error when no logged in user-->
-	{#if user?.uid != ""}
+	{#if $userStore?.uid != ""}
 	<!--Run down of users info-->
 		<div>{`Uid: ${user?.uid}`}</div>
 		<div>{`First Name: ${user?.firstName}`}</div>

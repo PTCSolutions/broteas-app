@@ -6,7 +6,7 @@
 	import SongWidget from './SongWidget.svelte';
 	import { getContext } from 'svelte';
 	import { getSongJson } from '$lib/spotify';
-	import { accessToken } from '$lib/stores/accessToken';
+	import { accessToken } from '$lib/stores/accessTokenStore';
 	import { horizontalSlide } from '$lib/transition/transition';
 	// The post in question
 	export let post: PostMeta;

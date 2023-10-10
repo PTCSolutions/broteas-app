@@ -2,7 +2,7 @@
 	import PostWidget from './components/PostWidget.svelte';
 	import Modal from './components/Modal.svelte';
     import NewPostWidget from './components/NewPostWidget.svelte';
-	import { postStore } from '$lib/stores/stores';
+	import { postStore } from '$lib/stores/postsStore';
 	import { fade } from 'svelte/transition';
 	let showModal = false;
 </script>

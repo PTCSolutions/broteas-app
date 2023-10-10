@@ -3,15 +3,9 @@
 	import Button from './forms/Button.svelte';
 	import Input from './forms/Input.svelte';
 	import SongCard from './SongCard.svelte';
-	import { accessToken } from '$lib/stores/accessToken';
+	import { accessToken } from '$lib/stores/accessTokenStore';
 	export let showModal: boolean;
 	export let songSelected: Song;
-
-	let token: string | null;
-
-	accessToken.subscribe((value) => {
-		token = value;
-	});
 
 	let searchText: string = '';
 	let songs: Array<Song> = [];
