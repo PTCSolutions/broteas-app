@@ -8,6 +8,7 @@
 	// Get uid of current user from our load function
 	export let data;
 	let uid = data.uid;
+	// Set access token at base layout so the rest of the app can access
 	let access_token = data.token;
 	onMount(() => {
 		$accessToken = access_token;
