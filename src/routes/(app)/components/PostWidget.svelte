@@ -8,6 +8,7 @@
 	import { getSongJson } from '$lib/spotify';
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	import { horizontalSlide } from '$lib/transition/transition';
+	import { userProfileStore } from '$lib/stores/userStore';
 	// The post in question
 	export let post: PostMeta;
 
@@ -20,13 +21,13 @@
 	// Boolean representing if comments are open
 	let commentsOpen = false;
 
-	// Get the uid of the currentUser from context
-	let currentUid: string | null = getContext('uid');
+	// Get the uid of the currentUser from store
+	let currentUid: string | undefined = $userProfileStore?.user?.uid;
 
 	// Import like, delete post, get song functions
 	let deletePostFunction = () => deletePost(post.postId);
 	let likePostFuntion = () => {
-		if (currentUid != null && post.postId != null) {
+		if (currentUid != undefined && post.postId != null) {
 			likePost(post.postId, currentUid);
 		}
 	};

@@ -3,10 +3,11 @@
 	import { getContext } from 'svelte';
 	import Button from './forms/Button.svelte';
 	import { enhance } from '$app/forms';
-	let uid = getContext('uid');
+	import { userProfileStore } from '$lib/stores/userStore';
+	
+	let uid = $userProfileStore?.user?.uid;
 	// Disable button if there is no uid
 	$: disabled = uid == '' || uid == null;
-
 	export let song: Song | null = null;
 </script>
 
