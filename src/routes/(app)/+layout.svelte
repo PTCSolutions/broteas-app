@@ -17,15 +17,12 @@
 	});
 </script>
 
-<NavBar />
 <div class="flex-row flex">
-	<div class="w-32 m-2" />
-	<div class="w-2" />
-
+	<NavBar />
 	<div class="grow">
 		<slot />
 	</div>
-	<div class="w-1/12">
+	<div class="w-1/6">
 		{#if $userProfileStore?.loading}
 		<div class="flex flex-col p-4 bg-gray-50" />
 		<!--If there is no logged in user show Login and signup buttons-->

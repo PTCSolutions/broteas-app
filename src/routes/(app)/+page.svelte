@@ -1,9 +1,8 @@
 <script lang="ts">
-	import PostWidget from './components/PostWidget.svelte';
 	import Modal from './components/Modal.svelte';
-    import NewPostWidget from './components/NewPostWidget.svelte';
+	import NewPostWidget from './components/NewPostWidget.svelte';
 	import { postStore } from '$lib/stores/postsStore';
-	import { fade } from 'svelte/transition';
+	import PostWidget from './components/posts/PostWidget.svelte';
 	let showModal = false;
 </script>
 
@@ -19,15 +18,14 @@
 	</button>
 
 	<Modal bind:showModal>
-       <NewPostWidget />
+		<NewPostWidget />
 	</Modal>
 
 	<div class="text-lg p-1">Latest Posts:</div>
-
-	{#each $postStore as post (post.postId)}
-	<!-- Each post widget fades in and out on creation and deletion-->
-		<div class="p-4" transition:fade>
-			<PostWidget {post}/>
-		</div>
-	{/each}
+	<div class="grid grid-cols-3 w-full p-4 justify-between gap-4 ">
+		{#each $postStore as post (post.postId)}
+			<!-- Each post widget fades in and out on creation and deletion-->
+			<PostWidget {post} />
+		{/each}
+	</div>
 </div>
