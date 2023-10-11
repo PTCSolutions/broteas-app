@@ -1,6 +1,6 @@
 <script lang="ts">
     // id of input
-	export let id: string;
+	export let id: string = "";
     // type of input
 	export let type: string;
     // placeholder for input
@@ -11,6 +11,8 @@
 	export let autocomplete: boolean = true;
 	// is input required
 	export let required : boolean = false;
+	// on change callback
+	export let onInput: any = null;
 </script>
 
 {#if boundValue != null}
@@ -22,6 +24,7 @@
 		autocomplete = {autocomplete ? "on" : "off"}
 		bind:value={boundValue}
 		{required}
+		on:input={onInput}
 	/>
 {:else}
 	<input
@@ -31,5 +34,6 @@
 		{placeholder}
 		autocomplete = {autocomplete ? "on" : "off"}
 		{required}
+		on:input={onInput}
 	/>
 {/if}

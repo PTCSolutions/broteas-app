@@ -12,8 +12,10 @@
 	let uid = data.uid;
 	let access_token = data.token;
 	onMount(() => {
+		// Set store values
 		$accessToken = access_token;
 		$userStore = uid;
+		// Important so that user document in firestore is subscribed to
 		subscribeToUser();
 	});
 </script>

@@ -20,11 +20,10 @@
 	<Modal bind:showModal>
 		<NewPostWidget />
 	</Modal>
-
+	<!-- The main section of the page is a grid of 3 columns. Each item is a post widget-->
 	<div class="text-lg p-1">Latest Posts:</div>
 	<div class="grid grid-cols-3 w-full p-4 justify-between gap-4 ">
 		{#each $postStore as post (post.postId)}
-			<!-- Each post widget fades in and out on creation and deletion-->
 			<PostWidget {post} />
 		{/each}
 	</div>
