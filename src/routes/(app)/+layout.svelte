@@ -4,7 +4,7 @@
 
 	import { onMount, setContext } from 'svelte';
 	import { accessToken } from '$lib/stores/accessTokenStore';
-	import { userStore, userProfileStore } from '$lib/stores/userStore';
+	import { userStore, userProfileStore, subscribeToUser } from '$lib/stores/userStore';
 	import { fade } from 'svelte/transition';
 	// Get uid of current user from our load function
 	export let data;
@@ -14,6 +14,7 @@
 	onMount(() => {
 		$accessToken = access_token;
 		$userStore = uid;
+		subscribeToUser();
 	});
 </script>
 

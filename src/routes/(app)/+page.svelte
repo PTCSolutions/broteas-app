@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Modal from '$lib/components/Modal.svelte';
-	import NewPostWidget from '$lib/components/NewPostWidget.svelte';
+	import NewPostWidget from '$lib/components/posts/NewPostWidget.svelte';
 	import { postStore } from '$lib/stores/postsStore';
 	import PostWidget from '$lib/components/posts/PostWidget.svelte';
 	let showModal = false;
