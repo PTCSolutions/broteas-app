@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	import type { Artist, Song } from '$lib/spotify.js';
-	import SongCard from '../../components/SongCard.svelte';
+	import SongThreadCard from '$lib/components/SongThreadCard.svelte';
 	export let data;
 
 	async function getArtistData(): Promise<Artist> {
@@ -20,14 +20,17 @@
 	}
 
 	async function getArtistTopTracks(): Promise<Array<Song>> {
-		const response = await fetch(`https://api.spotify.com/v1/artists/${data.artistId}/top-tracks?market=GB`, {
-			method: 'GET',
-			headers: {
-				// "Content-Type": "application/json",
-				Authorization: `Bearer ${$accessToken}`
-			},
-			// body: JSON.stringify({ market: 'GB' })
-		});
+		const response = await fetch(
+			`https://api.spotify.com/v1/artists/${data.artistId}/top-tracks?market=GB`,
+			{
+				method: 'GET',
+				headers: {
+					// "Content-Type": "application/json",
+					Authorization: `Bearer ${$accessToken}`
+				}
+				// body: JSON.stringify({ market: 'GB' })
+			}
+		);
 		if (response.status == 200) {
 			let json = await response.json();
 			let songs: Array<Song> = json.tracks;
@@ -58,15 +61,18 @@
 			</div>
 			<div class="h-4" />
 			<div class="text-xl font-medium">Popular songs</div>
-			{#await getArtistTopTracks()}
-				<div />
-			{:then songs}
-				{#each songs as song}
-					<SongCard {song} />
-				{/each}
-			{:catch error}
-				<div>{error}</div>
-			{/await}
+			<div class="flex flex-row">
+				{#await getArtistTopTracks()}
+					<div />
+				{:then songs}
+					{#each songs as song}
+						<SongThreadCard {song} />
+						<div class="w-2" />
+					{/each}
+				{:catch error}
+					<div>{error}</div>
+				{/await}
+			</div>
 		</div>
 	{:catch error}
 		<div>{error}</div>
