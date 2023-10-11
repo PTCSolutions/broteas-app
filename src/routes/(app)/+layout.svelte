@@ -19,7 +19,7 @@
 
 <div class="flex-row flex">
 	<NavBar />
-	<div class="grow">
+	<div class="grow ml-32">
 		<slot />
 	</div>
 	<div class="w-1/6">
