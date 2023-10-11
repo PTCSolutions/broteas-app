@@ -26,6 +26,7 @@ export interface Song {
     href: string,
     id: string,
     name: string,
+    type: string,
 }
 
 export interface Artist {
@@ -47,6 +48,7 @@ export interface Artist {
     name: string,
     popularity: number,
     uri: string
+    type: string,
 }
 
 export interface Album {
@@ -148,7 +150,8 @@ export interface Album {
     },
     genres: [string],
     label: string,
-    popularity: number
+    popularity: number,
+    type: string,
 }
 
 // Get the json info of the song in the post widget

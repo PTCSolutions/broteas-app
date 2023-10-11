@@ -8,7 +8,7 @@
 	import AlbumCard from './AlbumCard.svelte';
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	export let showModal: boolean;
-	export let songSelected: Song;
+	export let objectSelected: any;
 
 	const options = [
 		{
@@ -96,7 +96,7 @@
 			<button
 				on:click={() => {
 					showModal = true;
-					songSelected = song;
+					objectSelected = song;
 				}}
 			>
 				<SongCard {song} />
@@ -104,11 +104,24 @@
 		{/each}
 	{:else if searchCatagory == 'artist'}
 		{#each artists as artist}
-			<ArtistCard {artist} />
+			<button
+				on:click={() => {
+					showModal = true;
+					objectSelected = artist;
+				}}
+			>
+				<ArtistCard {artist} />
+			</button>
 		{/each}
 	{:else if searchCatagory == 'album'}
 		{#each albums as album}
-			<AlbumCard {album} />
+			<button
+				on:click={() => {
+					showModal = true;
+					objectSelected = album;
+				}}
+				><AlbumCard {album} />
+			</button>
 		{/each}
 	{:else if searchCatagory == 'user'}
 		<div>Cars</div>
