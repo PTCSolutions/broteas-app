@@ -1,9 +1,8 @@
 <script lang="ts">
 	import NavBar from '$lib/components/NavBar.svelte';
-	import { onMount, setContext } from 'svelte';
+	import { onMount } from 'svelte';
 	import { accessToken } from '$lib/stores/accessTokenStore';
-	import { userStore, userProfileStore, subscribeToUser } from '$lib/stores/userStore';
-	import { fade } from 'svelte/transition';
+	import { userStore, subscribeToUser } from '$lib/stores/userStore';
 	// Get uid of current user from our load function
 	export let data;
 	// Set access token and uid at base layout so the rest of the app can access
@@ -22,23 +21,5 @@
 	<NavBar />
 	<div class="grow ml-32">
 		<slot />
-	</div>
-	<div class="w-1/6">
-		{#if $userProfileStore?.loading}
-		<div class="flex flex-col p-4 bg-gray-50" />
-		<!--If there is no logged in user show Login and signup buttons-->
-		{:else if $userProfileStore?.user?.uid == '' || $userProfileStore?.user?.uid == undefined}
-			<div class="flex flex-col">
-				<div><a href="/login">Log In</a></div>
-				<div><a href="/signup">Sign Up</a></div>
-			</div>
-		<!-- Otherwise if users info has loaded, show them log out button-->
-		{:else}
-			<div in:fade class="flex flex-col p-4 bg-gray-50">
-				<div>{`Hello ${$userProfileStore?.user?.firstName}`}</div>
-				<div><a href="/logout">Logout</a></div>
-			</div>
-			<!-- Otherwise show empty row-->
-		{/if}
 	</div>
 </div>
