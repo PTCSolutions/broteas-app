@@ -11,19 +11,6 @@
 	$: disabled = uid == '' || uid == null;
 	export let object: any;
 	export let objectType: string = 'track';
-
-	function getObjectCard(object: any): string {
-		switch (objectType) {
-			case 'track':
-				return object.album.images[0].url;
-			case 'artist':
-				return object.images[0].url;
-			case 'album':
-				return object.images[0].url;
-			default:
-				return '';
-		}
-	}
 </script>
 
 {#if object != null}
