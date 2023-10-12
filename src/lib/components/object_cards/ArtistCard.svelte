@@ -3,7 +3,7 @@
 	export let artist: Artist;
 </script>
 
-<div class="flex-row flex bg-gray-100 my-2 p-2 items-center rounded-lg">
+<div class="flex-row flex bg-gray-100 my-2 p-2 items-center rounded-lg  w-full">
 	<div class="w-12 h-12 bg-blue-500 rounded">
 		<img class="rounded" src={artist.images[0]?.url} alt="" />
 	</div>

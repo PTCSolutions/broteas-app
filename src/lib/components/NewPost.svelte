@@ -7,8 +7,8 @@
 	let objectSelected: Song | Album | Artist;
 </script>
 
-<div class="flex flex-col rounded-lg bg-white overflow-hidden">
-    <div class="text-lg font-medium mx-4 my-2">
+<div class="flex flex-col rounded-lg bg-white overflow-hidden w-[550px]">
+    <div class="text-lg font-medium mx-4 mt-2">
         Search for a song, artist or album to talk about
     </div>
 	<SearchWidget bind:showModal bind:objectSelected/>
