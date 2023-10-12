@@ -7,7 +7,7 @@
 	let showModal: Boolean = false;
 </script>
 
-<aside class="flex-col flex w-32 bg-gray-50 min-h-screen p-2 border-r-2 fixed">
+<aside class="flex-col flex w-32 bg-gray-50 dark:bg-gray-800 min-h-screen p-2 border-r-2 fixed">
 	<div>
 		<a href="/">Logo</a>
 	</div>
@@ -16,7 +16,7 @@
 		<MenuItem title="Home" href="/" />
 		<MenuItem title="News" href="/news" />
 		<MenuItem title="Search" href="/search" />
-		<button on:click={() => (showModal = true)} class="my-1 py-1 px-2 rounded-md hover:bg-gray-300 text-xl text-left">New Post</button>
+		<button on:click={() => (showModal = true)} class="my-1 py-1 px-2 rounded-md hover:bg-gray-300 dark:text-white dark:hover:bg-gray-600 text-xl text-left">New Post</button>
 	</div>
 
 	<div class="grow" />

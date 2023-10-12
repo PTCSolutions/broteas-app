@@ -9,9 +9,9 @@
 	let name: string = $userProfileStore?.user?.firstName || '';
 </script>
 
-<div class="bg-gray-50 flex-col flex items-start">
+<div class="bg-gray-50 dark:bg-gray-800 flex-col flex items-start">
 	<!-- The main section of the page is a grid of 3 columns. Each item is a post widget-->
-	<div class="text-2xl font-semibold mt-4 mx-4">Welcome back {name}</div>
+	<div class="text-2xl font-semibold mt-4 mx-4 dark:text-white">Welcome back {name}</div>
 	<div class="grid grid-cols-3 w-full p-4 justify-between gap-4">
 		{#each $postStore as post (post.postId)}
 			<PostWidget {post} />

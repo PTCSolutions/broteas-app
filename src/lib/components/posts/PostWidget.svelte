@@ -35,7 +35,7 @@
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,100..700,0..1,-50..200"
 	rel="stylesheet"
 />
-<div class="w-full h-auto flex flex-row bg-white">
+<div class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white">
 	<div class="p-4 flex-col w-full">
 		<div class="flex-row flex items-center w-full">
 			<div class="w-1/12 aspect-square rounded-full bg-green-200" />
