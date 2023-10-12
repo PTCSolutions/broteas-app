@@ -1,0 +1,19 @@
+<script lang="ts">
+	import SearchWidget from '$lib/components/SearchWidget.svelte';
+	import Modal from '$lib/components/Modal.svelte';
+	import type { Song , Album, Artist} from '$lib/spotify';
+	import ShareObjectWidget from '$lib/components/ShareObjectWidget.svelte';
+	let showModal = false;
+	let objectSelected: Song | Album | Artist;
+</script>
+
+<div class="flex flex-col rounded-lg bg-white overflow-hidden">
+    <div class="text-lg font-medium mx-4 my-2">
+        Search for a song, artist or album to talk about
+    </div>
+	<SearchWidget bind:showModal bind:objectSelected/>
+</div>
+
+<Modal bind:showModal>
+	<ShareObjectWidget object={objectSelected} objectType={objectSelected?.type}/>
+</Modal>

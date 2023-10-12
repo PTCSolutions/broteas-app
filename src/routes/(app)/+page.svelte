@@ -1,12 +1,15 @@
 <script lang="ts">
 	import Modal from '$lib/components/Modal.svelte';
-
 	import { postStore } from '$lib/stores/postsStore';
 	import PostWidget from '$lib/components/posts/PostWidget.svelte';
+	import { userProfileStore } from '$lib/stores/userStore';
+	import NewPost from '$lib/components/NewPost.svelte';
 	let showModal = false;
+
+	let name: string = $userProfileStore?.user?.firstName || '';
 </script>
 
-<div class="bg-gray-50 flex-col flex items-center">
+<div class="bg-gray-50 flex-col flex items-start">
 	<button on:click={() => (showModal = true)} class="fixed right-4 bottom-4">
 		<div class="bg-green-100 w-14 h-14 rounded-full">
 			<svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40"
@@ -18,11 +21,11 @@
 	</button>
 
 	<Modal bind:showModal>
-
+		<NewPost />
 	</Modal>
 	<!-- The main section of the page is a grid of 3 columns. Each item is a post widget-->
-	<div class="text-lg p-1">Latest Posts:</div>
-	<div class="grid grid-cols-3 w-full p-4 justify-between gap-4 ">
+	<div class="text-2xl font-semibold mt-4 mx-4">Welcome back {name}</div>
+	<div class="grid grid-cols-3 w-full p-4 justify-between gap-4">
 		{#each $postStore as post (post.postId)}
 			<PostWidget {post} />
 		{/each}

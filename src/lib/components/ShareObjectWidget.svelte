@@ -24,7 +24,7 @@
 </script>
 
 {#if object != null}
-	<div class="w-full mt-4 rounded-sm p-8 bg-gray-200">
+	<div class="w-full p-8 bg-gray-200 rounded-2xl">
 		<form class="my-4" method="POST" action="/?/newPost" use:enhance>
 			<div class="flex flex-col items-center gap-8">
 				<div class="flex flex-row gap-10">

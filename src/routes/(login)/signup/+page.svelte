@@ -10,12 +10,19 @@
 <form method="POST" use:enhance>
 	<!-- TODO: Make this use form validation instead of html validation-->
 	<div class="p-6 w-1/2 gap-2 flex flex-col">
-		<div class="flex flex-row gap-2">
-			<Input id="firstName" type="text" placeholder="First Name" required={true}/>
-			<Input id="lastName" type="text" placeholder="Last Name" required={true}/>
+		<div>
+			<Input id="firstName" type="text" placeholder="First Name" required={true} />
 		</div>
-		<Input id="email" type="email" placeholder="Email" />
-		<Input id="password" type="password" placeholder="Password" />
+		<div>
+			<Input id="lastName" type="text" placeholder="Last Name" required={true} />
+		</div>
+		<div>
+			<Input id="email" type="email" placeholder="Email" />
+		</div>
+		<div>
+			<Input id="password" type="password" placeholder="Password" />
+		</div>
+
 		<div class="w-1/6"><Button text="Log In" /></div>
 	</div>
 </form>
@@ -29,5 +36,4 @@
 	.redText {
 		color: red;
 	}
-
 </style>

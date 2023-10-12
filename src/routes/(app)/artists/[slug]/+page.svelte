@@ -61,7 +61,7 @@
 			</div>
 			<div class="h-4" />
 			<div class="text-xl font-medium">Popular songs</div>
-			<div class="flex flex-row">
+			<div class="flex flex-row overflow-auto">
 				{#await getArtistTopTracks()}
 					<div />
 				{:then songs}
