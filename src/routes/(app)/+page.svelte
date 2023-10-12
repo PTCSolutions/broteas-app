@@ -3,7 +3,7 @@
 	import { postStore } from '$lib/stores/postsStore';
 	import PostWidget from '$lib/components/posts/PostWidget.svelte';
 	import { userProfileStore } from '$lib/stores/userStore';
-	import NewPost from '$lib/components/NewPost.svelte';
+	import NewPost from '$lib/components/posts/NewPost.svelte';
 	let showModal = false;
 
 	let name: string = $userProfileStore?.user?.firstName || '';

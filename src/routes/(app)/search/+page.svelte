@@ -2,7 +2,7 @@
 	import SearchWidget from '$lib/components/SearchWidget.svelte';
 	import Modal from '$lib/components/Modal.svelte';
 	import type { Song , Album, Artist} from '$lib/spotify';
-	import ShareObjectWidget from '$lib/components/ShareObjectWidget.svelte';
+	import ShareObjectWidget from '$lib/components/posts/ShareObjectWidget.svelte';
 	let showModal = false;
 	let objectSelected: Song | Album | Artist;
 </script>

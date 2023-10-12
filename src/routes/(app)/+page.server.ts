@@ -5,8 +5,8 @@ import { get } from 'svelte/store';
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-    newPost: async ({ request, cookies }) => {
-        await newPost(cookies, request);
+    newPost: async ({ request }) => {
+        await newPost(request);
     },
     search: async ({ request }) => {
         // Get text from the search form

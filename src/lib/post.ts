@@ -1,7 +1,6 @@
 import { collection, addDoc, deleteDoc, doc, getDoc, DocumentSnapshot, updateDoc, arrayRemove, arrayUnion } from "firebase/firestore";
 import { db } from "./firebase";
 import { serverTimestamp } from 'firebase/firestore';
-import type { Cookies } from "@sveltejs/kit";
 
 export interface Post {
     creatorId: string;
@@ -18,16 +17,16 @@ export interface PostMeta extends Post {
 }
 
 interface PostComment {
-    id : string;
+    id: string;
     commentorId: string;
     text: string;
     date: Date;
 }
 
-export async function newPost(cookies: Cookies, request: Request) {
-    const uid = cookies.get('uid');
+export async function newPost(request: Request) {
     const data = await request.formData();
     const text = data.get('text') as string;
+    const uid = data.get('uid') as string;
     const objectId = data.get('objectId') as string;
     const objectType = data.get('objectType') as string;
     if (text != null && objectId != null && uid != null && objectType != null) {
@@ -80,3 +79,20 @@ export async function likePost(postId: string, uid: string) {
     }
 }
 
+export async function newComment(postId: string, commentorId: string, text: string) {
+    try {
+        await addDoc(collection(db, "posts", postId, "comments"),
+            {
+                commentorId: commentorId,
+                text: text,
+                date: serverTimestamp(),
+            }
+        );
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
+}
+
+export async function deleteComment(postId: string, commentId: string) {
+    await deleteDoc(doc(db, "posts", postId, "comments", commentId));
+}

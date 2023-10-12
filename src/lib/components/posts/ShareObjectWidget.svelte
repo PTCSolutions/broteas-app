@@ -2,10 +2,9 @@
 	import Button from '$lib/components/forms/Button.svelte';
 	import { enhance } from '$app/forms';
 	import { userProfileStore } from '$lib/stores/userStore';
-	import type { SvelteComponent } from 'svelte';
-	import SongCard from './object_cards/SongCard.svelte';
-	import ArtistCard from './object_cards/ArtistCard.svelte';
-	import AlbumCard from './object_cards/AlbumCard.svelte';
+	import SongCard from '../object_cards/SongCard.svelte';
+	import ArtistCard from '../object_cards/ArtistCard.svelte';
+	import AlbumCard from '../object_cards/AlbumCard.svelte';
 
 	let uid = $userProfileStore?.user?.uid;
 	// Disable button if there is no uid
@@ -50,8 +49,7 @@
 					/>
 					<input value={object.id} type="hidden" name="objectId" />
 					<input value={objectType} type="hidden" name="objectType" />
-
-
+					<input value={uid} type="hidden" name="uid" />
 				<div class="w-1/3">
 					<Button text="Post" {disabled} />
 				</div>

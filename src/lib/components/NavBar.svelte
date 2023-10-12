@@ -2,7 +2,7 @@
 	import MenuItem from './MenuItem.svelte';
 	import { userProfileStore } from '$lib/stores/userStore';
 	import Modal from './Modal.svelte';
-	import NewPost from './NewPost.svelte';
+	import NewPost from './posts/NewPost.svelte';
 
 	let showModal: Boolean = false;
 </script>
