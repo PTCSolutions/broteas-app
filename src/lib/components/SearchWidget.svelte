@@ -68,10 +68,8 @@
 					}
 				}
 			} else {
-				console.log('user search');
+				users = await searchForOtherUsers(searchText, $userProfileStore?.user!);
 			}
-		} else {
-			users = await searchForOtherUsers(searchText, $userProfileStore?.user!);
 		}
 	}
 	// Reactive declaration means search runs whenever the reactive variable it
