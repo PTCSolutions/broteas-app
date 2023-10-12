@@ -3,6 +3,7 @@
 
 	export let song: Song;
 </script>
+
 <a href={song.external_urls.spotify} target="_blank">
 <div class="rounded-lg relative">
 	<img class="rounded-lg z-0" src={song.album.images[0].url} alt="" />

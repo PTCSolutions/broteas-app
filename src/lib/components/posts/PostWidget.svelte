@@ -6,8 +6,10 @@
 	import { getObjectJson } from '$lib/spotify';
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	import { format } from 'timeago.js';
-    import { horizontalSlide } from '$lib/transition/transition';
+	import { horizontalSlide } from '$lib/transition/transition';
 	import SongWidget from '$lib/components/SongWidget.svelte';
+	import ArtistWidget from '../ArtistWidget.svelte';
+	import AlbumWidget from '../AlbumWidget.svelte';
 	// The post in question
 	export let post: PostMeta;
 	// Get user who posted the post
@@ -29,7 +31,7 @@
 	let getObjectJsonFunction = () => getObjectJson(post.objectId, $accessToken, post.objectType);
 </script>
 
-<div class="w-full h-auto flex flex-row bg-white ">
+<div class="w-full h-auto flex flex-row bg-white">
 	<div class="p-4 flex-col w-full">
 		<div class="flex-row flex items-center w-full">
 			<div class="w-1/12 aspect-square rounded-full bg-green-200" />
@@ -51,7 +53,15 @@
 				{#await getObjectJsonFunction()}
 					<div>Waiting</div>
 				{:then json}
-					<SongWidget song={json} />
+					{#if post.objectType == 'track'}
+						<SongWidget song={json} />
+					{:else if post.objectType == 'artist'}
+						<ArtistWidget artist={json} />
+					{:else if post.objectType == 'album'}
+						<AlbumWidget album={json} />
+					{:else}
+						<div/>
+					{/if}
 				{:catch error}
 					<div>{error}</div>
 				{/await}
@@ -81,7 +91,7 @@
 		<!-- This panel horizontally slides in and out on clicking the comment button-->
 		<div
 			class="w-60 bg-[#f2f2f0] flex flex-col"
-            transition:horizontalSlide={{ axis: 'x', duration: 400 }}
+			transition:horizontalSlide={{ axis: 'x', duration: 400 }}
 		>
 			<!-- If no comments show "NO comments" text-->
 			{#if post.comments.length == 0}
