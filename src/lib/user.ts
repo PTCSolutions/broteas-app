@@ -133,6 +133,18 @@ async function searchForUsers(searchText: string | null): Promise<User[]> {
     return users;
 }
 
+export async function searchForOtherUsers(searchText: string, user: User | null) {
+    if (user != null) {
+        const returnedUsers = await searchForUsers(searchText);
+        let users = returnedUsers;
+        if (returnedUsers.length > 0) {
+            users = returnedUsers.filter((returnedUser: User) => returnedUser.uid != user.uid);
+        }
+        return users;
+    }
+    return [];
+}
+
 export async function searchForUsersToFollow(searchText: string, user: User | null): Promise<User[]> {
     if (user != null) {
         const returnedUsers = await searchForUsers(searchText);

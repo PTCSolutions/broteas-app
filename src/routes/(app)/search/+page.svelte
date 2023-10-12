@@ -8,7 +8,7 @@
 </script>
 
 <div class="py-4 ml-4 max-w-[600px]">
-	<SearchWidget bind:showModal bind:objectSelected />
+	<SearchWidget bind:showModal bind:objectSelected/>
 </div>
 
 <Modal bind:showModal>

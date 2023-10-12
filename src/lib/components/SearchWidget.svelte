@@ -2,11 +2,13 @@
 	import type { Song, Artist, Album } from '$lib/spotify';
 	import Button from '$lib/components/forms/Button.svelte';
 	import Input from '$lib/components/forms/Input.svelte';
-	import SongCard from './SongCard.svelte';
+	import SongCard from './object_cards/SongCard.svelte';
 	import Radio from '$lib/components/forms/Radio.svelte';
-	import ArtistCard from './ArtistCard.svelte';
-	import AlbumCard from './AlbumCard.svelte';
+	import ArtistCard from './object_cards/ArtistCard.svelte';
+	import AlbumCard from './object_cards/AlbumCard.svelte';
 	import { accessToken } from '$lib/stores/accessTokenStore';
+	import { searchForOtherUsers, type User } from '$lib/user';
+	import { userProfileStore } from '$lib/stores/userStore';
 	export let showModal: boolean;
 	export let objectSelected: any;
 
@@ -34,6 +36,7 @@
 	let songs: Array<Song> = [];
 	let artists: Array<Artist> = [];
 	let albums: Array<Album> = [];
+	let users: User[] = [];
 	// Function which returns a list of songs from spotify
 	async function search(searchText: string, searchCatagory: string) {
 		if (searchText != null) {
@@ -67,6 +70,8 @@
 			} else {
 				console.log('user search');
 			}
+		} else {
+			users = await searchForOtherUsers(searchText, $userProfileStore?.user!);
 		}
 	}
 	// Reactive declaration means search runs whenever the reactive variable it
@@ -125,7 +130,9 @@
 				</button>
 			{/each}
 		{:else if searchCatagory == 'user'}
-			<div>Cars</div>
+			{#each users as user}
+				<div>{user.firstName}</div>
+			{/each}
 		{/if}
 	</div>
 </div>
