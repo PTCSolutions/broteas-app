@@ -38,9 +38,7 @@ export async function newPost(cookies: Cookies, request: Request) {
             objectType: objectType,
         };
         try {
-            console.log("Trying");
-
-            const docRef = await addDoc(collection(db, "posts"),
+            await addDoc(collection(db, "posts"),
                 {
                     creatorId: post.creatorId,
                     text: post.text,
@@ -51,7 +49,6 @@ export async function newPost(cookies: Cookies, request: Request) {
                     comments: [],
                 }
             );
-            console.log("Document written with ID: ", docRef.id);
         } catch (e) {
             console.error("Error adding document: ", e);
         }
