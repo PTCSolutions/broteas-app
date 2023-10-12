@@ -7,6 +7,7 @@ export interface Post {
     creatorId: string;
     text: string;
     objectId: string;
+    objectType: string;
 }
 // Uncomment this when we want to read posts
 export interface PostMeta extends Post {
@@ -28,11 +29,13 @@ export async function newPost(cookies: Cookies, request: Request) {
     const data = await request.formData();
     const text = data.get('text') as string;
     const objectId = data.get('objectId') as string;
-    if (text != null && objectId != null && uid != null) {
+    const objectType = data.get('objectType') as string;
+    if (text != null && objectId != null && uid != null && objectType != null) {
         const post: Post = {
             creatorId: uid,
             text: text,
             objectId: objectId,
+            objectType: objectType,
         };
         try {
             console.log("Trying");
@@ -43,6 +46,7 @@ export async function newPost(cookies: Cookies, request: Request) {
                     text: post.text,
                     objectId: post.objectId,
                     date: serverTimestamp(),
+                    objectType: post.objectType,
                     likes: [],
                     comments: [],
                 }

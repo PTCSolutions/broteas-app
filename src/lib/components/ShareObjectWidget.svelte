@@ -38,6 +38,7 @@
 						class="bg-white appearance-none border border-black rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-purple-500"
 					/>
 					<input value={object.id} type="hidden" name="objectId" />
+                    <input value={objectType} type="hidden" name="objectType" />
 				</div>
 
 				<div class="w-1/3">

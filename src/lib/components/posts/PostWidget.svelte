@@ -3,7 +3,7 @@
 	import { getUser } from '$lib/user';
 	import { userProfileStore } from '$lib/stores/userStore';
 	import { deletePost, likePost, type PostMeta } from '$lib/post';
-	import { getSongJson } from '$lib/spotify';
+	import { getObjectJson } from '$lib/spotify';
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	import { format } from 'timeago.js';
     import { horizontalSlide } from '$lib/transition/transition';
@@ -26,7 +26,7 @@
 			likePost(post.postId, currentUid);
 		}
 	};
-	let getSongJsonFunction = () => getSongJson(post.objectId, $accessToken);
+	let getObjectJsonFunction = () => getObjectJson(post.objectId, $accessToken, post.objectType);
 </script>
 
 <div class="w-full h-auto flex flex-row bg-white ">
@@ -48,7 +48,7 @@
 		<div class="h-4" />
 		<div class="flex-row flex w-full">
 			<div class="w-5/6 aspect-square">
-				{#await getSongJsonFunction()}
+				{#await getObjectJsonFunction()}
 					<div>Waiting</div>
 				{:then json}
 					<SongWidget song={json} />

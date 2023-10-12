@@ -53,10 +53,15 @@
 					switch (searchCatagory) {
 						case 'track':
 							songs = json.tracks.items;
+							break;
 						case 'artist':
 							artists = json.artists.items;
+							break;
 						case 'album':
 							albums = json.albums.items;
+							break;
+						default:
+							console.log('error');
 					}
 				}
 			} else {
