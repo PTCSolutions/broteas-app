@@ -9,6 +9,7 @@
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	import { searchForOtherUsers, type User } from '$lib/user';
 	import { userProfileStore } from '$lib/stores/userStore';
+	import UserCard from './object_cards/UserCard.svelte';
 	export let showModal: boolean;
 	export let objectSelected: any;
 
@@ -129,7 +130,7 @@
 			{/each}
 		{:else if searchCatagory == 'user'}
 			{#each users as user}
-				<div>{user.firstName}</div>
+				<UserCard {user} followed={$userProfileStore?.user?.following?.includes(user.uid)}/>
 			{/each}
 		{/if}
 	</div>

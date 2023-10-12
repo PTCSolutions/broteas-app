@@ -7,9 +7,9 @@
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	import { format } from 'timeago.js';
 	import { horizontalSlide } from '$lib/transition/transition';
-	import SongWidget from '$lib/components/SongWidget.svelte';
-	import ArtistWidget from '../ArtistWidget.svelte';
-	import AlbumWidget from '../AlbumWidget.svelte';
+	import SongWidget from '$lib/components/object_widgets/SongWidget.svelte';
+	import ArtistWidget from '../object_widgets/ArtistWidget.svelte';
+	import AlbumWidget from '../object_widgets/AlbumWidget.svelte';
 	// The post in question
 	export let post: PostMeta;
 	// Get user who posted the post
