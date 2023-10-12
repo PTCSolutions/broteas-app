@@ -193,3 +193,22 @@ export async function getArtistTopTracks(artistId: string, accessToken: string):
         throw Error;
     }
 }
+
+export async function getArtistAlbums(artistId: string, accessToken: string): Promise<Array<Album>> {
+    const response = await fetch(
+        `https://api.spotify.com/v1/artists/${artistId}/albums?market=GB`,
+        {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        }
+    );
+    if (response.status == 200) {
+        const json = await response.json();
+        const albums: Array<Album> = json.items;
+        return albums;
+    } else {
+        throw Error;
+    }
+}
