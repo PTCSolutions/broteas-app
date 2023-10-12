@@ -2,8 +2,6 @@
 	import Button from '$lib/components/forms/Button.svelte';
 	import { enhance } from '$app/forms';
 	import { userProfileStore } from '$lib/stores/userStore';
-	import type { Artist, Song, Album } from '$lib/spotify';
-	import { onMount } from 'svelte';
 
 	let uid = $userProfileStore?.user?.uid;
 	// Disable button if there is no uid

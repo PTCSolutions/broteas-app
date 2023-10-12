@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Song, Artist, Album } from '$lib/spotify';
-	import Button from '$lib/components/forms/Button.svelte';
 	import Input from '$lib/components/forms/Input.svelte';
 	import SongCard from './object_cards/SongCard.svelte';
 	import Radio from '$lib/components/forms/Radio.svelte';
