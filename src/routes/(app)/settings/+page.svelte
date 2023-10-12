@@ -66,7 +66,17 @@
 		<div class="h-14" />
 		<!--Forms to follow or unfollow other users-->
 		<div>Enter the first OR second name of your friends below, and click to follow them!</div>
-		<form method="POST" action="?/follow" use:enhance class="my-2">
+		<form
+			method="POST"
+			action="?/follow"
+			use:enhance={({ formElement, formData, action, cancel, submitter }) => {
+				return async ({ result, update }) => {
+					searchTextFollow = '';
+					update();
+				};
+			}}
+			class="my-2"
+		>
 			<div class="flex flex-row gap-10 w-full">
 				<input name="currentUid" type="hidden" value={$userProfileStore?.user?.uid} />
 				<div class="w-1/2">
@@ -91,7 +101,17 @@
 			</div>
 		</form>
 		<div>Or fill the input below to unfollow!</div>
-		<form method="POST" action="?/unfollow" use:enhance class="my-2">
+		<form
+			method="POST"
+			action="?/unfollow"
+			use:enhance={({ formElement, formData, action, cancel, submitter }) => {
+				return async ({ result, update }) => {
+					searchTextUnfollow = '';
+					update();
+				};
+			}}
+			class="my-2"
+		>
 			<div class="flex flex-row gap-10 w-full">
 				<input name="currentUid" type="hidden" value={$userProfileStore?.user?.uid} />
 				<div class="w-1/2">
