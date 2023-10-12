@@ -6,7 +6,6 @@
 	import { getObjectJson } from '$lib/spotify';
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	import { format } from 'timeago.js';
-	import { horizontalSlide } from '$lib/transition/transition';
 	import SongWidget from '$lib/components/object_widgets/SongWidget.svelte';
 	import ArtistWidget from '../object_widgets/ArtistWidget.svelte';
 	import AlbumWidget from '../object_widgets/AlbumWidget.svelte';
@@ -17,8 +16,6 @@
 	getUser(post.creatorId).then((user) => {
 		poster = user;
 	});
-	// Boolean representing if comments are open
-	let commentsOpen = false;
 	// Get the uid of the currentUser from store
 	let currentUid: string | undefined = $userProfileStore?.user?.uid;
 	// Import like, delete post, get song functions
@@ -79,9 +76,9 @@
 				</button>
 				<div class="text-xs">{post.likes.length}</div>
 				<div class="h-4" />
-				<button on:click={() => (commentsOpen = !commentsOpen)}>
+				<a href={`/posts/${post.postId}`} >
 					<span class="material-symbols-outlined">mode_comment</span>
-				</button>
+				</a>
 				<div class="text-xs">{post.comments.length}</div>
 				<div class="h-4" />
 				<span class="material-symbols-outlined">share</span>
@@ -93,22 +90,4 @@
 		</div>
 		<div class="h-2" />
 	</div>
-	<!-- If comments are open show a panel to the side of the post widget-->
-	{#if commentsOpen}
-		<!-- This panel horizontally slides in and out on clicking the comment button-->
-		<div
-			class="w-60 bg-[#f2f2f0] flex flex-col"
-			transition:horizontalSlide={{ axis: 'x', duration: 400 }}
-		>
-			<!-- If no comments show "NO comments" text-->
-			{#if post.comments.length == 0}
-				<div>No comments to show</div>
-			{:else}
-				<!-- Else display comments-->
-				{#each post.comments as comment (comment.id)}
-					<p>{`User ${comment.commentorId}: ${comment.text}`}</p>
-				{/each}
-			{/if}
-		</div>
-	{/if}
 </div>

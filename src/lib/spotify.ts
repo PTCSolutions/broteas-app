@@ -158,21 +158,6 @@ export interface Album {
 export async function getObjectJson(objectId: string, accessToken: string | null, objectType: string) {
     console.log(`access token: ${accessToken}`)
     if (accessToken != null) {
-        // let url: string;
-        // switch(objectType) {
-        //     case 'track':
-        //         url = `https://api.spotify.com/v1/tracks/${objectId}`
-        //         break;
-        //     case 'artist':
-        //         url = `https://api.spotify.com/v1/tracks/${objectId}`
-        //         break;
-        //     case 'album':
-        //         url = `https://api.spotify.com/v1/tracks/${objectId}`
-        //         break;
-        //     default:
-
-
-        // }
         try {
             const response = await fetch(`https://api.spotify.com/v1/${objectType}s/${objectId}`, {
                 method: 'GET',

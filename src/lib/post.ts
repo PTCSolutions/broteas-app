@@ -1,4 +1,4 @@
-import { collection, addDoc, deleteDoc, doc, getDoc, DocumentSnapshot, updateDoc, arrayRemove, arrayUnion } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc, getDoc, DocumentSnapshot, updateDoc, arrayRemove, arrayUnion, Timestamp } from "firebase/firestore";
 import { db } from "./firebase";
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -78,6 +78,27 @@ export async function likePost(postId: string, uid: string) {
 
     }
 }
+
+export async function getPost(postId: string): Promise<PostMeta | null> {
+    const querySnapshot = await getDoc(doc(db, "posts", postId));
+    let post: PostMeta | null = null;
+    const data = querySnapshot.data();
+    if (querySnapshot.exists()) {
+        post = {
+            creatorId: data!.creatorId,
+            text: data!.text,
+            objectId: data!.objectId,
+            date: (data!.date as Timestamp).toDate(),
+            objectType: data!.objectType,
+            likes: data!.likes,
+            comments: data!.comments,
+            postId: postId
+        }
+        // doc.data() is never undefined for query doc snapshots
+    }
+    return post;
+}
+    
 
 export async function newComment(postId: string, commentorId: string, text: string) {
     try {
