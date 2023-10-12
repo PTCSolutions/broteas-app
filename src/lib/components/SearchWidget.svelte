@@ -75,60 +75,57 @@
 	$: search(searchText, searchCatagory);
 </script>
 
-<div class="flex-col flex">
-	<div class="flex-row flex">
-		<div>
-			<Input
-				id="search"
-				type="text"
-				placeholder="Enter Search Term"
-				autocomplete={false}
-				bind:boundValue={searchText}
-			/>
-		</div>
-		<div class="w-4" />
-		<div class="w-1/8">
-			<Button text="Search" onClick={() => search(searchText, searchCatagory)} />
-		</div>
+<div class="flex-col flex border-2 py-2 px-4">
+	<div class="flex flex-col">
+		<Input
+			id="search"
+			type="text"
+			placeholder="Enter Search Term"
+			autocomplete={false}
+			bind:boundValue={searchText}
+		/>
+		<div class="h-2" />
+
+		<Radio {options} bind:radioSelected={searchCatagory} />
 	</div>
+
 	<div class="h-2" />
-
-	<Radio {options} bind:radioSelected={searchCatagory} />
-
-	<div class="h-4" />
-	{#if searchCatagory == 'track'}
-		{#each songs as song}
-			<button
-				on:click={() => {
-					showModal = true;
-					objectSelected = song;
-				}}
-			>
-				<SongCard {song} />
-			</button>
-		{/each}
-	{:else if searchCatagory == 'artist'}
-		{#each artists as artist}
-			<button
-				on:click={() => {
-					showModal = true;
-					objectSelected = artist;
-				}}
-			>
-				<ArtistCard {artist} />
-			</button>
-		{/each}
-	{:else if searchCatagory == 'album'}
-		{#each albums as album}
-			<button
-				on:click={() => {
-					showModal = true;
-					objectSelected = album;
-				}}
-				><AlbumCard {album} />
-			</button>
-		{/each}
-	{:else if searchCatagory == 'user'}
-		<div>Cars</div>
-	{/if}
+	<div class="flex flex-col h-80 overflow-auto">
+		<div class="h-2" />
+		{#if searchCatagory == 'track'}
+			{#each songs as song}
+				<button
+					on:click={() => {
+						showModal = true;
+						objectSelected = song;
+					}}
+				>
+					<SongCard {song} />
+				</button>
+			{/each}
+		{:else if searchCatagory == 'artist'}
+			{#each artists as artist}
+				<button
+					on:click={() => {
+						showModal = true;
+						objectSelected = artist;
+					}}
+				>
+					<ArtistCard {artist} />
+				</button>
+			{/each}
+		{:else if searchCatagory == 'album'}
+			{#each albums as album}
+				<button
+					on:click={() => {
+						showModal = true;
+						objectSelected = album;
+					}}
+					><AlbumCard {album} />
+				</button>
+			{/each}
+		{:else if searchCatagory == 'user'}
+			<div>Cars</div>
+		{/if}
+	</div>
 </div>
