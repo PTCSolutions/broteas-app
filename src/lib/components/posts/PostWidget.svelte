@@ -31,6 +31,10 @@
 	let getObjectJsonFunction = () => getObjectJson(post.objectId, $accessToken, post.objectType);
 </script>
 
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,100..700,0..1,-50..200"
+	rel="stylesheet"
+/>
 <div class="w-full h-auto flex flex-row bg-white">
 	<div class="p-4 flex-col w-full">
 		<div class="flex-row flex items-center w-full">
@@ -60,7 +64,7 @@
 					{:else if post.objectType == 'album'}
 						<AlbumWidget album={json} />
 					{:else}
-						<div/>
+						<div />
 					{/if}
 				{:catch error}
 					<div>{error}</div>
@@ -68,16 +72,19 @@
 			</div>
 			<div class="flex-col flex justify-center items-center pl-2 grow">
 				<button on:click={likePostFuntion}>
-					<div>like</div>
-					<div class="text-xs">{post.likes.length}</div>
+					<span
+						class="material-symbols-outlined"
+						style={`font-variation-settings: 'FILL' ${post.likes.includes(currentUid || '') ? 1 : 0}`}>favorite</span
+					>
 				</button>
+				<div class="text-xs">{post.likes.length}</div>
 				<div class="h-4" />
 				<button on:click={() => (commentsOpen = !commentsOpen)}>
-					<div>com</div>
-					<div class="text-xs">{post.comments.length}</div>
+					<span class="material-symbols-outlined">mode_comment</span>
 				</button>
+				<div class="text-xs">{post.comments.length}</div>
 				<div class="h-4" />
-				<div>share</div>
+				<span class="material-symbols-outlined">share</span>
 			</div>
 		</div>
 		<div class="h-4" />

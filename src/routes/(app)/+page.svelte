@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Modal from '$lib/components/Modal.svelte';
-	import NewPostWidget from '$lib/components/posts/NewPostWidget.svelte';
+
 	import { postStore } from '$lib/stores/postsStore';
 	import PostWidget from '$lib/components/posts/PostWidget.svelte';
 	let showModal = false;
@@ -18,7 +18,7 @@
 	</button>
 
 	<Modal bind:showModal>
-		<NewPostWidget />
+
 	</Modal>
 	<!-- The main section of the page is a grid of 3 columns. Each item is a post widget-->
 	<div class="text-lg p-1">Latest Posts:</div>
