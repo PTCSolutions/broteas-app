@@ -11,7 +11,7 @@
     <div class="text-lg font-medium mx-4 mt-2">
         Search for a song, artist or album to talk about
     </div>
-	<SearchWidget bind:showModal bind:objectSelected/>
+	<SearchWidget bind:showModal bind:objectSelected userSearchOn={false}/>
 </div>
 
 <Modal bind:showModal>

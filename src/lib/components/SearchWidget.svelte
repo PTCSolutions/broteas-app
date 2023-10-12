@@ -11,25 +11,41 @@
 	import UserCard from './object_cards/UserCard.svelte';
 	export let showModal: boolean;
 	export let objectSelected: any;
+	export let userSearchOn: boolean = true;
 
-	const options = [
-		{
-			value: 'track',
-			label: 'Song'
-		},
-		{
-			value: 'artist',
-			label: 'Artist'
-		},
-		{
-			value: 'album',
-			label: 'Album'
-		},
-		{
-			value: 'user',
-			label: 'User'
-		}
-	];
+	const options = userSearchOn
+		? [
+				{
+					value: 'track',
+					label: 'Song'
+				},
+				{
+					value: 'artist',
+					label: 'Artist'
+				},
+				{
+					value: 'album',
+					label: 'Album'
+				},
+				{
+					value: 'user',
+					label: 'User'
+				}
+		  ]
+		: [
+				{
+					value: 'track',
+					label: 'Song'
+				},
+				{
+					value: 'artist',
+					label: 'Artist'
+				},
+				{
+					value: 'album',
+					label: 'Album'
+				}
+		  ];
 
 	let searchCatagory: string = 'track';
 	let searchText: string = '';
@@ -129,7 +145,7 @@
 			{/each}
 		{:else if searchCatagory == 'user'}
 			{#each users as user}
-				<UserCard {user} followed={$userProfileStore?.user?.following?.includes(user.uid)}/>
+				<UserCard {user} followed={$userProfileStore?.user?.following?.includes(user.uid)} />
 			{/each}
 		{/if}
 	</div>
