@@ -1,23 +1,13 @@
 <script lang="ts">
 	import { accessToken } from '$lib/stores/accessTokenStore';
-	import type { Artist, Song } from '$lib/spotify.js';
+	import { getObjectJson, type Artist, type Song } from '$lib/spotify.js';
 	import SongThreadCard from '$lib/components/SongThreadCard.svelte';
 	export let data;
 
-	async function getArtistData(): Promise<Artist> {
-		const response = await fetch(`https://api.spotify.com/v1/artists/${data.artistId}`, {
-			method: 'GET',
-			headers: {
-				Authorization: `Bearer ${$accessToken}`
-			}
-		});
-		if (response.status == 200) {
-			let artist: Artist = await response.json();
-			return artist;
-		} else {
-			throw Error;
-		}
-	}
+	let getArtistData = async () => {
+		let artist: Artist = await getObjectJson(data.artistId, $accessToken, 'artist');
+		return artist;
+	};
 
 	async function getArtistTopTracks(): Promise<Array<Song>> {
 		const response = await fetch(
