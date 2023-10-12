@@ -1,15 +1,9 @@
 <script lang="ts">
 	import type { Song } from '$lib/spotify';
 	export let song: Song;
-
-	function millisToMinutesAndSeconds(millis: number) {
-		var minutes: number = Math.floor(millis / 60000);
-		var seconds: number = Math.round((millis % 60000) / 1000);
-		return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-	}
 </script>
 
-<div class="flex-col flex bg-white my-2 p-2 items-start ">
+<div class="flex-col flex bg-white my-2 p-2 items-start dark:bg-gray-600">
 	<a href={song.external_urls.spotify} target="_blank">
 		<div class="rounded-lg relative w-40 h-40">
 			<img class="rounded-lg z-0" src={song.album.images[0].url} alt="" />

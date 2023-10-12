@@ -7,7 +7,7 @@
 	let showModal: Boolean = false;
 </script>
 
-<aside class="flex-col flex w-32 bg-gray-50 dark:bg-gray-800 min-h-screen p-2 border-r-2 fixed">
+<aside class="flex-col flex w-32 bg-gray-50 dark:bg-gray-800 dark:border-gray-600 min-h-screen p-2 border-r-2 fixed">
 	<div>
 		<a href="/">Logo</a>
 	</div>
