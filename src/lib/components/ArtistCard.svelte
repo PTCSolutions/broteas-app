@@ -9,7 +9,7 @@
 	</div>
 	<div class="w-4" />
 	<div class="flex-col flex items-start">
-		<a href={`/artists/${artist.id}`} class="hover:text-blue-600 text-lg font-medium">
+		<a href={`/artists/${artist.id}`} class="hover:underline text-lg font-medium">
 			{artist.name}
 		</a>
 	</div>

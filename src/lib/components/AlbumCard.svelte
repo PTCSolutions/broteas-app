@@ -13,7 +13,7 @@
 			{album.name}
         </div>
         <div>
-            <a href={`/artists/${album.artists[0].id}`} class="hover:text-blue-600">
+            <a href={`/artists/${album.artists[0].id}`} class="hover:underline">
 			{album.artists[0].name}
 		</a>
         </div>

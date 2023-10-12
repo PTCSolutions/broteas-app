@@ -18,7 +18,7 @@
 		<div class="text-lg font-medium">
 			{song.name}
 		</div>
-		<a href={`/artists/${song.artists[0].id}`} class="hover:text-blue-600">
+		<a href={`/artists/${song.artists[0].id}`} class="hover:underline">
 			{song.artists[0].name}
 		</a>
 	</div>

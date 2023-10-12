@@ -13,7 +13,7 @@
 		<div
 			class="w-full h-1/2 p-4 z-10 bottom-0 absolute rounded-lg bg-gradient-to-t to-transparent from-black flex-col flex justify-end"
 		>
-			<a href={`/artists/${artist.id}`} class="hover:text-blue-600 text-white text-lg">
+			<a href={`/artists/${artist.id}`} class="hover:underline text-white text-lg">
 				{artist.name}
 			</a>
 		</div>

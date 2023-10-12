@@ -14,7 +14,7 @@
 			class="w-full h-1/2 p-4 z-10 bottom-0 absolute rounded-lg bg-gradient-to-t to-transparent from-black flex-col flex justify-end"
 		>
 			<div class="text-white text-lg">{album.name}</div>
-			<a href={`/artists/${album.artists[0].id}`} class="hover:text-blue-600 text-white">
+			<a href={`/artists/${album.artists[0].id}`} class="hover:underline text-white">
 				{album.artists[0].name}
 			</a>
 		</div>
