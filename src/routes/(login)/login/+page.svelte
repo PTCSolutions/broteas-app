@@ -18,12 +18,5 @@
 </form>
 <!-- If there is an error on submitting the form , show it in red underneath-->
 {#if form?.error != undefined}
-	<!-- TODO: Have used normal css because cant get tailwind to work-->
-	<div class="redText">{form.error}</div>
+	<div class="text-red-500">{form.error}</div>
 {/if}
-
-<style>
-	.redText {
-		color: red;
-	}
-</style>
