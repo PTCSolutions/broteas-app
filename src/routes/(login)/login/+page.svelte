@@ -6,7 +6,7 @@
 	export let form;
 </script>
 
-<div class="h-full">
+<div class="h-full overflow-hidden">
 	<img src="/WeirdSofa.png" class="z-0 h-full overflow-hidden min-h-screen object-cover" alt="" />
 	<!-- Use progressive enhancement so that we can get nice transitions if js enabled-->
 	<form class="z-10 fixed right-0 top-0 w-1/2 p-8  h-full" method="POST" use:enhance>
