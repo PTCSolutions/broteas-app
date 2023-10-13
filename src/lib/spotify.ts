@@ -216,24 +216,3 @@ export async function getArtistAlbums(artistId: string, access_token: string): P
         throw Error;
     }
 }
-
-export async function getPostsForObject(objectId: string, access_token: string): Promise<Array<Song>> {
-    const response = await fetch(
-        `https://api.spotify.com/v1/artists/${objectId}/top-tracks?market=GB`,
-        {
-            method: 'GET',
-            headers: {
-
-                Authorization: `Bearer ${access_token}`
-            }
-
-        }
-    );
-    if (response.status == 200) {
-        const json = await response.json();
-        const songs: Array<Song> = json.tracks;
-        return songs;
-    } else {
-        throw Error;
-    }
-}

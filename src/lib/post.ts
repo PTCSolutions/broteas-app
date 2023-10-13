@@ -1,4 +1,4 @@
-import { collection, addDoc, deleteDoc, doc, getDoc, DocumentSnapshot, updateDoc, arrayRemove, arrayUnion, Timestamp } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc, getDoc, getDocs, DocumentSnapshot, updateDoc, arrayRemove, arrayUnion, Timestamp, query, where } from "firebase/firestore";
 import { db } from "./firebase";
 import { serverTimestamp } from 'firebase/firestore';
 
@@ -98,7 +98,7 @@ export async function getPost(postId: string): Promise<PostMeta | null> {
     }
     return post;
 }
-    
+
 
 export async function newComment(postId: string, commentorId: string, text: string) {
     try {
@@ -116,4 +116,31 @@ export async function newComment(postId: string, commentorId: string, text: stri
 
 export async function deleteComment(postId: string, commentId: string) {
     await deleteDoc(doc(db, "posts", postId, "comments", commentId));
+}
+
+export async function getPostsForObject(objectId: string): Promise<Array<PostMeta | null>> {
+    const posts: Array<PostMeta> = [];
+
+    const q = query(collection(db, "posts"),
+        where("objectId", "==", objectId));
+
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const post = {
+                creatorId: data!.creatorId,
+                text: data!.text,
+                objectId: data!.objectId,
+                date: (data!.date as Timestamp).toDate(),
+                objectType: data!.objectType,
+                likes: data!.likes,
+                comments: data!.comments,
+                postId: data!.postId
+            }
+            posts.push(post);
+        }
+        );
+    };
+    return posts;
 }

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { Song } from '$lib/spotify';
+	import { getPostsForObject } from '$lib/post';
+import type { Song } from '$lib/spotify';
 	export let song: Song;
 </script>
 
@@ -18,4 +19,12 @@
         <div>com</div>
         <div>share</div>
     </div>
+
+	{#await getPostsForObject(song.id)}
+		<div>Loading</div>
+	{:then posts} 
+		{#each posts as post}
+			<div>{post?.text}</div>
+		{/each}
+	{/await}
 </div>

@@ -6,10 +6,13 @@
 	import ArtistCard from '../object_cards/ArtistCard.svelte';
 	import AlbumCard from '../object_cards/AlbumCard.svelte';
 
-	let uid = $userProfileStore?.user?.uid;
+
+	let uid: string | undefined;
+	$: uid = $userProfileStore?.user?.uid;
 	// Disable button if there is no uid
 	let disabled: boolean;
 	$: disabled = uid == '' || uid == null;
+	console.log(disabled);
 	export let object: any;
 	export let objectType: string = 'track';
 </script>
