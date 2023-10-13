@@ -1,12 +1,9 @@
 <script lang="ts">
-	import Modal from '$lib/components/Modal.svelte';
 	import { postStore } from '$lib/stores/postsStore';
 	import PostWidget from '$lib/components/posts/PostWidget.svelte';
 	import { userProfileStore } from '$lib/stores/userStore';
-	import NewPost from '$lib/components/posts/NewPost.svelte';
-	let showModal = false;
-
-	let name: string = $userProfileStore?.user?.firstName || '';
+	let name : string | undefined;
+	$: name = $userProfileStore?.user?.firstName;
 </script>
 
 <div class="bg-gray-50 dark:bg-gray-800 flex-col flex items-start">

@@ -17,7 +17,8 @@
 		poster = user;
 	});
 	// Get the uid of the currentUser from store
-	let currentUid: string | undefined = $userProfileStore?.user?.uid;
+	let currentUid : string | undefined;
+	$: currentUid = $userProfileStore?.user?.uid;
 	// Import like, delete post, get song functions
 	let deletePostFunction = () => deletePost(post.postId);
 	let likePostFuntion = () => {

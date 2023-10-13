@@ -23,6 +23,8 @@ const userInfoChangeStore: Writable<boolean> = writable(false);
 // NOTE: It is read-only and so cant be manipulated directly
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const userProfileStore: Readable<UserStore | null> = derived([userStore, userInfoChangeStore], ([$userStore, $userInfoChangeStore], set) => {
+    console.log("This is running");
+    console.log($userStore);
     if ($userStore != null) {
         getUser($userStore).then((user: User | null) => set({ user: user, loading: false }));
     }

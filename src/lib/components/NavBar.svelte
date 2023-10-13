@@ -28,7 +28,6 @@
 	{:else if $userProfileStore?.user?.uid == '' || $userProfileStore?.user?.uid == undefined}
 		<MenuItem title="Login" href="/login" small={true} />
 		<MenuItem title="Signup" href="/signup" small={true} />
-
 		<!-- Otherwise if users info has loaded, show them log out button-->
 	{:else}
 		<MenuItem title="Logout" href="/logout" small={true} />
