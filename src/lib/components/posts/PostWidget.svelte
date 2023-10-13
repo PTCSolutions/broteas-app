@@ -26,7 +26,7 @@
 			likePost(post.postId, currentUid);
 		}
 	};
-	let getObjectJsonFunction = () => getObjectJson(post.objectId, $accessToken, post.objectType);
+	let getObjectJsonFunction = () => getObjectJson(post.objectId, post.objectType);
 </script>
 
 <link
