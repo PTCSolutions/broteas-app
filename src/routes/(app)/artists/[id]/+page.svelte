@@ -7,7 +7,6 @@
 	let songs: Song[] = data.songs;
 	let artist: Artist = data.artist;
 	let albums: Album[] = data.albums;
-	let poster: User = data.poster;
 </script>
 
 <div class="h-full p-4">

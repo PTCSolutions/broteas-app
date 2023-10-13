@@ -77,7 +77,7 @@
 				<a href={`/posts/${post.postId}`} >
 					<span class="material-symbols-outlined">mode_comment</span>
 				</a>
-				<div class="text-xs">{post.comments.length}</div>
+				<div class="text-xs">{`post.commentIds.length`}</div>
 				<div class="h-4" />
 				<span class="material-symbols-outlined">share</span>
 			</div>

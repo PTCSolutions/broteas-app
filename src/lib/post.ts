@@ -15,7 +15,7 @@ export interface PostMeta extends Post {
     postId: string;
     date: Date;
     likes: Array<string>;
-    comments: Array<string>;
+    commentIds: Array<string>;
 }
 
 export interface PostComment {
@@ -80,7 +80,7 @@ export async function getPost(postId: string): Promise<PostMeta | null> {
             date: (data!.date as Timestamp).toDate(),
             objectType: data!.objectType,
             likes: data!.likes,
-            comments: data!.comments,
+            commentIds: data!.commentIds,
             postId: postId
         }
         // doc.data() is never undefined for query doc snapshots
@@ -142,7 +142,7 @@ export async function getPostsForObject(objectId: string): Promise<Array<PostMet
                 date: (data!.date as Timestamp).toDate(),
                 objectType: data!.objectType,
                 likes: data!.likes,
-                comments: data!.comments,
+                commentIds: data!.commentIds,
                 postId: data!.postId
             }
             posts.push(post);

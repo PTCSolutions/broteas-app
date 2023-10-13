@@ -10,24 +10,27 @@ let messagesUnsubscribeCallback;
 const subscribeToMessages = async () => {
 
     const querySnapshot = query(collection(db, "posts"), orderBy("date", "desc"));
-
+    console.log("Top level run")
     messagesUnsubscribeCallback = onSnapshot(
         querySnapshot,
         (q) => {
+            console.log("Snapshot run")
             const posts: PostMeta[] = [];
             q.forEach((doc) => {
-                const post = doc.data();
-                // Add in posts id.
-                post.postId = doc.id;
-                // Change posts date, from timestamp to Date.
-                // Only do once post.date is not null because it initially is
-                // TODO: Work out why this is
-                if (post.date != null) {
-                    post.date = (post.date as Timestamp).toDate();
+                const data = doc.data();
+                const post : PostMeta = {
+                    creatorId: data!.creatorId,
+                    text: data!.text,
+                    objectId: data!.objectId,
+                    date: (data!.date as Timestamp).toDate(),
+                    objectType: data!.objectType,
+                    likes: data!.likes,
+                    commentIds: data!.commentIds,
+                    postId: data!.postId
                 }
-                posts.push(post as PostMeta);
+                posts.push(post);
             });
-
+            console.log(`Posts are ${posts}`)
             postStore.update(() => {
                 console.log('💥 querySnapshot: New data: ', posts);
                 return [...posts];
