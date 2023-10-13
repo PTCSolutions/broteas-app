@@ -28,7 +28,7 @@ export async function newPost(post: Post) {
                 date: serverTimestamp(),
                 objectType: post.objectType,
                 likes: [],
-                comments: [],
+                commentIds: [],
             }
         );
     } catch (e) {

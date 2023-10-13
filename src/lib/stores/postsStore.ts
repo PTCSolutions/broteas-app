@@ -17,18 +17,12 @@ const subscribeToMessages = async () => {
             console.log("Snapshot run")
             const posts: PostMeta[] = [];
             q.forEach((doc) => {
-                const data = doc.data();
-                const post : PostMeta = {
-                    creatorId: data!.creatorId,
-                    text: data!.text,
-                    objectId: data!.objectId,
-                    date: (data!.date as Timestamp).toDate(),
-                    objectType: data!.objectType,
-                    likes: data!.likes,
-                    commentIds: data!.commentIds,
-                    postId: doc.id
+                const post = doc.data();
+                post.postId = doc.id
+                if (post.date != null) {
+                    post.date = (post.date as Timestamp).toDate();
                 }
-                posts.push(post);
+                posts.push(post as PostMeta);
             });
             console.log(`Posts are ${posts}`)
             postStore.update(() => {
