@@ -9,8 +9,8 @@
 </script>
 
 <div class="h-full p-4">
-	<div class="bg-white rounded-lg p-4 flex flex-row">
-		<div class="w-28 h-28 bg-blue-500 rounded">
+	<div class="bg-white dark:bg-gray-600 rounded-lg p-4 flex flex-row">
+		<div class="w-28 h-28 aspect-square bg-blue-500 rounded overflow-hidden">
 			<img class="rounded" src={artist.images[0].url} alt="" />
 		</div>
 		<div class="w-4" />
