@@ -154,6 +154,13 @@ export interface Album {
     type: string,
 }
 
+export type PostObject = Song | Artist | Album;
+// Common info to post objects: songs, artists and albums
+export interface PostObjectInfo {
+    img: string;
+    name: string;
+}
+
 import { get } from "svelte/store"
 import { accessToken } from "./stores/accessTokenStore";
 const token = get(accessToken);
