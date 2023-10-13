@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
+	import type { PostComment } from '$lib/comment.js';
 	import Button from '$lib/components/forms/Button.svelte';
 	import CommentCard from '$lib/components/posts/comments/CommentCard.svelte';
-	import type { PostComment, PostMeta } from '$lib/post.js';
+	import type { PostMeta } from '$lib/post.js';
 	import type { Album, Artist, PostObjectInfo, Song } from '$lib/spotify.js';
 	import { userProfileStore } from '$lib/stores/userStore.js';
 	import type { User } from '$lib/user.js';
@@ -44,7 +44,7 @@
 			<div class="text-xl font-medium">Comments</div>
 			{#if comments}
 				{#each comments as comment (comment.id)}
-					<CommentCard {comment} {post} />
+					<CommentCard {comment}/>
 				{/each}
 			{/if}
 		</div>

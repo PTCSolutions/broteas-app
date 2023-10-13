@@ -2,7 +2,6 @@
 	import SongThreadCard from '$lib/components/SongThreadCard.svelte';
 	import type { Album, Artist, Song } from '$lib/spotify.js';
 	import AlbumThreadCard from '$lib/components/AlbumThreadCard.svelte';
-	import type { User } from '$lib/user.js';
 	export let data;
 	let songs: Song[] = data.songs;
 	let artist: Artist = data.artist;

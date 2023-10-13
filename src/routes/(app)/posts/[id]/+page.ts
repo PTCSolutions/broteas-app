@@ -1,4 +1,5 @@
-import { getComments, getPost, type PostComment, type PostMeta } from '$lib/post.js'
+import { getComments, type PostComment } from '$lib/comment';
+import {  getPost, type PostMeta } from '$lib/post.js'
 import { getObjectJson, type PostObject } from '$lib/spotify.js';
 import { getUser, type User } from '$lib/user';
 

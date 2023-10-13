@@ -18,13 +18,6 @@ export interface PostMeta extends Post {
     commentIds: Array<string>;
 }
 
-export interface PostComment {
-    id: string;
-    commentorId: string;
-    text: string;
-    date: Date;
-}
-
 export async function newPost(post: Post) {
     try {
         await addDoc(collection(db, "posts"),
@@ -67,7 +60,7 @@ export async function likePost(postId: string, uid: string) {
 
     }
 }
-
+// Get a post from its postId
 export async function getPost(postId: string): Promise<PostMeta | null> {
     const querySnapshot = await getDoc(doc(db, "posts", postId));
     let post: PostMeta | null = null;
@@ -88,43 +81,7 @@ export async function getPost(postId: string): Promise<PostMeta | null> {
     return post;
 }
 
-export async function getComments(postId: string) {
-    const comments: PostComment[] = [];
-    const docs = await getDocs(collection(db, "posts", postId, "comments"));
-    if (!docs.empty) {
-        docs.forEach((doc) => {
-            const data = doc.data();
-            const comment = {
-                commentorId: data.commentorId,
-                date: (data!.date as Timestamp).toDate(),
-                id: doc.id,
-                text: data.text,
-            }
-            comments.push(comment);
-        })
-    }
-    return comments;
-}
-
-
-export async function newComment(postId: string, commentorId: string, text: string) {
-    try {
-        await addDoc(collection(db, "posts", postId, "comments"),
-            {
-                commentorId: commentorId,
-                text: text,
-                date: serverTimestamp(),
-            }
-        );
-    } catch (e) {
-        console.error("Error adding document: ", e);
-    }
-}
-
-export async function deleteComment(postId: string, commentId: string) {
-    await deleteDoc(doc(db, "posts", postId, "comments", commentId));
-}
-
+// Get the posts about a specific object
 export async function getPostsForObject(objectId: string): Promise<Array<PostMeta | null>> {
     const posts: Array<PostMeta> = [];
 
