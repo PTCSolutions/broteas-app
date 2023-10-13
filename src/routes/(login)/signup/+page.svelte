@@ -27,6 +27,9 @@
 			</div>
 
 			<div class="w-full"><Button text="Join" /></div>
+			<div>
+				Already have an account? <a class="text-blue-500 font-medium" href="/login">Login</a>
+			</div>
 		</div>
 	</form>
 	<!-- If there is an error on submitting the form, show it in red underneath-->
