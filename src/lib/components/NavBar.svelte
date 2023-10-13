@@ -8,8 +8,10 @@
 </script>
 
 <aside class="flex-col flex w-32 bg-gray-50 dark:bg-gray-800 dark:border-gray-600 min-h-screen p-2 border-r-2 fixed">
-	<div>
-		<a href="/">Logo</a>
+	<div class="w-full items-center flex flex-col mt-2">
+		<a href="/">
+			<img class="w-20 h-20" src="/BROLOGO.png" alt="">
+		</a>
 	</div>
 	<div class="grow" />
 	<div class="flex-col flex gap-8">
