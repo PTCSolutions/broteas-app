@@ -56,6 +56,5 @@ export const actions = {
             });
 const token = await response.json();
 const accessToken = token.access_token;
-console.log(accessToken);
 return { accessToken: accessToken };
 }

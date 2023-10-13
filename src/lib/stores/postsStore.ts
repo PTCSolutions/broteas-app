@@ -26,7 +26,7 @@ const subscribeToMessages = async () => {
                     objectType: data!.objectType,
                     likes: data!.likes,
                     commentIds: data!.commentIds,
-                    postId: data!.postId
+                    postId: doc.id
                 }
                 posts.push(post);
             });
