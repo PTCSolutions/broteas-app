@@ -3,9 +3,9 @@
 	import type { Album, Artist, Song } from '$lib/spotify.js';
 	import AlbumThreadCard from '$lib/components/AlbumThreadCard.svelte';
 	export let data;
-	let songs: Song[] = data.songs;
+	let songs: Song[] = data.songs.slice(0, 5);
 	let artist: Artist = data.artist;
-	let albums: Album[] = data.albums;
+	let albums: Album[] = data.albums.slice(0, 5);
 
 	async function searchWikipedia(searchQuery: string) {
 		const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=1&srsearch=${searchQuery}`;
@@ -21,7 +21,7 @@
 	}
 </script>
 
-<div class="h-full p-4">
+<div class="h-full p-4 overflow-hidden">
 	<div class="bg-white dark:bg-gray-600 rounded-lg p-4 flex flex-row">
 		<div class="w-28 h-28 aspect-square bg-blue-500 rounded overflow-hidden">
 			<img class="rounded" src={artist.images[0].url} alt="" />
@@ -48,18 +48,21 @@
 	</div>
 	<div class="h-4" />
 	<div class="text-xl font-medium">Popular songs</div>
-	<div class="flex flex-row overflow-auto">
+	<div class="flex flex-row overflow-auto items-center">
 		{#each songs as song}
 			<SongThreadCard {song} />
 			<div class="w-2" />
 		{/each}
+		<div class="font-md p-2">See more</div>
 	</div>
+
 	<div class="h-4" />
 	<div class="text-xl font-medium">Albums</div>
-	<div class="flex flex-row overflow-auto">
+	<div class="flex flex-row overflow-auto items-center">
 		{#each albums as album}
 			<AlbumThreadCard {album} />
 			<div class="w-2" />
 		{/each}
+		<div class="font-md p-2">See more</div>
 	</div>
 </div>
