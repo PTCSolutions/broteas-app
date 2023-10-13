@@ -15,10 +15,10 @@ export interface PostMeta extends Post {
     postId: string;
     date: Date;
     likes: Array<string>;
-    comments: Array<PostComment>;
+    comments: Array<string>;
 }
 
-interface PostComment {
+export interface PostComment {
     id: string;
     commentorId: string;
     text: string;
@@ -86,6 +86,24 @@ export async function getPost(postId: string): Promise<PostMeta | null> {
         // doc.data() is never undefined for query doc snapshots
     }
     return post;
+}
+
+export async function getComments(postId: string) {
+    const comments: PostComment[] = [];
+    const docs = await getDocs(collection(db, "posts", postId, "comments"));
+    if (!docs.empty) {
+        docs.forEach((doc) => {
+            const data = doc.data();
+            const comment = {
+                commentorId: data.commentorId,
+                date: (data!.date as Timestamp).toDate(),
+                id: doc.id,
+                text: data.text,
+            }
+            comments.push(comment);
+        })
+    }
+    return comments;
 }
 
 
