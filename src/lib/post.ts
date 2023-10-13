@@ -6,8 +6,10 @@ export interface Post {
     creatorId: string;
     text: string;
     objectId: string;
-    objectType: string;
+    objectType: ObjectType;
 }
+
+export type ObjectType = "artist" | "track" | "album"
 // Uncomment this when we want to read posts
 export interface PostMeta extends Post {
     postId: string;
@@ -23,34 +25,21 @@ interface PostComment {
     date: Date;
 }
 
-export async function newPost(request: Request) {
-    const data = await request.formData();
-    const text = data.get('text') as string;
-    const uid = data.get('uid') as string;
-    const objectId = data.get('objectId') as string;
-    const objectType = data.get('objectType') as string;
-    if (text != null && objectId != null && uid != null && objectType != null) {
-        const post: Post = {
-            creatorId: uid,
-            text: text,
-            objectId: objectId,
-            objectType: objectType,
-        };
-        try {
-            await addDoc(collection(db, "posts"),
-                {
-                    creatorId: post.creatorId,
-                    text: post.text,
-                    objectId: post.objectId,
-                    date: serverTimestamp(),
-                    objectType: post.objectType,
-                    likes: [],
-                    comments: [],
-                }
-            );
-        } catch (e) {
-            console.error("Error adding document: ", e);
-        }
+export async function newPost(post: Post) {
+    try {
+        await addDoc(collection(db, "posts"),
+            {
+                creatorId: post.creatorId,
+                text: post.text,
+                objectId: post.objectId,
+                date: serverTimestamp(),
+                objectType: post.objectType,
+                likes: [],
+                comments: [],
+            }
+        );
+    } catch (e) {
+        console.error("Error adding document: ", e);
     }
 }
 

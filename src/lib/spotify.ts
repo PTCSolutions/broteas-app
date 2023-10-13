@@ -1,3 +1,5 @@
+import type { ObjectType } from "./post"
+
 export interface Song {
     album: {
         id: string,
@@ -162,7 +164,7 @@ export interface PostObjectInfo {
 }
 
 // Get the json info of the song in the post widget
-export async function getObjectJson(objectId: string, access_token: string, objectType: string) {
+export async function getObjectJson(objectId: string, access_token: string, objectType: ObjectType) {
     if (access_token != null) {
         try {
             const response = await fetch(`https://api.spotify.com/v1/${objectType}s/${objectId}`, {

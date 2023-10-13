@@ -9,6 +9,7 @@
 	import { searchForOtherUsers, type User } from '$lib/user';
 	import { userProfileStore } from '$lib/stores/userStore';
 	import UserCard from './object_cards/UserCard.svelte';
+	import type { ObjectType } from '$lib/post';
 	export let showModal: boolean;
 	export let objectSelected: any;
 	export let userSearchOn: boolean = true;
@@ -47,14 +48,14 @@
 				}
 		  ];
 
-	let searchCatagory: string = 'track';
+	let searchCatagory: ObjectType = 'track';
 	let searchText: string = '';
 	let songs: Array<Song> = [];
 	let artists: Array<Artist> = [];
 	let albums: Array<Album> = [];
 	let users: User[] = [];
 	// Function which returns a list of songs from spotify
-	async function search(searchText: string, searchCatagory: string) {
+	async function search(searchText: string, searchCatagory: ObjectType | "user") {
 		if (searchText != null) {
 			if (searchCatagory != 'user') {
 				const response = await fetch(
