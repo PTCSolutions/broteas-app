@@ -5,7 +5,7 @@
 </script>
 
 <div class="flex-col flex bg-white my-2 p-2 gap-1 items-start dark:bg-gray-600">
-	<a href={`/artists/${song.artists[0].id}/songs/${song.id}`}>
+	<a href={`/songs/${song.id}`}>
 		<div class="rounded-lg relative w-40 h-40">
 			<img class="rounded-lg z-0" src={song.album.images[0].url} alt="" />
 			<div

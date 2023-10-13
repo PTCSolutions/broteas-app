@@ -14,7 +14,7 @@
 			class="w-full h-1/2 p-4 z-10 bottom-0 absolute rounded-lg bg-gradient-to-t to-transparent from-black flex-col flex justify-end"
 		>
 			<a
-				href={`/artists/${song.artists[0].id}/songs/${song.id}`}
+				href={`/songs/${song.id}`}
 				class="hover:underline text-white text-lg">{song.name}</a
 			>
 			<a href={`/artists/${song.artists[0].id}`} class="hover:underline text-white">
