@@ -161,19 +161,15 @@ export interface PostObjectInfo {
     name: string;
 }
 
-import { get } from "svelte/store"
-import { accessToken } from "./stores/accessTokenStore";
-const token = get(accessToken);
-
 // Get the json info of the song in the post widget
-export async function getObjectJson(objectId: string, objectType: string) {
-    if (accessToken != null) {
+export async function getObjectJson(objectId: string, access_token: string, objectType: string) {
+    if (access_token != null) {
         try {
             const response = await fetch(`https://api.spotify.com/v1/${objectType}s/${objectId}`, {
                 method: 'GET',
                 headers: {
                     // Accept: 'application/json'
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${access_token}`
                 }
             });
             return response.json();
@@ -183,13 +179,13 @@ export async function getObjectJson(objectId: string, objectType: string) {
     }
 }
 
-export async function getArtistTopTracks(artistId: string): Promise<Array<Song>> {
+export async function getArtistTopTracks(artistId: string, access_token: string): Promise<Array<Song>> {
     const response = await fetch(
         `https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=GB`,
         {
             method: 'GET',
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${access_token}`
             }
         }
     );
@@ -202,13 +198,13 @@ export async function getArtistTopTracks(artistId: string): Promise<Array<Song>>
     }
 }
 
-export async function getArtistAlbums(artistId: string): Promise<Array<Album>> {
+export async function getArtistAlbums(artistId: string, access_token: string): Promise<Array<Album>> {
     const response = await fetch(
         `https://api.spotify.com/v1/artists/${artistId}/albums?market=GB`,
         {
             method: 'GET',
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${access_token}`
             }
         }
     );
@@ -221,14 +217,14 @@ export async function getArtistAlbums(artistId: string): Promise<Array<Album>> {
     }
 }
 
-export async function getPostsForObject(objectId: string): Promise<Array<Song>> {
+export async function getPostsForObject(objectId: string, access_token: string): Promise<Array<Song>> {
     const response = await fetch(
         `https://api.spotify.com/v1/artists/${objectId}/top-tracks?market=GB`,
         {
             method: 'GET',
             headers: {
 
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${access_token}`
             }
 
         }
