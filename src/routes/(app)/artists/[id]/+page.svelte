@@ -6,6 +6,19 @@
 	let songs: Song[] = data.songs;
 	let artist: Artist = data.artist;
 	let albums: Album[] = data.albums;
+
+	async function searchWikipedia(searchQuery: string) {
+		const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=1&srsearch=${searchQuery}`;
+		const response = await fetch(endpoint);
+		if (!response.ok) {
+			throw Error(response.statusText);
+		}
+
+		const json = await response.json();
+		const result = json.query.search[0];
+
+		return result;
+	}
 </script>
 
 <div class="h-full p-4">
@@ -19,7 +32,18 @@
 				{artist.name}
 			</div>
 			<div class="h-2" />
-			<div class="text-xl">A bio about the artist if we can get the code for it somewhere</div>
+			{#await searchWikipedia(artist.name)}
+				<div>...</div>
+			{:then result}
+				<div class="text-xl break-normal">
+					{@html result.snippet}...
+					<a class="hover:underline" href={`https://en.wikipedia.org/?curid=${result.pageid}`}
+						>Read more</a
+					>
+				</div>
+			{:catch error}
+				<div />
+			{/await}
 		</div>
 	</div>
 	<div class="h-4" />
