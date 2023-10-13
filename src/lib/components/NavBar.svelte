@@ -14,7 +14,7 @@
 	<div class="grow" />
 	<div class="flex-col flex gap-8">
 		<MenuItem title="Home" href="/" />
-		<MenuItem title="News" href="/news" />
+		<!-- <MenuItem title="News" href="/news" /> -->
 		<MenuItem title="Search" href="/search" />
 		<button on:click={() => (showModal = true)} class="my-1 py-1 px-2 rounded-md hover:bg-gray-300 dark:text-white dark:hover:bg-gray-600 text-xl text-left">New Post</button>
 	</div>
