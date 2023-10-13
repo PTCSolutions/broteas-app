@@ -6,14 +6,16 @@ export async function load({ params, parent }) {
     const currentAccessToken = (await parent()).token;
     if (currentAccessToken != null) {
         const post: PostMeta | null = await getPost(params.id);
-        const object: PostObject = await getObjectJson(post!.objectId, currentAccessToken, post!.objectType);
-        const poster: User | null = await getUser(post!.creatorId);
-        const comments: PostComment[] = await getComments(post!.postId);
-        return {
-            post: post,
-            object: object,
-            poster: poster,
-            comments: comments
-        };
+        if (post != null) {
+            const object: PostObject = await getObjectJson(post!.objectId, currentAccessToken, post!.objectType);
+            const poster: User | null = await getUser(post!.creatorId);
+            const comments: PostComment[] = await getComments(post!.postId);
+            return {
+                post: post,
+                object: object,
+                poster: poster,
+                comments: comments
+            };
+        }
     }
 }
