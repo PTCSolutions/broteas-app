@@ -8,7 +8,8 @@
 
 	let uid = $userProfileStore?.user?.uid;
 	// Disable button if there is no uid
-	let disabled: boolean = uid == '' || uid == null;
+	let disabled: boolean;
+	$: disabled = uid == '' || uid == null;
 	export let object: any;
 	export let objectType: string = 'track';
 </script>
