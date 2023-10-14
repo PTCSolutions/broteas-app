@@ -3,18 +3,16 @@ import { db } from '$lib/firebase';
 import { writable, type Writable } from "svelte/store";
 import type { PostMeta } from '$lib/post';
 
-export const postStore: Writable<PostMeta[]> = writable([]);
+
+export const postStore: Writable<{posts: PostMeta[], loading: boolean}> = writable({posts: [], loading: true});
 
 let messagesUnsubscribeCallback;
 
 const subscribeToMessages = async () => {
-
     const querySnapshot = query(collection(db, "posts"), orderBy("date", "desc"));
-    console.log("Top level run")
     messagesUnsubscribeCallback = onSnapshot(
         querySnapshot,
         (q) => {
-            console.log("Snapshot run")
             const posts: PostMeta[] = [];
             q.forEach((doc) => {
                 const post = doc.data();
@@ -26,8 +24,9 @@ const subscribeToMessages = async () => {
             });
             postStore.update(() => {
                 console.log('💥 querySnapshot: New data: ', posts);
-                return [...posts];
+                return {posts: [...posts], loading: false};
             });
+
         },
         (error) => {
             console.warn("Couldn't update snapshot, maybe the user is logged out?", error);
