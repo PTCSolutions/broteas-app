@@ -14,22 +14,11 @@
 	// let object: PostObjectInfo | null;
 	let poster: User | undefined | null = data.poster;
 	let comments: PostComment[] | undefined = data.comments;
-	// if (post?.objectType == 'artist') {
-	// 	let artist = data.object as Artist;
-	// 	object = { img: artist.images[0].url, name: artist.name };
-	// } else if (post?.objectType == 'album') {
-	// 	let album = data.object as Album;
-	// 	object = { img: album.images[0].url, name: album.name };
-	// } else if (post?.objectType == 'track') {
-	// 	let song = data.object as Song;
-	// 	object = { img: song.album.images[0].url, name: song.name };
-	// }
 	let object: PostObject | undefined = data.object;
 </script>
 
 {#if post && object}
-	<div class=" h-full">
-		<div class="p-4">
+	<div class="p-4 h-full flex flex-col gap-2">
 			<div class="bg-white dark:bg-gray-600 rounded-lg p-4 flex flex-row">
 				<div class="w-40 bg-blue-500 rounded">
 					<ObjectWidget {object} />
@@ -49,15 +38,15 @@
 					</div>
 				</div>
 			</div>
-			<div class="h-4" />
-			<div class="text-xl font-medium">Comments</div>
 			<div class="h-2" />
+			<div class="text-xl font-medium">Comments</div>
+
 			{#if comments}
 				{#each comments as comment (comment.id)}
 					<CommentCard {comment} />
 				{/each}
 			{/if}
-			<div class="h-4" />
+			<div class="h-2" />
 			<form method="POST" action="?/newComment">
 				<div class="flex flex-row items-center gap-4">
 					<!-- <img class="rounded w-1/4 h-1/4" src={getObjectImageSrc(object)} alt="" /> -->
@@ -73,6 +62,5 @@
 					</div>
 				</div>
 			</form>
-		</div>
 	</div>
 {/if}
