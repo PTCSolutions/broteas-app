@@ -6,7 +6,7 @@
 	import type { Album, Artist, PostObject, PostObjectInfo, Song } from '$lib/spotify.js';
 	import { userProfileStore } from '$lib/stores/userStore.js';
 	import type { User } from '$lib/user.js';
-	import ObjectWidget from '$lib/components/object_widgets/ObjectWidget.svelte';
+	import PostObjectWidget from '$lib/components/posts/widgets/PostObjectWidget.svelte';
 	import { format } from 'timeago.js';
 
 	export let data;
@@ -21,7 +21,7 @@
 	<div class="p-4 h-full flex flex-col gap-2">
 			<div class="bg-white dark:bg-gray-600 rounded-lg p-4 flex flex-row">
 				<div class="w-40">
-					<ObjectWidget {object} />
+					<PostObjectWidget {object} />
 				</div>
 				<div class="w-4" />
 				<div class="flex flex-col gap-3 w-full">

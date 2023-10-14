@@ -6,7 +6,7 @@
 	import { getObjectJson } from '$lib/spotify';
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	import { format } from 'timeago.js';
-	import ObjectWidget from '../object_widgets/ObjectWidget.svelte';
+	import SearchObjectWidget from './widgets/PostObjectWidget.svelte';
 	// The post in question
 	export let post: PostMeta;
 	// Get user who posted the post
@@ -50,7 +50,7 @@
 				{#await getObjectJsonFunction()}
 					<div>Waiting</div>
 				{:then json}
-					<ObjectWidget object={json} />
+					<SearchObjectWidget object={json} />
 				{:catch error}
 					<div>{error}</div>
 				{/await}

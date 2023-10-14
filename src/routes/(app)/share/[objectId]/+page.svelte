@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ShareObjectWidget from "$lib/components/posts/ShareObjectWidget.svelte";
+	import ShareObjectWidget from "$lib/components/ShareObjectWidget.svelte";
 
 	export let data;
 

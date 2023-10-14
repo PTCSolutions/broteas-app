@@ -1,7 +1,7 @@
 <script lang="ts">
-	import SongThreadCard from '$lib/components/SongThreadCard.svelte';
+	import SongThreadCard from '$lib/components/artist_page/SongThreadCard.svelte';
 	import type { Album, Artist, Song } from '$lib/spotify.js';
-	import AlbumThreadCard from '$lib/components/AlbumThreadCard.svelte';
+	import AlbumThreadCard from '$lib/components/artist_page/AlbumThreadCard.svelte';
 	export let data;
 	let songs: Song[] = data.songs.slice(0, 5);
 	let artist: Artist = data.artist;

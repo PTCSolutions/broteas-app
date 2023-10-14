@@ -1,14 +1,14 @@
 <script lang="ts">
 	import type { Song, Artist, Album } from '$lib/spotify';
 	import Input from '$lib/components/forms/Input.svelte';
-	import SongCard from './object_cards/SongCard.svelte';
 	import Radio from '$lib/components/forms/Radio.svelte';
-	import ArtistCard from './object_cards/ArtistCard.svelte';
-	import AlbumCard from './object_cards/AlbumCard.svelte';
+	import SearchSongCard from './search/SearchSongCard.svelte';
+	import SearchArtistCard from './search/SearchArtistCard.svelte';
+	import SearchAlbumCard from './search/SearchAlbumCard.svelte';
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	import { searchForOtherUsers, type User } from '$lib/user';
 	import { userProfileStore } from '$lib/stores/userStore';
-	import UserCard from './object_cards/UserCard.svelte';
+	import SearchUserCard from './search/SearchUserCard.svelte';
 	import type { ObjectType } from '$lib/post';
 	export let showModal: boolean;
 	export let objectSelected: any;
@@ -120,7 +120,7 @@
 						objectSelected = song;
 					}}
 				>
-					<SongCard {song} />
+					<SearchSongCard {song} />
 				</button>
 			{/each}
 		{:else if searchCatagory == 'artist'}
@@ -131,7 +131,7 @@
 						objectSelected = artist;
 					}}
 				>
-					<ArtistCard {artist} />
+					<SearchArtistCard {artist} />
 				</button>
 			{/each}
 		{:else if searchCatagory == 'album'}
@@ -141,12 +141,12 @@
 						showModal = true;
 						objectSelected = album;
 					}}
-					><AlbumCard {album} />
+					><SearchAlbumCard {album} />
 				</button>
 			{/each}
 		{:else if searchCatagory == 'user'}
 			{#each users as user}
-				<UserCard {user} followed={$userProfileStore?.user?.following?.includes(user.uid)} />
+				<SearchUserCard {user} followed={$userProfileStore?.user?.following?.includes(user.uid)} />
 			{/each}
 		{/if}
 	</div>

@@ -2,9 +2,9 @@
 	import Button from '$lib/components/forms/Button.svelte';
 	import { enhance } from '$app/forms';
 	import { userProfileStore } from '$lib/stores/userStore';
-	import SongCard from '../object_cards/SongCard.svelte';
-	import ArtistCard from '../object_cards/ArtistCard.svelte';
-	import AlbumCard from '../object_cards/AlbumCard.svelte';
+	import SearchSongCard from './search/SearchSongCard.svelte';
+	import SearchArtistCard from './search/SearchArtistCard.svelte';
+	import SearchAlbumCard from './search/SearchAlbumCard.svelte';
 
 
 	let uid: string | undefined;
@@ -24,11 +24,11 @@
 
 					<!-- <img class="rounded w-1/4 h-1/4" src={getObjectImageSrc(object)} alt="" /> -->
 					{#if objectType == 'track'}
-						<SongCard song={object} />
+						<SearchSongCard song={object} />
 					{:else if objectType == 'artist'}
-						<ArtistCard artist={object} />
+						<SearchArtistCard artist={object} />
 					{:else if objectType == 'album'}
-						<AlbumCard album={object} />
+						<SearchAlbumCard album={object} />
 					{:else}
 						<div />
 					{/if}

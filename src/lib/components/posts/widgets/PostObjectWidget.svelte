@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { PostObject } from '$lib/spotify';
 	import { asSong, asArtist, asAlbum } from '$lib/spotify';
-	import AlbumWidget from './AlbumWidget.svelte';
-	import SongWidget from './SongWidget.svelte';
-    import ArtistWidget from './ArtistWidget.svelte';
+	import AlbumWidget from './PostAlbumWidget.svelte';
+	import SongWidget from './PostSongWidget.svelte';
+    import ArtistWidget from './PostArtistWidget.svelte';
 	export let object: PostObject;
 </script>
 
