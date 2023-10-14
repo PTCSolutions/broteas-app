@@ -8,35 +8,39 @@
 	let albums: Album[] = data.albums.slice(0, 5);
 
 	async function searchWikipedia(searchQuery: string) {
-		const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=1&srsearch=${searchQuery}`;
+		const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=1&srsearch=musical%20artist%20${searchQuery}`;
 		const response = await fetch(endpoint);
 		if (!response.ok) {
 			throw Error(response.statusText);
 		}
-
 		const json = await response.json();
 		const result = json.query.search[0];
-
+		console.log(result.snippet);
 		return result;
 	}
 </script>
 
 <div class="h-full p-4 overflow-hidden">
-	<div class="bg-white dark:bg-gray-600 rounded-lg p-4 flex flex-row">
-		<div class="w-28 h-28 aspect-square bg-blue-500 rounded overflow-hidden">
-			<img class="rounded" src={artist.images[0].url} alt="" />
+	<!--Current layout. We give the row a fixed height of 40 pixels. This is the right height
+	for two lines since the snippet will only ever take up 2 lines of space.-->
+	<div class="h-40 bg-white dark:bg-gray-600 rounded-lg p-4 flex flex-row gap-4 items-center">
+		<!-- The image takes up all the height it can in the given space-->
+		<div class="h-full aspect-square rounded">
+			<img class="rounded h-full w-full" src={artist.images[0].url} alt="" />
 		</div>
-		<div class="w-4" />
 		<div class="flex flex-col">
-			<div class="text-7xl font-semibold">
+			<div class="text-6xl font-semibold">
 				{artist.name}
 			</div>
 			<div class="h-2" />
 			{#await searchWikipedia(artist.name)}
 				<div>...</div>
 			{:then result}
-				<div class="text-xl break-normal">
-					{@html result.snippet}...
+			<!-- Line clamp ensures div can only ever go over two lines-->
+				<div class="text-xl break-normal line-clamp-2">
+					<span>
+						{@html result.snippet}...
+					</span>
 					<a class="hover:underline" href={`https://en.wikipedia.org/?curid=${result.pageid}`}
 						>Read more</a
 					>
