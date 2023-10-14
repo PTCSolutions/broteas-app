@@ -14,6 +14,7 @@
 		commentor = user;
 	});
 	let replyShowing: boolean = false;
+	let subcommentsShowing: boolean = false;
 </script>
 
 <div class="flex flex-col gap-2 p-2 bg-white dark:bg-gray-600 rounded-lg items-start">
@@ -35,9 +36,19 @@
 		{/if}
 	</div>
 	<div>{comment.text}</div>
-	<button on:click={() => replyShowing = !replyShowing}>
-		<div class="text-sm hover:font-medium">Reply</div>
-	</button>
+	<div class="flex flex-row gap-2 items-center">
+		<button on:click={() => (replyShowing = !replyShowing)}>
+			<div class="text-sm hover:font-medium">Reply</div>
+		</button>
+		<div class="w-4" />
+		<button on:click={() => (subcommentsShowing = !subcommentsShowing)}>
+			<div class="flex flex-row items-center">
+				<span class="material-symbols-outlined" style="font-size: 20px">mode_comment</span>
+			</div>
+		</button>
+		<div class="text-xs">{comment.subCommentIds.length}</div>
+	</div>
+
 	{#if replyShowing}
 		<form method="POST" action={`/posts/${comment.postId}/?/newSubComment`}>
 			<div class="flex flex-row items-center gap-4">
@@ -56,14 +67,15 @@
 			</div>
 		</form>
 	{/if}
-
-	<div class="flex flex-col ml-4">
-		{#await getSubComments(comment.postId, comment.id)}
-			<div />
-		{:then comments}
-			{#each comments as comment (comment.id)}
-				<svelte:self {comment} />
-			{/each}
-		{/await}
-	</div>
+	{#if subcommentsShowing}
+		<div class="flex flex-col ml-4">
+			{#await getSubComments(comment.postId, comment.id)}
+				<div />
+			{:then comments}
+				{#each comments as comment (comment.id)}
+					<svelte:self {comment} />
+				{/each}
+			{/await}
+		</div>
+	{/if}
 </div>

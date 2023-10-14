@@ -20,7 +20,7 @@
 {#if post && object}
 	<div class="p-4 h-full flex flex-col gap-2">
 			<div class="bg-white dark:bg-gray-600 rounded-lg p-4 flex flex-row">
-				<div class="w-40 bg-blue-500 rounded">
+				<div class="w-40">
 					<ObjectWidget {object} />
 				</div>
 				<div class="w-4" />
