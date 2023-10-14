@@ -6,7 +6,6 @@
 	import SearchArtistCard from './search/SearchArtistCard.svelte';
 	import SearchAlbumCard from './search/SearchAlbumCard.svelte';
 
-
 	let uid: string | undefined;
 	$: uid = $userProfileStore?.user?.uid;
 	// Disable button if there is no uid
@@ -19,7 +18,12 @@
 
 {#if object != null}
 	<div class="p-4 rounded-lg bg-white dark:bg-gray-800 dark:text-white overflow-hidden w-[550px]">
-		<form method="POST" action="/?/newPost" use:enhance>
+		<form method="POST" action="/?/newPost" use:enhance={({ }) => {
+			return async ({ update }) => {
+				await update();
+				window.location.href = "/";
+			};
+		}}>
 			<div class="flex flex-col items-center gap-4">
 
 					<!-- <img class="rounded w-1/4 h-1/4" src={getObjectImageSrc(object)} alt="" /> -->
