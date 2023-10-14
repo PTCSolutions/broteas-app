@@ -6,9 +6,7 @@
 	import { getObjectJson } from '$lib/spotify';
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	import { format } from 'timeago.js';
-	import SongWidget from '$lib/components/object_widgets/SongWidget.svelte';
-	import ArtistWidget from '../object_widgets/ArtistWidget.svelte';
-	import AlbumWidget from '../object_widgets/AlbumWidget.svelte';
+	import ObjectWidget from '../object_widgets/ObjectWidget.svelte';
 	// The post in question
 	export let post: PostMeta;
 	// Get user who posted the post
@@ -52,15 +50,7 @@
 				{#await getObjectJsonFunction()}
 					<div>Waiting</div>
 				{:then json}
-					{#if post.objectType == 'track'}
-						<SongWidget song={json} />
-					{:else if post.objectType == 'artist'}
-						<ArtistWidget artist={json} />
-					{:else if post.objectType == 'album'}
-						<AlbumWidget album={json} />
-					{:else}
-						<div />
-					{/if}
+					<ObjectWidget object={json} />
 				{:catch error}
 					<div>{error}</div>
 				{/await}

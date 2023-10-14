@@ -163,6 +163,18 @@ export interface PostObjectInfo {
     name: string;
 }
 
+export function asSong(object: PostObject): Song {
+    return object as Song;
+}
+
+export function asArtist(object: PostObject): Artist {
+    return object as Artist;
+}
+
+export function asAlbum(object: PostObject): Album {
+    return object as Album;
+}
+
 // Get the json info of the song in the post widget
 export async function getObjectJson(objectId: string, access_token: string, objectType: ObjectType) {
     if (access_token != null) {
