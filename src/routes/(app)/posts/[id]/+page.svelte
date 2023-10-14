@@ -53,12 +53,12 @@
 					<textarea
 						name="text"
 						autocomplete="off"
-						placeholder={`Talk about ${object.name}!`}
-						class="bg-white appearance-none border border-black rounded w-full h-10 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-purple-500 resize-none"
+						placeholder={`Reply to ${poster?.firstName}`}
+						class="bg-white dark:bg-gray-600 dark:text-white appearance-none border border-black rounded w-full h-10 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-purple-500 resize-none"
 					/>
 					<input type="hidden" value={$userProfileStore?.user?.uid} name="commentorId" />
 					<div class="w-1/3">
-						<Button text="Post" />
+						<Button text="Reply" />
 					</div>
 				</div>
 			</form>

@@ -24,7 +24,6 @@ const subscribeToMessages = async () => {
                 }
                 posts.push(post as PostMeta);
             });
-            console.log(`Posts are ${posts}`)
             postStore.update(() => {
                 console.log('💥 querySnapshot: New data: ', posts);
                 return [...posts];

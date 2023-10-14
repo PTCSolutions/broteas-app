@@ -18,7 +18,7 @@
 </script>
 
 {#if object != null}
-	<div class="p-4 rounded-lg bg-white overflow-hidden w-[550px]">
+	<div class="p-4 rounded-lg bg-white dark:bg-gray-800 dark:text-white overflow-hidden w-[550px]">
 		<form method="POST" action="/?/newPost" use:enhance>
 			<div class="flex flex-col items-center gap-4">
 
@@ -36,7 +36,7 @@
 						name="text"
 						autocomplete="off"
 						placeholder={`Talk about ${object.name}!`}
-						class="bg-white appearance-none border border-black rounded w-full h-20 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-purple-500 resize-none"
+						class="bg-white dark:bg-gray-600 dark:text-white appearance-none border border-black rounded w-full h-20 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-purple-500 resize-none"
 					/>
 					<input value={object.id} type="hidden" name="objectId" />
 					<input value={objectType} type="hidden" name="objectType" />

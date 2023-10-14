@@ -15,7 +15,7 @@
 	};
 </script>
 
-<div class="flex-row flex bg-gray-100 my-2 p-2 items-center rounded-lg">
+<div class="flex-row flex bg-gray-100 dark:bg-gray-600 dark:text-white my-2 p-2 items-center rounded-lg">
 	<div class="w-12 h-12 bg-blue-500 rounded" />
 	<div class="w-4" />
 	<div class="text-lg font-medium">

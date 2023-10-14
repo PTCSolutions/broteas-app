@@ -1,5 +1,12 @@
 <script lang="ts">
 	import NavBar from '$lib/components/NavBar.svelte';
+	// import { browser } from '$app/environment';
+	// import { userProfileStore } from '$lib/stores/userStore';
+
+	// if (browser && $userProfileStore?.user == null) {
+	// 	// to prevent error window is not defined, because it's SSR
+	// 	window.location.href = '/signup';
+	// }
 </script>
 
 <link

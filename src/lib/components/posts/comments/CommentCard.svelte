@@ -57,7 +57,7 @@
 					name="text"
 					autocomplete="off"
 					placeholder={`Reply to ${commentor?.firstName}`}
-					class="bg-white appearance-none border border-black rounded w-full h-10 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-purple-500 resize-none"
+					class="bg-white dark:bg-gray-600 dark:text-white appearance-none border border-black rounded w-full h-10 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-purple-500 resize-none"
 				/>
 				<input type="hidden" value={$userProfileStore?.user?.uid} name="commentorId" />
 				<input type="hidden" value={comment.id} name="parentId" />
