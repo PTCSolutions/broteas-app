@@ -1,4 +1,5 @@
 <script lang="ts">
+	import CommentCard from '$lib/components/posts/comments/CommentCard.svelte';
 	import { getPostsForObject } from '$lib/post.js';
 	import type { Song } from '$lib/spotify.js';
 	export let data;
@@ -26,11 +27,15 @@
 	<div>
 		{#await getPostsForObject(song.id)}
 			<div>Loading</div>
-		{:then posts}
-			{#if posts.length != 0}
-				{#each posts as post}
-					<div>{post?.text} - {post?.creatorId}</div>
-				{/each}
+		{:then comments}
+			{#if comments.length != 0}
+				{#if comments}
+					{#each comments as comment}
+						{#if comment}
+							<CommentCard {comment} />
+						{/if}
+					{/each}
+				{/if}
 			{:else}
 				<div>
 					Looks like no ones talking about {song.name}, be the first to start the discussion today!

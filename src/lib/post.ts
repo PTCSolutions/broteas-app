@@ -1,6 +1,7 @@
 import { collection, addDoc, deleteDoc, doc, getDoc, getDocs, DocumentSnapshot, updateDoc, arrayRemove, arrayUnion, Timestamp, query, where } from "firebase/firestore";
 import { db } from "./firebase";
 import { serverTimestamp } from 'firebase/firestore';
+import type { PostComment } from "./comment";
 
 export interface Post {
     creatorId: string;
@@ -82,8 +83,8 @@ export async function getPost(postId: string): Promise<PostMeta | null> {
 }
 
 // Get the posts about a specific object
-export async function getPostsForObject(objectId: string): Promise<Array<PostMeta | null>> {
-    const posts: Array<PostMeta> = [];
+export async function getPostsForObject(objectId: string): Promise<Array<PostComment| null>> {
+    const comments: Array<PostComment> = [];
 
     const q = query(collection(db, "posts"),
         where("objectId", "==", objectId));
@@ -92,19 +93,19 @@ export async function getPostsForObject(objectId: string): Promise<Array<PostMet
     if (!querySnapshot.empty) {
         querySnapshot.forEach((doc) => {
             const data = doc.data();
-            const post = {
-                creatorId: data!.creatorId,
+            const comment: PostComment = {
+                id: doc.id,
+                commentorId: data!.creatorId,
                 text: data!.text,
-                objectId: data!.objectId,
+                parentId: doc.id,
+                postId: doc.id,
                 date: (data!.date as Timestamp).toDate(),
-                objectType: data!.objectType,
-                likes: data!.likes,
-                commentIds: data!.commentIds,
-                postId: data!.postId
-            }
-            posts.push(post);
+                subCommentIds: data!.commentIds,
+            };
+            comments.push(comment);
         }
         );
     };
-    return posts;
+    console.log(comments)
+    return comments;
 }
