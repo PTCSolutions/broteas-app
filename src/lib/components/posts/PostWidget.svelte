@@ -27,7 +27,9 @@
 	let getObjectJsonFunction = () => getObjectJson(post.objectId, $accessToken!, post.objectType);
 </script>
 
-
+{#await getObjectJsonFunction()}
+<div></div>
+{:then json}
 <div class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white">
 	<div class="p-4 flex-col w-full">
 		<div class="flex-row flex items-center w-full">
@@ -46,14 +48,9 @@
 		</div>
 		<div class="h-4" />
 		<div class="flex-row flex w-full">
-			<div class="w-5/6 aspect-square">
-				{#await getObjectJsonFunction()}
-					<div>Waiting</div>
-				{:then json}
+			<div class="w-5/6 aspect-square">				
 					<SearchObjectWidget object={json} />
-				{:catch error}
-					<div>{error}</div>
-				{/await}
+				
 			</div>
 			<div class="flex-col flex justify-center items-center pl-2 grow">
 				<button on:click={likePostFuntion}>
@@ -79,3 +76,7 @@
 		<div class="h-2" />
 	</div>
 </div>
+{:catch error}
+					<div>{error}</div>
+				{/await}
+
