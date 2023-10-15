@@ -6,18 +6,19 @@
 	let songs: Song[] = data.songs.slice(0, 5);
 	let artist: Artist = data.artist;
 	let albums: Album[] = data.albums.slice(0, 5);
+	let json = data.json;
 
-	async function searchWikipedia(searchQuery: string) {
-		const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=1&srsearch=musical%20artist%20${searchQuery}`;
-		const response = await fetch(endpoint);
-		if (!response.ok) {
-			throw Error(response.statusText);
-		}
-		const json = await response.json();
-		const result = json.query.search[0];
-		console.log(result.snippet);
-		return result;
-	}
+	// async function searchWikipedia(searchQuery: string) {
+	// 	const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=1&srsearch=musical%20artist%20${searchQuery}`;
+	// 	const response = await fetch(endpoint);
+	// 	if (!response.ok) {
+	// 		throw Error(response.statusText);
+	// 	}
+	// 	const json = await response.json();
+	// 	const result = json.query.search[0];
+	// 	console.log(result.snippet);
+	// 	return result;
+	// }
 </script>
 
 <div class="h-full p-4 overflow-hidden">
@@ -33,21 +34,17 @@
 				{artist.name}
 			</div>
 			<div class="h-2" />
-			{#await searchWikipedia(artist.name)}
-				<div>...</div>
-			{:then result}
+
 			<!-- Line clamp ensures div can only ever go over two lines-->
-				<div class="text-xl break-normal line-clamp-2">
-					<span>
+			<div class="text-md break-normal line-clamp-3">
+				{json.bio.content}
+				<!-- <span>
 						{@html result.snippet}...
 					</span>
 					<a class="hover:underline" href={`https://en.wikipedia.org/?curid=${result.pageid}`}
 						>Read more</a
-					>
-				</div>
-			{:catch error}
-				<div />
-			{/await}
+					> -->
+			</div>
 		</div>
 	</div>
 	<div class="h-4" />
