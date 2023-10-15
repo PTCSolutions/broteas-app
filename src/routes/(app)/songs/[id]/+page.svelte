@@ -38,7 +38,7 @@
 				{/if}
 			{:else}
 				<div>
-					Looks like no ones talking about {song.name}, be the first to start the discussion today!
+					Looks like no one is talking about {song.name}, be the first to start the discussion today!
 				</div>
 			{/if}
 		{:catch error}

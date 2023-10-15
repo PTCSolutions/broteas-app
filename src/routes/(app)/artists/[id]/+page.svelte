@@ -2,6 +2,8 @@
 	import SongThreadCard from '$lib/components/artist_page/SongThreadCard.svelte';
 	import type { Album, Artist, Song } from '$lib/spotify.js';
 	import AlbumThreadCard from '$lib/components/artist_page/AlbumThreadCard.svelte';
+	import { getPostsForObject } from '$lib/post';
+	import CommentCard from '$lib/components/posts/comments/CommentCard.svelte';
 	export let data;
 	let songs: Song[] = data.songs.slice(0, 5);
 	let artist: Artist = data.artist;
@@ -50,6 +52,29 @@
 					> -->
 			</div>
 		</div>
+	</div>
+	<div class="h-4" />
+	<div class="text-xl font-medium mb-2">Latest discussion</div>
+	<div>
+		{#await getPostsForObject(artist.id)}
+			<div>Loading</div>
+		{:then comments}
+			{#if comments.length != 0}
+				{#if comments}
+					{#each comments.slice(0, 3) as comment}
+						{#if comment}
+							<CommentCard {comment} />
+						{/if}
+					{/each}
+				{/if}
+			{:else}
+				<div>
+					Looks like no one is talking about {artist.name}, be the first to start the discussion today!
+				</div>
+			{/if}
+		{:catch error}
+			<div>{error}</div>
+		{/await}
 	</div>
 	<div class="h-4" />
 	<div class="text-xl font-medium">Popular songs</div>
