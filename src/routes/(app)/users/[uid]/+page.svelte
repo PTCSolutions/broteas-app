@@ -1,7 +1,11 @@
 <script lang="ts">
-    import type { User } from '$lib/user.js';
-    export let data;
-    const user: User | null = data;
+	import type { User } from '$lib/user.js';
+	import { getUsersPosts } from '$lib/post.js';
+	import PostWidget from '$lib/components/posts/PostWidget.svelte';
+	import { fade } from 'svelte/transition';
+
+	export let data;
+	const user: User | null = data;
 </script>
 
 <div class="h-full p-4 overflow-hidden flex flex-col">
@@ -27,8 +31,18 @@
 		</div>
 		<div class="h-4" />
 		<div class="text-xl font-medium">{user.firstName}'s posts</div>
-    {:else}
-        <div>User cannot be found</div>
+		{#await getUsersPosts(user.uid)}
+			<div />
+		{:then posts}
+			<div class="grid grid-cols-3 w-full p-4 justify-between gap-4" in:fade>
+				{#each posts as post}
+					{#if post}
+						<PostWidget {post} />
+					{/if}
+				{/each}
+			</div>
+		{/await}
+	{:else}
+		<div>User cannot be found</div>
 	{/if}
-
 </div>

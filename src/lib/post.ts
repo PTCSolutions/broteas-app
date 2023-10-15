@@ -1,4 +1,4 @@
-import { collection, addDoc, deleteDoc, doc, getDoc, getDocs, DocumentSnapshot, updateDoc, arrayRemove, arrayUnion, Timestamp, query, where } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc, getDoc, getDocs, DocumentSnapshot, updateDoc, arrayRemove, arrayUnion, Timestamp, query, where, orderBy } from "firebase/firestore";
 import { db } from "./firebase";
 import { serverTimestamp } from 'firebase/firestore';
 import type { PostComment } from "./comment";
@@ -106,6 +106,34 @@ export async function getPostsForObject(objectId: string): Promise<Array<PostCom
         }
         );
     };
-    console.log(comments)
     return comments;
+}
+
+
+// Get the posts by a specific user
+export async function getUsersPosts(uid: string): Promise<Array<PostMeta | null>> {
+    const posts: Array<PostMeta> = [];
+
+    const q = query(collection(db, "posts"),
+        where("creatorId", "==", uid));
+
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const post = {
+                creatorId: data!.creatorId,
+                text: data!.text,
+                objectId: data!.objectId,
+                date: (data!.date as Timestamp).toDate(),
+                objectType: data!.objectType,
+                likes: data!.likes,
+                commentIds: data!.commentIds,
+                postId: data!.postId
+            }
+            posts.push(post);
+        }
+        );
+    };
+    return posts;
 }
