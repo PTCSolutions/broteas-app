@@ -22,7 +22,7 @@
 		<div class="w-8 aspect-square rounded-full bg-green-200" />
 		<div class="w-2" />
 		<div class="flex-col flex">
-			<div>{commentor?.firstName} {commentor?.lastName}</div>
+			<a class="hover:underline" href={`/users/${commentor?.uid}`}>{commentor?.firstName} {commentor?.lastName}</a>
 		</div>
 		<div class="w-5" />
 

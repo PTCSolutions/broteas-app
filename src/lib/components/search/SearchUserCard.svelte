@@ -18,9 +18,9 @@
 <div class="flex-row flex bg-gray-100 dark:bg-gray-600 dark:text-white my-2 p-2 items-center rounded-lg">
 	<div class="w-12 h-12 bg-blue-500 rounded" />
 	<div class="w-4" />
-	<div class="text-lg font-medium">
+	<a class="text-lg font-medium hover:underline" href={`/users/${user.uid}`}>
 		{`${user.firstName} ${user.lastName}`}
-	</div>
+	</a>
 	<div class="grow" />
 	<form method="POST" action={action()} use:enhance>
         <input type="hidden" name="followedUid" value={user.uid}/>

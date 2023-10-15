@@ -34,7 +34,7 @@
 			<div class="w-1/12 aspect-square rounded-full bg-green-200" />
 			<div class="w-2" />
 			<div class="flex-col flex">
-				<div>{poster?.firstName} {poster?.lastName}</div>
+				<a class="hover:underline" href={`/users/${poster?.uid}`}>{poster?.firstName} {poster?.lastName}</a>
 				<div class="text-xs">{format(post.date)}</div>
 			</div>
 			<div class="grow" />

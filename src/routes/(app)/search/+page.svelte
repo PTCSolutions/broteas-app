@@ -7,9 +7,12 @@
 	let objectSelected: Song | Album | Artist;
 </script>
 
-<div class="py-4 ml-4 max-w-[600px]">
+<div class="bg-white">
+	<div class="py-4 ml-4 max-w-[600px]">
 	<SearchWidget bind:showModal bind:objectSelected/>
 </div>
+</div>
+
 
 <Modal bind:showModal>
 	<ShareObjectWidget object={objectSelected} objectType={objectSelected?.type}/>
