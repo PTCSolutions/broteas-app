@@ -8,6 +8,10 @@
 	let albums: Album[] = data.albums.slice(0, 5);
 	let json = data.json;
 
+	function bioShortener(bio: string) {
+		return bio.split('Read more')[0];
+	}
+
 	// async function searchWikipedia(searchQuery: string) {
 	// 	const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=1&srsearch=musical%20artist%20${searchQuery}`;
 	// 	const response = await fetch(endpoint);
@@ -37,7 +41,7 @@
 
 			<!-- Line clamp ensures div can only ever go over two lines-->
 			<div class="text-md break-normal line-clamp-3">
-				{json.bio.content}
+				{@html bioShortener(json.bio.content)}
 				<!-- <span>
 						{@html result.snippet}...
 					</span>
@@ -65,5 +69,11 @@
 			<div class="w-2" />
 		{/each}
 		<div class="font-md p-2">See more</div>
+	</div>
+
+	<div class="h-4" />
+	<div class="text-xl font-medium">Bio</div>
+	<div class="">
+		{@html bioShortener(json.bio.content)}
 	</div>
 </div>

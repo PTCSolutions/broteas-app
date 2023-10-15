@@ -1,9 +1,7 @@
 <script lang="ts">
-	import { userProfileStore } from '$lib/stores/userStore';
 	export let form;
     export let data;
     let user: User = data;
-
 </script>
 
 <div class="h-full p-4 overflow-hidden flex flex-col gap-4">
