@@ -52,20 +52,32 @@
 	$: searchUnfollow(searchTextUnfollow);
 </script>
 
-<div class="flex flex-col pl-4 pt-4">
-	<h1>SETTINGS</h1>
-	<h2>Your profile:</h2>
-	<!--TODO: Work out whether which of the below it will be-->
+<div class="h-full p-4 overflow-hidden flex flex-col">
 	{#if $userProfileStore?.user?.uid != '' && $userProfileStore?.user?.uid != undefined && !$userProfileStore?.loading}
-		<!--Run down of users info-->
-		<div>{`Uid: ${$userProfileStore?.user?.uid}`}</div>
-		<div>{`First Name: ${$userProfileStore?.user?.firstName}`}</div>
-		<div>{`Last Name: ${$userProfileStore?.user?.lastName}`}</div>
-		<div>{`Followers: ${$userProfileStore?.user?.followers.length}`}</div>
-		<div>{`Following: ${$userProfileStore?.user?.following.length}`}</div>
-		<div class="h-14" />
+		<!--Current layout. We give the row a fixed height of 40 pixels. This is the right height
+	for two lines since the snippet will only ever take up 2 lines of space.-->
+		<div class="h-40 bg-white dark:bg-gray-600 rounded-lg p-4 flex flex-row gap-4 items-center">
+			<!-- The image takes up all the height it can in the given space-->
+			<div class="h-full aspect-square rounded-full bg-green-300">
+				<!-- <img class="rounded h-full w-full" src={artist.images[0].url} alt="" /> -->
+			</div>
+			<div class="flex flex-col">
+				<div class="text-6xl font-semibold">
+					{$userProfileStore?.user?.firstName}
+					{$userProfileStore?.user?.lastName}
+				</div>
+				<div class="h-2" />
+				<div class="flex flex-row gap-4">
+					<div>Following {$userProfileStore?.user?.following.length}</div>
+					<div>Followers {$userProfileStore?.user?.followers.length}</div>
+				</div>
+			</div>
+		</div>
+		<div class="h-4" />
+		<div class="text-xl font-medium">Your posts</div>
+
 		<!--Forms to follow or unfollow other users-->
-		<div>Enter the first OR second name of your friends below, and click to follow them!</div>
+		<!-- <div>Enter the first OR second name of your friends below, and click to follow them!</div>
 		<form
 			method="POST"
 			action="?/follow"
@@ -136,7 +148,7 @@
 					>
 				{/each}
 			</div>
-		</form>
+		</form> -->
 	{/if}
+
 </div>
-<div class="grow" />
