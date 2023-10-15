@@ -129,7 +129,7 @@ export async function getUsersPosts(uid: string): Promise<Array<PostMeta>> {
                 objectType: data!.objectType,
                 likes: data!.likes,
                 commentIds: data!.commentIds,
-                postId: data!.postId
+                postId: doc!.id
             }
             posts.push(post);
         }
