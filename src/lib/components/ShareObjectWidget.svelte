@@ -20,8 +20,8 @@
 	<div class="p-4 rounded-lg bg-white dark:bg-gray-800 dark:text-white overflow-hidden w-[550px]">
 		<form method="POST" action="/?/newPost" use:enhance={({ }) => {
 			return async ({ update }) => {
-				await update();
 				window.location.href = "/";
+				await update();
 			};
 		}}>
 			<div class="flex flex-col items-center gap-4">
