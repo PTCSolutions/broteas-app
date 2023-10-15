@@ -1,4 +1,4 @@
-import { collection, addDoc, deleteDoc, doc, getDoc, getDocs, DocumentSnapshot, updateDoc, arrayRemove, arrayUnion, Timestamp, query, where, orderBy } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc, getDoc, getDocs, DocumentSnapshot, updateDoc, arrayRemove, arrayUnion, Timestamp, query, where } from "firebase/firestore";
 import { db } from "./firebase";
 import { serverTimestamp } from 'firebase/firestore';
 import type { PostComment } from "./comment";
