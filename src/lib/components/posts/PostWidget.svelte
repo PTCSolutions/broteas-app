@@ -6,7 +6,9 @@
 	import { getObjectJson } from '$lib/spotify';
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	import { format } from 'timeago.js';
-	import SearchObjectWidget from './widgets/PostObjectWidget.svelte';
+	import PostObjectWidget from './widgets/PostObjectWidget.svelte';
+	import { fade } from 'svelte/transition';
+	import IntersectionObserver from '../IntersectionObserver.svelte';
 	// The post in question
 	export let post: PostMeta;
 	// Get user who posted the post
@@ -48,10 +50,13 @@
 		</div>
 		<div class="h-4" />
 		<div class="flex-row flex w-full">
-			<div class="w-5/6 aspect-square">				
-					<SearchObjectWidget object={json} />
-				
+			<IntersectionObserver once={true} let:intersecting={intersecting} >
+			{#if intersecting}
+			<div class="w-5/6 aspect-square" in:fade>				
+					<PostObjectWidget object={json} />
 			</div>
+			{/if}
+			</IntersectionObserver>
 			<div class="flex-col flex justify-center items-center pl-2 grow">
 				<button on:click={likePostFuntion}>
 					<span
