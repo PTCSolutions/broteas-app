@@ -3,6 +3,7 @@
 	import { getUsersPosts } from '$lib/post.js';
 	import PostWidget from '$lib/components/posts/PostWidget.svelte';
 	import { fade } from 'svelte/transition';
+	import PostGrid from '$lib/components/posts/PostGrid.svelte';
 
 	export let data;
 	const user: User | null = data;
@@ -34,13 +35,7 @@
 		{#await getUsersPosts(user.uid)}
 			<div />
 		{:then posts}
-			<div class="grid grid-cols-3 w-full p-4 justify-between gap-4" in:fade>
-				{#each posts as post}
-					{#if post}
-						<PostWidget {post} />
-					{/if}
-				{/each}
-			</div>
+			<PostGrid {posts}/>
 		{/await}
 	{:else}
 		<div>User cannot be found</div>

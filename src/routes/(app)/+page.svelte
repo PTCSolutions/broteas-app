@@ -3,6 +3,7 @@
 	import PostWidget from '$lib/components/posts/PostWidget.svelte';
 	import { userProfileStore } from '$lib/stores/userStore';
 	import { fade } from 'svelte/transition';
+	import PostGrid from '$lib/components/posts/PostGrid.svelte';
 	let name: string | undefined;
 	$: name = $userProfileStore?.user?.firstName;
 </script>
@@ -19,11 +20,7 @@
 	</div>
 	{#if $postStore?.loading === false}
 	<!-- Should each post individually fade in, or the whole grid fade in as one-->
-		<div class="grid grid-cols-3 w-full p-4 justify-between gap-4" in:fade>
-			{#each $postStore.posts as post (post.postId)}
-				<PostWidget {post} />
-			{/each}
-		</div>
+		<PostGrid posts={$postStore.posts} />
 	{/if}
 	<div class="bg-inherit grow"></div>
 </div>

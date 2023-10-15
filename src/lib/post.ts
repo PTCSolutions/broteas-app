@@ -111,7 +111,7 @@ export async function getPostsForObject(objectId: string): Promise<Array<PostCom
 
 
 // Get the posts by a specific user
-export async function getUsersPosts(uid: string): Promise<Array<PostMeta | null>> {
+export async function getUsersPosts(uid: string): Promise<Array<PostMeta>> {
     const posts: Array<PostMeta> = [];
 
     const q = query(collection(db, "posts"),
