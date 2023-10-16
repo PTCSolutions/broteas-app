@@ -1,4 +1,4 @@
-import { collection, addDoc, deleteDoc, doc, getDoc, getDocs, DocumentSnapshot, updateDoc, arrayRemove, arrayUnion, Timestamp, query, where } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc, getDoc, getDocs, DocumentSnapshot, updateDoc, arrayRemove, arrayUnion, Timestamp, query, where, limit } from "firebase/firestore";
 import { db } from "./firebase";
 import { serverTimestamp } from 'firebase/firestore';
 import type { PostComment } from "./comment";
@@ -87,7 +87,7 @@ export async function getPostsForObject(objectId: string): Promise<Array<PostCom
     const comments: Array<PostComment> = [];
 
     const q = query(collection(db, "posts"),
-        where("objectId", "==", objectId));
+        where("objectId", "==", objectId), limit(50));
 
     const querySnapshot = await getDocs(q);
     if (!querySnapshot.empty) {
@@ -111,11 +111,11 @@ export async function getPostsForObject(objectId: string): Promise<Array<PostCom
 
 
 // Get the posts by a specific user
-export async function getUsersPosts(uid: string): Promise<Array<PostMeta>> {
+export async function getPostsForUser(uid: string): Promise<Array<PostMeta>> {
     const posts: Array<PostMeta> = [];
 
     const q = query(collection(db, "posts"),
-        where("creatorId", "==", uid));
+        where("creatorId", "==", uid), limit(50));
 
     const querySnapshot = await getDocs(q);
     if (!querySnapshot.empty) {

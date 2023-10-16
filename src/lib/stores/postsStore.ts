@@ -1,4 +1,4 @@
-import { query, onSnapshot, collection, orderBy, Timestamp, where } from 'firebase/firestore';
+import { query, onSnapshot, collection, orderBy, Timestamp, where, limit } from 'firebase/firestore';
 import { db } from '$lib/firebase';
 import { get, writable, type Writable } from "svelte/store";
 import type { PostMeta } from '$lib/post';
@@ -13,9 +13,9 @@ export const subscribeToMessages = async (followingFilter : string) => {
     if (followingFilter === "following") {
         // Get the uids of the person the user is following
         const following: string[] = get(userProfileStore)?.user?.following == undefined ? [""] : get(userProfileStore)!.user!.following;
-        querySnapshot = query(collection(db, "posts"), orderBy("date", "desc"), where("creatorId", "in", following));
+        querySnapshot = query(collection(db, "posts"), orderBy("date", "desc"), where("creatorId", "in", following), limit(100));
     } else {
-        querySnapshot = query(collection(db, "posts"), orderBy("date", "desc"));
+        querySnapshot = query(collection(db, "posts"), orderBy("date", "desc"), limit(100));
     }
     messagesUnsubscribeCallback = onSnapshot(
         querySnapshot,
