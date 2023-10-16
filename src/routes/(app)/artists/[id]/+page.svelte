@@ -9,9 +9,9 @@
 	let artist: Artist = data.artist;
 	let albums: Album[] = data.albums.slice(0, 5);
 	let json = data.json;
-
+	console.log(json.bio.content);
 	function bioShortener(bio: string) {
-		return bio.split('Read more')[0];
+		return bio.split('<a href')[0];
 	}
 
 	// async function searchWikipedia(searchQuery: string) {
@@ -100,5 +100,8 @@
 	<div class="text-xl font-medium">Bio</div>
 	<div class="">
 		{@html bioShortener(json.bio.content)}
+	</div>
+	<div class="text-sm mt-4">
+		User-contributed text is available under the Creative Commons By-SA License; additional terms may apply. Sourced via <a href="https://www.last.fm">Last.fm API</a>.
 	</div>
 </div>

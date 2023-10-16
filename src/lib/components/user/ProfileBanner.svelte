@@ -28,7 +28,10 @@
 		<div class="flex flex-row gap-4 items-center">
 			<div>Following {user?.following.length}</div>
 			<div>Followers {user?.followers.length}</div>
-			<FollowButton {user} followed={$userProfileStore?.user?.following?.includes(user.uid)} />
+			{#if user.uid != $userProfileStore?.user?.uid}
+				<FollowButton {user} followed={$userProfileStore?.user?.following?.includes(user.uid)} />
+			{/if}
+			
 		</div>
 	</div>
 </div>
