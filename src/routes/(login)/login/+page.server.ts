@@ -1,5 +1,5 @@
 import { auth } from '$lib/firebase';
-import { redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import type {FirebaseError } from 'firebase/app';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
@@ -17,6 +17,10 @@ export const actions = {
             success = true;
         // Return error message if there is one
         } catch (error) {
+            const firebaseError = error as FirebaseError;
+            if (firebaseError.code == "auth/invalid-login-credentials") {
+                return fail(400, { error: "Wrong email/password", location: "password" });
+            }
             return { error: (error as FirebaseError).message };
         }
         // If succesfully signed in, redirect to home page and set the uid in cookies

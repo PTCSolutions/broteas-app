@@ -1,7 +1,7 @@
 import { auth } from '$lib/firebase';
 import { fail, redirect } from '@sveltejs/kit';
 import { createUserWithEmailAndPassword, type UserCredential } from 'firebase/auth';
-import { FirebaseError } from 'firebase/app';
+import type { FirebaseError } from 'firebase/app';
 import { getUserNames, newUser } from '$lib/user.js';
 
 
@@ -18,9 +18,13 @@ export const actions = {
         const lastName = data.get('lastName') as string;
         let uid;
         let success = false;
-
+        // Give errors for invalid usernames
         if (username.length < 8) {
-            return fail(400, { error: "Username must be at least 8 characters", location: "username" });
+            return fail(400,{ error: "Username must be at least 8 characters", location: "username" });
+        } else if (username.includes(" ")) {
+            return fail(400,{ error: "Username should not have any spaces", location: "username" });
+        } else if (!/^[a-z0-9]+$/.test(username)) {
+            return fail(400,{ error: "Username must only contain lower case letters and numbers", location: "username" });
         }
         const usernames: string[] = await getUserNames();
         if (usernames.includes(username)) {
