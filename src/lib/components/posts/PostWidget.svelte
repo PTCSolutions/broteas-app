@@ -35,7 +35,7 @@
 					<div class="w-2" />
 					<div class="flex-col flex">
 						<a class="hover:underline" href={`/users/${poster?.uid}`}
-							>{poster?.firstName} {poster?.lastName}</a
+							>@{poster?.username}</a
 						>
 						<div class="text-xs">{format(post.date)}</div>
 					</div>
