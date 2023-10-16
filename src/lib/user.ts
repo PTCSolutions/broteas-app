@@ -104,37 +104,32 @@ async function searchForUsers(searchText: string | null): Promise<User[]> {
     // Empty users array
     const users: User[] = [];
     if (searchText != null && searchText != "") {
-        // Take all user documents who have first OR second names which are prefixed by the search text
-        // NB: This text search is CASE sensitive
+        // Make search text lower case as all usernames are lower case
+        searchText = searchText.toLowerCase();
         // NB: This is a pretty lame text search but we will have to use a THIRD party firebase extension to get 
         // better text querying. lack of good text search is a KNOWN issue with firebase querying
-        const q1 = query(collection(db, "users"),
-            where("firstName", ">=", searchText), where("firstName", "<=", searchText + '\uf8ff'));
-        const q2 = query(collection(db, "users"),
-            where("lastName", ">=", searchText), where("lastName", "<=", searchText + '\uf8ff'),);
-        const queries = [q1, q2];
+        const q = query(collection(db, "users"),
+            where("username", ">=", searchText), where("username", "<=", searchText + '\uf8ff'));
         // For each of the queries add user from the returned documents
-        for (const query of queries) {
-            const querySnapshot = await getDocs(query);
-            if (!querySnapshot.empty) {
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const user: User = {
-                        firstName: data.firstName,
-                        lastName: data.lastName,
-                        email: data.email,
-                        following: data.following,
-                        followers: data.followers,
-                        uid: doc.id,
-                        username: data.username
-                    };
-                    users.push(user);
-                }
-                );
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const user: User = {
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    email: data.email,
+                    following: data.following,
+                    followers: data.followers,
+                    uid: doc.id,
+                    username: data.username
+                };
+                users.push(user);
             }
+            );
         }
+        return users;
     }
-    return users;
 }
 
 export async function searchForOtherUsers(searchText: string, user: User | null) {

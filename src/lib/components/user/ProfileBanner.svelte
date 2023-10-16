@@ -20,9 +20,13 @@
 		<!-- <img class="rounded h-full w-full" src={artist.images[0].url} alt="" /> -->
 	</div>
 	<div class="flex flex-col">
-		<div class="text-6xl font-semibold">
-			{user?.firstName}
-			{user?.lastName}
+		<div class="flex flex-col gap-1">
+			<div class="text-6xl font-semibold">
+				{`${user?.firstName} ${user?.lastName}`}
+			</div>
+			<div class="text-lg font-normal">
+				@{user?.username}
+			</div>
 		</div>
 		<div class="h-2" />
 		<div class="flex flex-row gap-4 items-center">
@@ -31,7 +35,6 @@
 			{#if user.uid != $userProfileStore?.user?.uid}
 				<FollowButton {user} followed={$userProfileStore?.user?.following?.includes(user.uid)} />
 			{/if}
-			
 		</div>
 	</div>
 </div>
