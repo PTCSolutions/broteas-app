@@ -2,15 +2,16 @@
 	import { userProfileStore } from '$lib/stores/userStore';
 	import type { User } from '$lib/user';
 	import { get } from 'svelte/store';
+	import FollowButton from '../forms/FollowButton.svelte';
 	export let user: User;
 
-    let getName = () => {
-        if (user.uid === $userProfileStore?.user?.uid) {
-            return "Your"
-        } else {
-            return `${user.firstName}'s`
-        }
-    }
+	let getName = () => {
+		if (user.uid === $userProfileStore?.user?.uid) {
+			return 'Your';
+		} else {
+			return `${user.firstName}'s`;
+		}
+	};
 </script>
 
 <div class="h-40 bg-white dark:bg-gray-600 rounded-lg p-4 flex flex-row gap-4 items-center">
@@ -24,9 +25,10 @@
 			{user?.lastName}
 		</div>
 		<div class="h-2" />
-		<div class="flex flex-row gap-4">
+		<div class="flex flex-row gap-4 items-center">
 			<div>Following {user?.following.length}</div>
 			<div>Followers {user?.followers.length}</div>
+			<FollowButton {user} followed={$userProfileStore?.user?.following?.includes(user.uid)} />
 		</div>
 	</div>
 </div>

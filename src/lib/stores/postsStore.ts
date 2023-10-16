@@ -30,7 +30,7 @@ export const subscribeToMessages = async (followingFilter : string) => {
                 posts.push(post as PostMeta);
             });
             postStore.update(() => {
-                console.log('💥 querySnapshot: New data: ', posts);
+                // console.log('💥 querySnapshot: New data: ', posts);
                 return { posts: [...posts], loading: false };
             });
 

@@ -8,7 +8,7 @@
 <div class="h-full p-4 overflow-hidden flex flex-col">
 	{#if $userProfileStore?.user?.uid != '' && $userProfileStore?.user?.uid != undefined && !$userProfileStore?.loading}
 		<ProfileBanner user={$userProfileStore.user} />
-		{#await getPostsForObject($userProfileStore?.user?.uid)}
+		{#await getPostsForUser($userProfileStore?.user?.uid)}
 			<div>loading...</div>
 		{:then posts}
 			<PostGrid {posts} />
