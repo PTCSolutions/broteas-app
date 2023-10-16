@@ -5,6 +5,7 @@ export interface User {
     firstName: string;
     lastName: string;
     uid: string;
+    username: string;
     email: string;
     following: Array<string>;
     followers: Array<string>;
@@ -19,6 +20,7 @@ export async function newUser(user: User) {
                 email: user.email,
                 following: user.following,
                 followers: user.followers,
+                username: user.username
             }
         );
     } catch (e) {
@@ -37,7 +39,8 @@ export async function getUser(uid: string): Promise<User | null> {
                 email: data.email,
                 following: data.following,
                 followers: data.followers,
-                uid: uid
+                uid: uid,
+                username: data.username,
             };
             return user;
         }
@@ -122,7 +125,8 @@ async function searchForUsers(searchText: string | null): Promise<User[]> {
                         email: data.email,
                         following: data.following,
                         followers: data.followers,
-                        uid: doc.id
+                        uid: doc.id,
+                        username: data.username
                     };
                     users.push(user);
                 }
@@ -167,4 +171,19 @@ export async function searchForUsersToUnfollow(searchText: string, user: User | 
         return users;
     }
     return [];
+}
+
+export async function getUserNames(): Promise<string[]> {
+    // Empty username array
+    const usernames: string[] = [];
+    const q = query(collection(db, "users"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.username != undefined) {
+            usernames.push(data.username);
+        }
+    }
+    );
+    return usernames;
 }
