@@ -11,6 +11,14 @@ export const actions = {
         const email = data.get('email') as string;
         const password = data.get('password') as string;
         let success = false;
+        interface Form {
+            email: string;
+            password: string;
+        }
+        const form : Form = {
+            email: email,
+            password: password,
+        }
         // Try sign in
         try {
             await signInWithEmailAndPassword(auth, email, password);
@@ -19,14 +27,15 @@ export const actions = {
         } catch (error) {
             const firebaseError = error as FirebaseError;
             if (firebaseError.code == "auth/invalid-login-credentials") {
-                return fail(400, { error: "Wrong email/password", location: "password" });
+                return fail(400, { error: "Wrong email/password", location: "password", form: form });
             }
-            return { error: (error as FirebaseError).message };
+            return { error: firebaseError.message, location: "", form: form};
         }
         // If succesfully signed in, redirect to home page and set the uid in cookies
         if (success && auth.currentUser != null) {
             cookies.set('uid', auth.currentUser?.uid, { path: '/' });
             throw redirect(303, '/');
         }
+        return { error: "Try again: Unknown error", location: "", form: form};
     },
 };

@@ -14,10 +14,10 @@
 		<div class="p-16 w-full gap-6 flex flex-col h-full justify-center">
 			<div class="text-6xl font-bold">Login</div>
 			<div>
-				<Input id="email" type="email" placeholder="Email" />
+				<Input id="email" type="email" placeholder="Email" unboundValue={form?.form.email}/>
 			</div>
 			<div class="flex flex-col gap-2">
-				<Input id="password" type="password" placeholder="Password" />
+				<Input id="password" type="password" placeholder="Password" unboundValue={form?.form.password}/>
 				<!-- If there is an error on submitting the form, show it in red underneath-->
 				{#if form?.error != undefined}
 					<!-- TODO: Have used normal css because cant get tailwind to work-->
