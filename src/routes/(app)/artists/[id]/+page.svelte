@@ -32,7 +32,7 @@
 	for two lines since the snippet will only ever take up 2 lines of space.-->
 	<div class="h-40 bg-white dark:bg-gray-600 rounded-lg p-4 flex flex-row gap-4 items-center">
 		<!-- The image takes up all the height it can in the given space-->
-		<div class="h-full aspect-square rounded">
+		<div class="h-full aspect-square rounded flex flex-col justify-center">
 			<img class="rounded h-full w-full" src={artist.images[0].url} alt="" />
 		</div>
 		<div class="flex flex-col">

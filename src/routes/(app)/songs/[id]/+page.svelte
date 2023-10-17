@@ -8,10 +8,10 @@
 
 <div class="p-4 h-full">
 	<div class="bg-white dark:bg-gray-600 rounded-lg p-4 flex flex-row">
-		<div class="w-28 h-28 bg-blue-500 rounded">
+		<div class="w-28 h-28 flex flex-col justify-center">
 			<img class="rounded" src={song.album.images[0].url} alt="" />
 		</div>
-		<div class="w-4" />
+		<div class="w-4 " />
 		<div class="flex flex-col">
 			<div class="text-7xl font-semibold">
 				{song.name}
