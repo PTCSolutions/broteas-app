@@ -5,6 +5,7 @@
 	import { format } from 'timeago.js';
 	import Button from '$lib/components/forms/Button.svelte';
 	import { getSubComments } from '$lib/comment';
+	import ProfilePicture from '$lib/components/ProfilePicture.svelte';
 	// Get the uid of the currentUser from store
 	let currentUid: string | undefined;
 	$: currentUid = $userProfileStore?.user?.uid;
@@ -19,7 +20,7 @@
 
 <div class="flex flex-col gap-2 p-2 bg-white dark:bg-gray-600 rounded-lg items-start">
 	<div class="flex-row flex items-center w-full">
-		<div class="w-8 aspect-square rounded-full bg-green-200" />
+		<ProfilePicture uid={commentor?.uid || null} />
 		<div class="w-2" />
 		<div class="flex-col flex">
 			<a class="hover:underline" href={`/users/${commentor?.uid}`}>{commentor?.firstName} {commentor?.lastName}</a>

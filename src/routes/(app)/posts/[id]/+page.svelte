@@ -8,6 +8,7 @@
 	import type { User } from '$lib/user.js';
 	import PostObjectWidget from '$lib/components/posts/widgets/PostObjectWidget.svelte';
 	import { format } from 'timeago.js';
+	import ProfilePicture from '$lib/components/ProfilePicture.svelte';
 
 	export let data;
 	let post: PostMeta | undefined | null = data.post;
@@ -26,7 +27,7 @@
 				<div class="w-4" />
 				<div class="flex flex-col gap-3 w-full">
 					<div class="flex-row flex items-center w-full">
-						<div class="w-10 aspect-square rounded-full bg-green-200" />
+						<ProfilePicture uid={poster?.uid || null} />
 						<div class="w-3" />
 						<div class="text-2xl">{poster?.firstName} {poster?.lastName}</div>
 
