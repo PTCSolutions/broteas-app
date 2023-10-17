@@ -1,31 +1,30 @@
 <script lang="ts">
-	import { getProfilePicture } from '$lib/storage';
+	import { getProfilePicture, uploadProfilePicture } from '$lib/storage';
 	import { userProfileStore } from '$lib/stores/userStore';
 	import { fade } from 'svelte/transition';
 	export let uid: string | null;
 	export let small: boolean = true;
 	export let updatable: boolean = false;
 
-	let fileInput;
-	let files;
+	let fileInput: HTMLInputElement;
+	let files: FileList;
 	let avatar: string | null;
 
-	async function getBase64(image) {
+	async function getBase64(image: Blob) {
 		const reader = new FileReader();
 		reader.readAsDataURL(image);
 		reader.onload = async (e) => {
 			if (e.target) {
-				avatar = e.target.result;
-				await uploadFunction(avatar);
+				avatar = e.target.result as string | null;
+				if (avatar != null) {
+					await uploadFunction(avatar);
+				}
 			}
 		};
 	}
 
 	async function uploadFunction(imgBase64: string) {
-		const data = {};
 		const imgData = imgBase64.split(',');
-		data['image'] = imgData[1];
-		console.log(data);
 		if (
 			$userProfileStore?.user?.uid != '' &&
 			$userProfileStore?.user?.uid != undefined &&

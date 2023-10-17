@@ -3,7 +3,7 @@ import { storage } from "./firebase";
 
 export async function uploadProfilePicture(base64string: string, uid: string) {
     const storageRef = ref(storage, `profile_pictures/${uid}`);
-    await uploadString(storageRef, base64string, 'base64')
+    await uploadString(storageRef, base64string, 'base64');
 }
 
 export async function getProfilePicture(uid: string | null | undefined): Promise<string | null> {
@@ -18,6 +18,4 @@ export async function getProfilePicture(uid: string | null | undefined): Promise
         }
     }
     return null;
-
-
 }
