@@ -18,17 +18,31 @@ export const actions = {
         const lastName = data.get('lastName') as string;
         let uid;
         let success = false;
+        interface Form {
+            email: string;
+            password: string;
+            username: string;
+            firstName: string;
+            lastName: string;
+        }
+        const form: Form = {
+            email: email,
+            password: password,
+            username: username,
+            firstName: firstName,
+            lastName: lastName,
+        }
         // Give errors for invalid usernames
         if (username.length < 8) {
-            return fail(400,{ error: "Username must be at least 8 characters", location: "username" });
+            return fail(400, { error: "Username must be at least 8 characters", location: "username", form: form });
         } else if (username.includes(" ")) {
-            return fail(400,{ error: "Username should not have any spaces", location: "username" });
+            return fail(400, { error: "Username should not have any spaces", location: "username", form: form });
         } else if (!/^[a-z0-9]+$/.test(username)) {
-            return fail(400,{ error: "Username must only contain lower case letters and numbers", location: "username" });
+            return fail(400, { error: "Username must only contain lower case letters and numbers", location: "username", form: form });
         }
         const usernames: string[] = await getUserNames();
         if (usernames.includes(username)) {
-            return fail(400, { error: "Username already exists", location: "username" });
+            return fail(400, { error: "Username already exists", location: "username", form: form });
         }
         try {
             const userCredential: UserCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -39,14 +53,14 @@ export const actions = {
         } catch (error) {
             const firebaseError = error as FirebaseError;
             if (firebaseError.code == "auth/email-already-in-use") {
-                return fail(400, { error: "Email already in use", location: "email" });
+                return fail(400, { error: "Email already in use", location: "email", form: form });
             } else if (firebaseError.code === "auth/invalid-email") {
-                return fail(400, { error: "Email is invalid", location: "email" });
+                return fail(400, { error: "Email is invalid", location: "email" , form: form});
             }
             else if (firebaseError.code === "auth/weak-password") {
-                return fail(400, { error: "Password is weak", location: "password"})
+                return fail(400, { error: "Password is weak", location: "password" , form: form});
             }
-            return fail(400, { error: firebaseError.message});
+            return fail(400, { error: firebaseError.message, location: "", form: form });
         }
         // If succesfully signed up, create a firestore entry for user and then redirect to home page
         if (success) {
@@ -61,5 +75,6 @@ export const actions = {
             });
             throw redirect(303, '/');
         }
+        return fail(400, { error: "Try again: Unknown error", location: "" , form: form})
     },
 };

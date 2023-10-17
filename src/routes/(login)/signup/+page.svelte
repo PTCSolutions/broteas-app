@@ -1,45 +1,65 @@
 <script>
 	import { applyAction, enhance } from '$app/forms';
+	import { page } from '$app/stores';
 	import Button from '$lib/components/forms/Button.svelte';
 	import Input from '$lib/components/forms/Input.svelte';
 	/** @type {import('./$types').ActionData} */
 	export let form;
-	$: console.log(form);
+	$: console.log('Form is', form);
 </script>
 
 <div class="h-full overflow-hidden">
 	<img src="/WeirdTree.png" class="z-0 h-full overflow-hidden min-h-screen object-cover" alt="" />
 	<!-- TODO: Get this to Use progressive enhancement so that we can get nice transitions if js enabled-->
-	<form
-		class="z-10 fixed right-0 top-0 w-1/2 p-8 h-full"
-		method="POST"
-	>
+	<form class="z-10 fixed right-0 top-0 w-1/2 p-8 h-full" method="POST">
 		<div class="p-16 w-full gap-6 flex flex-col h-full justify-center">
 			<div class="text-6xl font-bold">Sign up now</div>
 			<div class="flex gap-4">
 				<div class="w-1/2">
-					<Input id="firstName" type="text" placeholder="First Name" required={true} />
+					<Input
+						id="firstName"
+						type="text"
+						placeholder="First Name"
+						required={true}
+						unboundValue={form?.form.firstName}
+					/>
 				</div>
 				<div class="w-1/2">
-					<Input id="lastName" type="text" placeholder="Last Name" required={true} />
+					<Input
+						id="lastName"
+						type="text"
+						placeholder="Last Name"
+						required={true}
+						unboundValue={form?.form.lastName}
+					/>
 				</div>
 			</div>
 			<div class="flex flex-col gap-2">
-				<Input id="username" type="text" placeholder="Username" />
+				<Input
+					id="username"
+					type="text"
+					placeholder="Username"
+					unboundValue={form?.form.username}
+				/>
 				{#if form?.error != undefined && form?.location == 'username'}
 					<!-- TODO: Have used normal css because cant get tailwind to work-->
 					<div class="text-red-500">{form.error}</div>
 				{/if}
 			</div>
 			<div class="flex flex-col gap-2">
-				<Input id="email" type="email" placeholder="Email" />
+				<Input id="email" type="email" placeholder="Email" unboundValue={form?.form.email} />
 				{#if form?.error != undefined && form?.location == 'email'}
 					<!-- TODO: Have used normal css because cant get tailwind to work-->
 					<div class="text-red-500">{form.error}</div>
 				{/if}
 			</div>
 			<div class="flex flex-col gap-2">
-				<Input id="password" type="password" placeholder="Password" />
+				<Input
+					id="password"
+					type="password"
+					placeholder="Password"
+					unboundValue={form?.form.password}
+				/>
 				{#if form?.error != undefined && form?.location == 'password'}
 					<!-- TODO: Have used normal css because cant get tailwind to work-->
 					<div class="text-red-500">{form.error}</div>

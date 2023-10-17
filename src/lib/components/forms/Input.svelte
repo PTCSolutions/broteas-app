@@ -7,6 +7,8 @@
 	export let placeholder: string;
     // whether to bind to input value
 	export let boundValue : string | null = null;
+	// unbound input value
+	export let unboundValue: string = "";
     // should input autocomplete
 	export let autocomplete: boolean = true;
 	// is input required
@@ -35,5 +37,6 @@
 		autocomplete = {autocomplete ? "on" : "off"}
 		{required}
 		on:input={onInput}
+		value = {unboundValue}
 	/>
 {/if}
