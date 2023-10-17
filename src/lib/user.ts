@@ -128,8 +128,9 @@ async function searchForUsers(searchText: string | null): Promise<User[]> {
             }
             );
         }
-        return users;
     }
+    return users;
+
 }
 
 export async function searchForOtherUsers(searchText: string, user: User | null) {
