@@ -8,7 +8,7 @@
 	import { format } from 'timeago.js';
 	import PostObjectWidget from './widgets/PostObjectWidget.svelte';
 	import { fade } from 'svelte/transition';
-	import IntersectionObserver from '../IntersectionObserver.svelte';
+	import ProfilePicture from '../ProfilePicture.svelte';
 	// The post in question
 	export let post: PostMeta;
 	// Get the uid of the currentUser from store
@@ -28,15 +28,13 @@
 	{#await getObjectJsonFunction()}
 		<div />
 	{:then json}
-		<div class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white">
+		<div class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white rounded-lg">
 			<div class="p-4 flex-col w-full">
 				<div class="flex-row flex items-center w-full">
-					<div class="w-1/12 aspect-square rounded-full bg-green-200" />
+					<ProfilePicture uid={poster?.uid || null} />
 					<div class="w-2" />
 					<div class="flex-col flex">
-						<a class="hover:underline" href={`/users/${poster?.uid}`}
-							>{poster?.firstName} {poster?.lastName}</a
-						>
+						<a class="hover:underline" href={`/users/${poster?.uid}`}>@{poster?.username}</a>
 						<div class="text-xs">{format(post.date)}</div>
 					</div>
 					<div class="grow" />
@@ -51,14 +49,11 @@
 					{/if}
 				</div>
 				<div class="h-4" />
-				<div class="flex-row flex w-full">
-					<IntersectionObserver once={true} let:intersecting>
-						{#if intersecting}
-							<div class="w-5/6 aspect-square" in:fade>
-								<PostObjectWidget object={json} />
-							</div>
-						{/if}
-					</IntersectionObserver>
+				<div class="flex-row flex">
+					<div class="w-5/6 aspect-square" in:fade>
+						<PostObjectWidget object={json} />
+					</div>
+
 					<div class="flex-col flex justify-center items-center pl-2 grow">
 						<button on:click={likePostFuntion}>
 							<span

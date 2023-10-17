@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let form;
+	import type { User } from '$lib/user.js';
+
     export let data;
     let user: User = data;
 </script>
@@ -11,8 +12,9 @@
             <div class="text-xl">Profile</div>
             <div>Firstname: {user.firstName}</div>
             <div>Lastname: {user.lastName}</div>
-            <div>Email: ??</div>
-            <div>Passoword: ??</div>
+            <div>Username: {user.username}</div>
+            <div>Email: {user.email}</div>
+            <div>Password: ??</div>
         </div>
         <div class="bg-white dark:bg-gray-600 rounded-lg p-4">
             <div class="text-xl">Posts</div>

@@ -5,6 +5,7 @@ export interface User {
     firstName: string;
     lastName: string;
     uid: string;
+    username: string;
     email: string;
     following: Array<string>;
     followers: Array<string>;
@@ -19,6 +20,7 @@ export async function newUser(user: User) {
                 email: user.email,
                 following: user.following,
                 followers: user.followers,
+                username: user.username
             }
         );
     } catch (e) {
@@ -37,7 +39,8 @@ export async function getUser(uid: string): Promise<User | null> {
                 email: data.email,
                 following: data.following,
                 followers: data.followers,
-                uid: uid
+                uid: uid,
+                username: data.username,
             };
             return user;
         }
@@ -101,36 +104,33 @@ async function searchForUsers(searchText: string | null): Promise<User[]> {
     // Empty users array
     const users: User[] = [];
     if (searchText != null && searchText != "") {
-        // Take all user documents who have first OR second names which are prefixed by the search text
-        // NB: This text search is CASE sensitive
+        // Make search text lower case as all usernames are lower case
+        searchText = searchText.toLowerCase();
         // NB: This is a pretty lame text search but we will have to use a THIRD party firebase extension to get 
         // better text querying. lack of good text search is a KNOWN issue with firebase querying
-        const q1 = query(collection(db, "users"),
-            where("firstName", ">=", searchText), where("firstName", "<=", searchText + '\uf8ff'));
-        const q2 = query(collection(db, "users"),
-            where("lastName", ">=", searchText), where("lastName", "<=", searchText + '\uf8ff'),);
-        const queries = [q1, q2];
+        const q = query(collection(db, "users"),
+            where("username", ">=", searchText), where("username", "<=", searchText + '\uf8ff'));
         // For each of the queries add user from the returned documents
-        for (const query of queries) {
-            const querySnapshot = await getDocs(query);
-            if (!querySnapshot.empty) {
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const user: User = {
-                        firstName: data.firstName,
-                        lastName: data.lastName,
-                        email: data.email,
-                        following: data.following,
-                        followers: data.followers,
-                        uid: doc.id
-                    };
-                    users.push(user);
-                }
-                );
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const user: User = {
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    email: data.email,
+                    following: data.following,
+                    followers: data.followers,
+                    uid: doc.id,
+                    username: data.username
+                };
+                users.push(user);
             }
+            );
         }
     }
     return users;
+
 }
 
 export async function searchForOtherUsers(searchText: string, user: User | null) {
@@ -167,4 +167,19 @@ export async function searchForUsersToUnfollow(searchText: string, user: User | 
         return users;
     }
     return [];
+}
+
+export async function getUserNames(): Promise<string[]> {
+    // Empty username array
+    const usernames: string[] = [];
+    const q = query(collection(db, "users"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.username != undefined) {
+            usernames.push(data.username);
+        }
+    }
+    );
+    return usernames;
 }
