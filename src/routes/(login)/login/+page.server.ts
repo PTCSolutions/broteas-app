@@ -29,13 +29,13 @@ export const actions = {
             if (firebaseError.code == "auth/invalid-login-credentials") {
                 return fail(400, { error: "Wrong email/password", location: "password", form: form });
             }
-            return { error: firebaseError.message, location: "", form: form};
+            return fail(400,{ error: firebaseError.message, location: "", form: form});
         }
         // If succesfully signed in, redirect to home page and set the uid in cookies
         if (success && auth.currentUser != null) {
             cookies.set('uid', auth.currentUser?.uid, { path: '/' });
             throw redirect(303, '/');
         }
-        return { error: "Try again: Unknown error", location: "", form: form};
+        return fail(400,{ error: "Try again: Unknown error", location: "", form: form});
     },
 };
