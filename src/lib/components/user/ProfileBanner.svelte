@@ -5,6 +5,7 @@
 	import FollowButton from '../forms/FollowButton.svelte';
 	import ProfilePicture from '../ProfilePicture.svelte';
 	export let user: User;
+	export let updatable: boolean = false;
 
 	let getName = () => {
 		if (user.uid === $userProfileStore?.user?.uid) {
@@ -17,7 +18,7 @@
 
 <div class="h-40 bg-white dark:bg-gray-600 rounded-lg p-4 flex flex-row gap-4 items-center">
 	<!-- The image takes up all the height it can in the given space-->
-	<ProfilePicture uid={user?.uid} small={false}/>
+	<ProfilePicture uid={user?.uid} small={false} {updatable}/>
 	<div class="flex flex-col">
 		<div class="flex flex-col gap-1">
 			<div class="text-6xl font-semibold">
@@ -38,4 +39,5 @@
 	</div>
 </div>
 <div class="h-4" />
-<div class="text-xl font-medium">{`${getName()} posts`}</div>
+<div class="text-xl font-medium">{`${getName()} posts`}</div>	
+
