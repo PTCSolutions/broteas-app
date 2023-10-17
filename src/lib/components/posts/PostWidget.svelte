@@ -9,6 +9,7 @@
 	import PostObjectWidget from './widgets/PostObjectWidget.svelte';
 	import { fade } from 'svelte/transition';
 	import IntersectionObserver from '../IntersectionObserver.svelte';
+	import ProfilePicture from '../ProfilePicture.svelte';
 	// The post in question
 	export let post: PostMeta;
 	// Get the uid of the currentUser from store
@@ -31,7 +32,7 @@
 		<div class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white">
 			<div class="p-4 flex-col w-full">
 				<div class="flex-row flex items-center w-full">
-					<div class="w-1/12 aspect-square rounded-full bg-green-200" />
+					<ProfilePicture uid={poster?.uid || null} />
 					<div class="w-2" />
 					<div class="flex-col flex">
 						<a class="hover:underline" href={`/users/${poster?.uid}`}
