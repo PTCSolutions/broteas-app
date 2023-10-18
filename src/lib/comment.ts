@@ -103,9 +103,16 @@ export async function newSubComment(postId: string, parentId: string, commentorI
         );
         // Add reference to comment in post document
         try {
-            await updateDoc(doc(db, "posts", postId, "comments", parentId), {
+            if(postId == parentId) {
+                await updateDoc(doc(db, "posts", postId), {
+                    commentIds: arrayUnion(docRef.id)
+                });
+            } else {
+                await updateDoc(doc(db, "posts", postId, "comments", parentId), {
                 subCommentIds: arrayUnion(docRef.id)
             });
+            }
+            
         } catch (error) {
             console.log(error);
         }
