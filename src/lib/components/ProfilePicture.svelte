@@ -7,6 +7,8 @@
 	export let small: boolean = true;
 	export let updatable: boolean = false;
 
+	let profile_colour = user == null ? "cream" : user?.profile_colour;
+
 	let fileInput: HTMLInputElement;
 	let files: FileList;
 	let avatar: string | null;
@@ -50,7 +52,7 @@
 		{:else}
 			<img
 				class={`${small ? 'h-10 w-10' : 'h-32 w-32'} rounded-full object-cover`}
-				src={`/profile_pic/default_pp_${user?.profile_colour}.png`}
+				src={`/profile_pic/default_pp_${profile_colour}.png`}
 				alt="avatar"
 			/>
 		{/if}

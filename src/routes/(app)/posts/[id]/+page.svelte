@@ -50,7 +50,6 @@
 			<div class="h-2" />
 			<form method="POST" action="?/newComment">
 				<div class="flex flex-row items-center gap-4">
-					<!-- <img class="rounded w-1/4 h-1/4" src={getObjectImageSrc(object)} alt="" /> -->
 					<textarea
 						name="text"
 						autocomplete="off"

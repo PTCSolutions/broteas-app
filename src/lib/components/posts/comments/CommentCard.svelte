@@ -20,7 +20,7 @@
 
 <div class="flex flex-col gap-2 p-2 bg-white dark:bg-gray-600 rounded-lg items-start">
 	<div class="flex-row flex items-center w-full">
-		<ProfilePicture uid={commentor?.uid || null} />
+		<ProfilePicture user={commentor || null} />
 		<div class="w-2" />
 		<div class="flex-col flex">
 			<a class="hover:underline" href={`/users/${commentor?.uid}`}>{commentor?.firstName} {commentor?.lastName}</a>
