@@ -4,19 +4,8 @@
 	import { fade } from 'svelte/transition';
 	import PostGrid from '$lib/components/posts/PostGrid.svelte';
 	import Radio from '$lib/components/forms/Radio.svelte';
-	import { followingFilter } from '$lib/stores/followingFilterStore';
 	let name: string | undefined;
 	$: name = $userProfileStore?.user?.firstName;
-	let options = [
-		{
-			value: 'global',
-			label: 'global'
-		},
-		{
-			value: 'following',
-			label: 'following'
-		}
-	];
 </script>
 
 <div class="flex-col flex items-start min-h-screen px-4">
@@ -30,7 +19,6 @@
 				</span>
 			{/if}
 		</div>
-		<Radio {options} bind:radioSelected={$followingFilter} column={true} />
 	</div>
 	{#if $postStore?.loading === false}
 		<!-- Should each post individually fade in, or the whole grid fade in as one-->
