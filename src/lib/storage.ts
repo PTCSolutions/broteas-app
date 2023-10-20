@@ -12,6 +12,7 @@ export async function getProfilePicture(uid: string | null | undefined): Promise
 
         try {
             const url = await getDownloadURL(storageRef)
+            console.log("Url is", url);
             return url;
         } catch {
             return null;

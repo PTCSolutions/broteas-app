@@ -41,7 +41,7 @@
 	{:then url}
 		{#if url}
 			<img
-				class={`${small ? 'h-10 w-10' : 'h-32 w-32'} rounded-full overflow-hidden`}
+				class={`${small ? 'h-10 w-10' : 'h-32 w-32'} rounded-full object-cover`}
 				src={url}
 				alt="avatar"
 				in:fade
@@ -67,9 +67,9 @@
 			/>
 			<button class="hover:brightness-75" on:click={() => fileInput.click()}>
 				{#if avatar}
-					<img class="h-32 w-32 rounded-full overflow-hidden" src={avatar} alt="avatar" />
+					<img class="h-32 w-32 rounded-full overflow-hidden object-cover" src={avatar} alt="avatar" />
 				{:else if url}
-					<img class="h-32 w-32 rounded-full overflow-hidden" src={url} alt="avatar" />
+					<img class="h-32 w-32 rounded-full overflow-hidden object-cover" src={url} alt="avatar" />
 				{:else}
 					<div class="h-32 w-32 rounded-full bg-slate-400" />
 				{/if}
