@@ -35,6 +35,19 @@ export async function newUser(user: User) {
     }
 }
 
+export async function updateUser(firstName: string, lastName: string, uid: string) {
+    try {
+        await updateDoc(doc(db, "users", uid),
+            {
+                firstName: firstName,
+                lastName: lastName,
+            }
+        );
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
+}
+
 export async function getUser(uid: string): Promise<User | null> {
     if (uid != null && uid != "") {
         const docSnapshot: DocumentSnapshot = await getDoc(doc(db, "users", uid));
