@@ -31,7 +31,7 @@
 		<div class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white rounded-lg">
 			<div class="p-4 flex-col w-full">
 				<div class="flex-row flex items-center w-full">
-					<ProfilePicture uid={poster?.uid || null} />
+					<ProfilePicture user={poster || null} />
 					<div class="w-2" />
 					<div class="flex-col flex">
 						<a class="hover:underline" href={`/users/${poster?.uid}`}>@{poster?.username}</a>

@@ -1,6 +1,8 @@
 import { doc, setDoc, getDoc, DocumentSnapshot, updateDoc, arrayUnion, arrayRemove, query, collection, where, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 
+type ProfileColour = "blue" | "cream" | "purple" | "rose";
+
 export interface User {
     firstName: string;
     lastName: string;
@@ -9,7 +11,10 @@ export interface User {
     email: string;
     following: Array<string>;
     followers: Array<string>;
+    profile_colour: ProfileColour
 }
+
+const profileColours: ProfileColour[] = ["blue", "cream", "purple", "rose"]
 
 export async function newUser(user: User) {
     try {
@@ -20,7 +25,9 @@ export async function newUser(user: User) {
                 email: user.email,
                 following: user.following,
                 followers: user.followers,
-                username: user.username
+                username: user.username,
+                // Profile colour is a random int between 0 and length of profile_colours list
+                profile_colour: Math.floor(Math.random() * profileColours.length)
             }
         );
     } catch (e) {
@@ -41,6 +48,9 @@ export async function getUser(uid: string): Promise<User | null> {
                 followers: data.followers,
                 uid: uid,
                 username: data.username,
+                // Modulo profile color integer to ensure it is not out of bounds for 
+                // profile colours list
+                profile_colour: profileColours[data.profile_colour % profileColours.length]
             };
             return user;
         }
@@ -122,7 +132,10 @@ async function searchForUsers(searchText: string | null): Promise<User[]> {
                     following: data.following,
                     followers: data.followers,
                     uid: doc.id,
-                    username: data.username
+                    username: data.username,
+                    // Modulo profile color integer to ensure it is not out of bounds for 
+                    // profile colours list
+                    profile_colour: profileColours[data.profile_colour % profileColours.length]
                 };
                 users.push(user);
             }

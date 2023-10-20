@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { getProfilePicture, uploadProfilePicture } from '$lib/storage';
 	import { userProfileStore } from '$lib/stores/userStore';
+	import type { User } from '$lib/user';
 	import { fade } from 'svelte/transition';
-	export let uid: string | null;
+	export let user: User | null;
 	export let small: boolean = true;
 	export let updatable: boolean = false;
 
@@ -36,7 +37,7 @@
 </script>
 
 {#if !updatable}
-	{#await getProfilePicture(uid)}
+	{#await getProfilePicture(user?.uid)}
 		<div class={`${small ? 'h-10 w-10' : 'h-32 w-32'} rounded-full bg-white`} />
 	{:then url}
 		{#if url}
@@ -47,13 +48,21 @@
 				in:fade
 			/>
 		{:else}
-			<div class={`${small ? 'h-10 w-10' : 'h-32 w-32'} rounded-full bg-slate-400`} />
+			<img
+				class={`${small ? 'h-10 w-10' : 'h-32 w-32'} rounded-full object-cover`}
+				src={`/profile_pic/default_pp_${user?.profile_colour}.png`}
+				alt="avatar"
+			/>
 		{/if}
 	{:catch error}
-		<div class={`${small ? 'h-10 w-10' : 'h-32 w-32'} rounded-full bg-slate-400`} />
+		<img
+			class={`${small ? 'h-10 w-10' : 'h-32 w-32'} rounded-full object-cover`}
+			src={`/profile_pic/default_pp_${user?.profile_colour}.png`}
+			alt="avatar"
+		/>
 	{/await}
 {:else}
-	{#await getProfilePicture($userProfileStore?.user?.uid)}
+	{#await getProfilePicture(user?.uid)}
 		<div />
 	{:then url}
 		<div class="container h-32 w-32">
@@ -67,11 +76,19 @@
 			/>
 			<button class="hover:brightness-75" on:click={() => fileInput.click()}>
 				{#if avatar}
-					<img class="h-32 w-32 rounded-full overflow-hidden object-cover" src={avatar} alt="avatar" />
+					<img
+						class="h-32 w-32 rounded-full overflow-hidden object-cover"
+						src={avatar}
+						alt="avatar"
+					/>
 				{:else if url}
 					<img class="h-32 w-32 rounded-full overflow-hidden object-cover" src={url} alt="avatar" />
 				{:else}
-					<div class="h-32 w-32 rounded-full bg-slate-400" />
+					<img
+						class={`${small ? 'h-10 w-10' : 'h-32 w-32'} rounded-full object-cover`}
+						src={`/profile_pic/default_pp_${user?.profile_colour}.png`}
+						alt="avatar"
+					/>
 				{/if}
 			</button>
 		</div>

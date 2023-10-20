@@ -18,7 +18,7 @@
 
 <div class="h-40 bg-white dark:bg-gray-600 rounded-lg p-4 flex flex-row gap-4 items-center">
 	<!-- The image takes up all the height it can in the given space-->
-	<ProfilePicture uid={user?.uid} small={false} {updatable}/>
+	<ProfilePicture user={user} small={false} {updatable}/>
 	<div class="flex flex-col">
 		<div class="flex flex-col gap-1">
 			<div class="text-6xl font-semibold">

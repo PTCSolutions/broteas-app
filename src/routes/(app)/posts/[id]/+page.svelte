@@ -27,7 +27,7 @@
 				<div class="w-4" />
 				<div class="flex flex-col gap-3 w-full">
 					<div class="flex-row flex items-center w-full">
-						<ProfilePicture uid={poster?.uid || null} />
+						<ProfilePicture user={poster || null} />
 						<div class="w-3" />
 						<div class="text-2xl">{poster?.firstName} {poster?.lastName}</div>
 
