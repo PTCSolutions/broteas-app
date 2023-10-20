@@ -11,7 +11,7 @@
 
 <IntersectionObserver once={true} let:intersecting>
 	{#if intersecting}
-	<div in:fade>
+	<div>
 		{#if object.type == 'track'}
 			<SongWidget song={asSong(object)} />
 		{:else if object.type == 'album'}
