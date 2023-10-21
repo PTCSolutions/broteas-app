@@ -45,7 +45,7 @@
 		<MenuItem title="Signup" href="/signup" small={true} />
 		<!-- Otherwise if users info has loaded, show them log out button-->
 	{:else}
-		<MenuItem title="Logout" href="/logout" small={true} />
+		<MenuItem title="Logout" href="/logout" small={true} logout={true} />
 
 		<!-- Otherwise show empty row-->
 	{/if}

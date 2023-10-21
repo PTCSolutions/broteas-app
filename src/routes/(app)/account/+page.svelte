@@ -55,7 +55,7 @@
 					</div>
 					<div>Username: {user.username}</div>
 					<div>Email: {user.email}</div>
-					<div class="w-1/12 mt-2"><Button text="Save" /></div>
+					<div class="w-1/12 mt-2"><Button>Save</Button></div>
 					<input type="hidden" value={user.uid} name="uid" />
 				</form>
 			{:else}
