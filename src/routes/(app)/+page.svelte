@@ -4,6 +4,7 @@
 	import { fade } from 'svelte/transition';
 	import PostGrid from '$lib/components/posts/PostGrid.svelte';
 	import Radio from '$lib/components/forms/Radio.svelte';
+	import { DarkMode } from 'flowbite-svelte';
 	let name: string | undefined;
 	$: name = $userProfileStore?.user?.firstName;
 </script>
@@ -19,6 +20,7 @@
 				</span>
 			{/if}
 		</div>
+		<DarkMode />
 	</div>
 	{#if $postStore?.loading === false}
 		<!-- Should each post individually fade in, or the whole grid fade in as one-->
