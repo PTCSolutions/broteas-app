@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import Button from '$lib/components/forms/Button.svelte';
+	// import Button from '$lib/components/forms/Button.svelte';
 	import Input from '$lib/components/forms/Input.svelte';
 	import type { User } from '$lib/user.js';
+	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
 
 	export let data: User;
 	$: user = data;
@@ -71,11 +72,42 @@
 			{/if}
 			<!-- <div>Password: ??</div> -->
 		</div>
-		<!-- <div class="bg-white dark:bg-gray-600 rounded-lg p-4">
-            <div class="text-xl">Posts</div>
-            <div>People who can your posts: "People who follow you"</div>
-            <div>People who can see your comments: "Anyone who can see the post"</div>
-            <div>Show suggested posts: "Yes"</div>
-        </div> -->
+
+		<div class="bg-white dark:bg-gray-600 rounded-lg p-4">
+			<div class="text-xl">Profile</div>
+			<div>Firstname: {user.firstName}</div>
+			<div>Lastname: {user.lastName}</div>
+			<div>Username: {user.username}</div>
+			<div>Email: {user.email}</div>
+			<div>Password: ??</div>
+		</div>
+		<div class="bg-white dark:bg-gray-600 rounded-lg p-4 flex flex-col gap-2">
+			<div class="text-xl">Posts</div>
+			<div class="flex flex-row items-center gap-4">
+				<div>People who can your posts:</div>
+				<Button size={'xs'}>?????</Button>
+				<Dropdown>
+					<DropdownItem>People who follow you</DropdownItem>
+					<DropdownItem>Everyone</DropdownItem>
+				</Dropdown>
+			</div>
+			<div class="flex flex-row items-center gap-4">
+				<div>People who can your comments:</div>
+				<Button size={'xs'}>?????</Button>
+				<Dropdown>
+					<DropdownItem>People who can see the post</DropdownItem>
+					<DropdownItem>People who follow you</DropdownItem>
+					<DropdownItem>Everyone</DropdownItem>
+				</Dropdown>
+			</div>
+			<div class="flex flex-row items-center gap-4">
+				<div>Show suggested posts:</div>
+				<Button size={'xs'}>?????</Button>
+				<Dropdown>
+					<DropdownItem>Yes</DropdownItem>
+					<DropdownItem>No</DropdownItem>
+				</Dropdown>
+			</div>
+		</div>
 	{/if}
 </div>
