@@ -12,22 +12,36 @@ export const subscribeToMessages = async (uid: string) => {
     messagesUnsubscribeCallback = onSnapshot(
         querySnapshot,
         (q) => {
-            const posts: PostMeta[] = [];
-            q.forEach((doc) => {
-                const post = doc.data();
+            q.docChanges().forEach((change) => {
+                const post = change.doc.data();
                 if (post.creatorId != uid) {
-                    post.postId = doc.id
+                    post.postId = change.doc.id;
                     if (post.date != null) {
                         post.date = (post.date as Timestamp).toDate();
                     }
-                    posts.push(post as PostMeta);
+                    const postMeta = post as PostMeta;
+                    if (change.type === "added") {
+                        postStore.update((currentPosts) => {
+                            return { posts: [...currentPosts.posts, postMeta], loading: false }
+                        });
+                    }
+                    if (change.type === "modified") {
+                        postStore.update((currentPosts) => {
+                            const posts: PostMeta[] = [...currentPosts.posts];
+                            posts[posts.findIndex((post) => post.postId == postMeta.postId)] = postMeta;
+                            return { posts: posts, loading: false }
+                        });
+                    }
+                    if (change.type === "removed") {
+                        postStore.update((currentPosts) => {
+                            const posts: PostMeta[] = [...currentPosts.posts];
+                            const index = posts.findIndex((post) => post.postId == postMeta.postId);
+                            posts.splice(index, 1);
+                            return { posts: posts, loading: false }
+                        });
+                    }
                 }
             });
-            postStore.update(() => {
-                // console.log('💥 querySnapshot: New data: ', posts);
-                return { posts: [...posts], loading: false };
-            });
-
         },
         (error) => {
             console.warn("Couldn't update snapshot, maybe the user is logged out?", error);
