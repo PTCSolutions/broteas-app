@@ -15,11 +15,11 @@
 	// Get the uid of the currentUser from store
 	let currentUid: string | undefined;
 	$: currentUid = $userProfileStore?.user?.uid;
-	let poster : User;
+	let poster: User;
 	onMount(async () => {
 		let user = await getUser(post.creatorId);
 		if (user != null) {
-			poster = user
+			poster = user;
 		}
 	});
 	// Import like, delete post, get song functions
@@ -35,6 +35,7 @@
 <div class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white rounded-lg">
 	<div class="p-4 flex-col w-full">
 		<div class="flex-row flex items-center w-full">
+			{#if poster}
 				<ProfilePicture user={poster || null} />
 				<div class="w-2" />
 				<div class="flex-col flex">
@@ -47,6 +48,7 @@
 						><img class="w-[1.5vw] aspect-square" src="delete_icon.svg" alt="delete icon" /></button
 					>
 				{/if}
+			{/if}
 		</div>
 		<div class="h-4" />
 		<div class="flex-row flex">
