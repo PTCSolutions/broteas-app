@@ -7,8 +7,8 @@
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	import { format } from 'timeago.js';
 	import PostObjectWidget from './widgets/PostObjectWidget.svelte';
-	import { fade } from 'svelte/transition';
 	import ProfilePicture from '../ProfilePicture.svelte';
+	import { fade } from 'svelte/transition';
 	// The post in question
 	export let post: PostMeta;
 	// Get the uid of the currentUser from store
@@ -24,63 +24,60 @@
 	let getObjectJsonFunction = () => getObjectJson(post.objectId, $accessToken!, post.objectType);
 </script>
 
-{#await getUser(post.creatorId) then poster}
-	{#await getObjectJsonFunction()}
-		<div />
-	{:then json}
-		<div class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white rounded-lg">
-			<div class="p-4 flex-col w-full">
-				<div class="flex-row flex items-center w-full">
-					<ProfilePicture user={poster || null} />
-					<div class="w-2" />
-					<div class="flex-col flex">
-						<a class="hover:underline" href={`/users/${poster?.uid}`}>@{poster?.username}</a>
-						<div class="text-xs">{format(post.date)}</div>
-					</div>
-					<div class="grow" />
-					{#if currentUid == poster?.uid}
-						<button on:click={deletePostFunction}
-							><img
-								class="w-[1.5vw] aspect-square"
-								src="delete_icon.svg"
-								alt="delete icon"
-							/></button
-						>
-					{/if}
+<div class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white rounded-lg">
+	<div class="p-4 flex-col w-full">
+			<div class="flex-row flex items-center w-full">
+				{#await getUser(post.creatorId)}
+				<div class="h-10"></div>
+				{:then poster}
+				<ProfilePicture user={poster || null} />
+				<div class="w-2" />
+				<div class="flex-col flex">
+					<a class="hover:underline" href={`/users/${poster?.uid}`}>@{poster?.username}</a>
+					<div class="text-xs">{format(post.date)}</div>
 				</div>
-				<div class="h-4" />
-				<div class="flex-row flex">
+				<div class="grow" />
+				{#if currentUid == poster?.uid}
+					<button on:click={deletePostFunction}
+						><img class="w-[1.5vw] aspect-square" src="delete_icon.svg" alt="delete icon" /></button
+					>
+				{/if}
+				{/await}
+			</div>
+			<div class="h-4" />
+			<div class="flex-row flex">
+				{#await getObjectJsonFunction()}
+					<div />
+				{:then json}
 					<div class="w-5/6 aspect-square" in:fade>
 						<PostObjectWidget object={json} />
 					</div>
-
-					<div class="flex-col flex justify-center items-center pl-2 grow">
-						<button on:click={likePostFuntion}>
-							<span
-								class="material-symbols-outlined"
-								style={`font-variation-settings: 'FILL' ${
-									post.likes.includes(currentUid || '') ? 1 : 0
-								}`}>favorite</span
-							>
-						</button>
-						<div class="text-xs">{post.likes.length}</div>
-						<div class="h-4" />
-						<a href={`/posts/${post.postId}`}>
-							<span class="material-symbols-outlined">mode_comment</span>
-						</a>
-						<div class="text-xs">{post.commentIds.length}</div>
-						<div class="h-4" />
-						<span class="material-symbols-outlined">share</span>
-					</div>
+				{:catch error}
+					<div>{error}</div>
+				{/await}
+				<div class="flex-col flex justify-center items-center pl-2 grow">
+					<button on:click={likePostFuntion}>
+						<span
+							class="material-symbols-outlined"
+							style={`font-variation-settings: 'FILL' ${
+								post.likes.includes(currentUid || '') ? 1 : 0
+							}`}>favorite</span
+						>
+					</button>
+					<div class="text-xs">{post.likes.length}</div>
+					<div class="h-4" />
+					<a href={`/posts/${post.postId}`}>
+						<span class="material-symbols-outlined">mode_comment</span>
+					</a>
+					<div class="text-xs">{post.commentIds.length}</div>
+					<div class="h-4" />
+					<span class="material-symbols-outlined">share</span>
 				</div>
-				<div class="h-4" />
-				<div class="font-medium">
-					{post.text}
-				</div>
-				<div class="h-2" />
 			</div>
-		</div>
-	{:catch error}
-		<div>{error}</div>
-	{/await}
-{/await}
+			<div class="h-4" />
+			<div class="font-medium">
+				{post.text}
+			</div>
+			<div class="h-2" />
+	</div>
+</div>
