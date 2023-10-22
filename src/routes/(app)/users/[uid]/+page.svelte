@@ -6,9 +6,9 @@
 	export let data;
 	const user: User | null = data;
 	import { onMount } from 'svelte';
-	import { usersPostStore, usersSubscribeToMessages } from '$lib/stores/postsStore.js';
+	import { usersPosts, subscribeToUsersPosts } from '$lib/stores/postsStore.js';
 	onMount(() => {
-		usersSubscribeToMessages(user?.uid!);
+		subscribeToUsersPosts(user?.uid!);
 
 	});
 </script>
@@ -16,8 +16,8 @@
 <div class="h-full p-4 overflow-hidden flex flex-col">
 	{#if user}
 		<ProfileBanner {user} />
-		{#if $usersPostStore.loading == false}
-			<PostGrid posts={$usersPostStore.posts} />
+		{#if $usersPosts.loading == false}
+			<PostGrid posts={$usersPosts.posts} />
 		{/if}
 	{:else}
 		<div>User cannot be found</div>

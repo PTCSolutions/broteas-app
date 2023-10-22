@@ -3,13 +3,12 @@ import { db } from '$lib/firebase';
 import { writable, type Writable } from "svelte/store";
 import type { PostMeta } from '$lib/post';
 
-export const postStore: Writable<{ posts: PostMeta[], loading: boolean }> = writable({ posts: [], loading: true });
-export const usersPostStore: Writable<{ posts: PostMeta[], loading: boolean }> = writable({ posts: [], loading: true });
+export const feedPosts: Writable<{ posts: PostMeta[], loading: boolean }> = writable({ posts: [], loading: true });
+export const usersPosts: Writable<{ posts: PostMeta[], loading: boolean }> = writable({ posts: [], loading: true });
 
-let messagesUnsubscribeCallback;
-export const subscribeToMessages = async (uid: string) => {
+export const subscribeToFeedPosts = async (uid: string) => {
     const querySnapshot = query(collection(db, "posts"), orderBy("date", "desc"), limit(100));
-    messagesUnsubscribeCallback = onSnapshot(
+    const callback = onSnapshot(
         querySnapshot,
         (q) => {
             const posts: PostMeta[] = [];
@@ -23,7 +22,7 @@ export const subscribeToMessages = async (uid: string) => {
                     posts.push(post as PostMeta);
                 }
             });
-            postStore.update(() => {
+            feedPosts.update(() => {
                 // console.log('💥 querySnapshot: New data: ', posts);
                 return { posts: [...posts], loading: false };
             });
@@ -33,13 +32,12 @@ export const subscribeToMessages = async (uid: string) => {
             console.warn("Couldn't update snapshot, maybe the user is logged out?", error);
         }
     );
-    return messagesUnsubscribeCallback;
+    return callback;
 };
 
-let usersMessagesUnsubscribeCallback;
-export const usersSubscribeToMessages = async (creatorId: string) => {
+export const subscribeToUsersPosts = async (creatorId: string) => {
     const querySnapshot = query(collection(db, "posts"), where("creatorId", "==", creatorId), limit(100));
-    usersMessagesUnsubscribeCallback = onSnapshot(
+    const callback = onSnapshot(
         querySnapshot,
         (q) => {
             const posts: PostMeta[] = [];
@@ -51,7 +49,7 @@ export const usersSubscribeToMessages = async (creatorId: string) => {
                 }
                 posts.push(post as PostMeta);
             });
-            usersPostStore.update(() => {
+            usersPosts.update(() => {
                 return { posts: [...posts], loading: false };
             });
 
@@ -60,5 +58,5 @@ export const usersSubscribeToMessages = async (creatorId: string) => {
             console.warn("Couldn't update snapshot, maybe the user is logged out?", error);
         }
     );
-    return usersMessagesUnsubscribeCallback;
+    return callback;
 };

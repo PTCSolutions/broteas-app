@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { postStore } from '$lib/stores/postsStore';
+	import { feedPosts } from '$lib/stores/postsStore';
 	import { userProfileStore } from '$lib/stores/userStore';
 	import { fade } from 'svelte/transition';
 	import PostGrid from '$lib/components/posts/PostGrid.svelte';
-	import Radio from '$lib/components/forms/Radio.svelte';
 	import { DarkMode } from 'flowbite-svelte';
 	let name: string | undefined;
 	$: name = $userProfileStore?.user?.firstName;
@@ -22,9 +21,9 @@
 		</div>
 		<DarkMode />
 	</div>
-	{#if $postStore?.loading === false}
+	{#if $feedPosts?.loading === false}
 		<!-- Should each post individually fade in, or the whole grid fade in as one-->
-		<PostGrid posts={$postStore.posts} />
+		<PostGrid posts={$feedPosts.posts} />
 	{/if}
 	<div class="bg-inherit grow" />
 </div>
