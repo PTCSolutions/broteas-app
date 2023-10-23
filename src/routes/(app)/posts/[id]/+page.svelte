@@ -8,7 +8,7 @@
 	import type { User } from '$lib/user.js';
 	import PostObjectWidget from '$lib/components/posts/widgets/PostObjectWidget.svelte';
 	import { format } from 'timeago.js';
-	import ProfilePicture from '$lib/components/ProfilePicture.svelte';
+	import ProfilePicture from '$lib/components/user/ProfilePicture.svelte';
 
 	export let data;
 	let post: PostMeta | undefined | null = data.post;

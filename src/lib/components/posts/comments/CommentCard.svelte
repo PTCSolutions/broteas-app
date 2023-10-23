@@ -5,7 +5,7 @@
 	import { format } from 'timeago.js';
 	import Button from '$lib/components/forms/Button.svelte';
 	import { getSubComments } from '$lib/comment';
-	import ProfilePicture from '$lib/components/ProfilePicture.svelte';
+	import ProfilePicture from '$lib/components/user/ProfilePicture.svelte';
 	// Get the uid of the currentUser from store
 	let currentUid: string | undefined;
 	$: currentUid = $userProfileStore?.user?.uid;

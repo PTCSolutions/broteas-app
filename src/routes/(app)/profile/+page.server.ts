@@ -17,6 +17,7 @@ export const actions = {
         }
     },
     unfollow: async ({ request }) => {
+        console.log("Oh we here baby");
         const data = await request.formData();
         const followed = data.get('followedUid') as string;
         const follower = data.get('currentUid') as string;

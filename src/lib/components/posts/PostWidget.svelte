@@ -7,7 +7,7 @@
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	import { format } from 'timeago.js';
 	import PostObjectWidget from './widgets/PostObjectWidget.svelte';
-	import ProfilePicture from '../ProfilePicture.svelte';
+	import ProfilePicture from '../user/ProfilePicture.svelte';
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	// The post in question

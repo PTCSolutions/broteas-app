@@ -1,18 +1,31 @@
 <script lang="ts">
-	import type { User } from '$lib/user';
+	import { getUser, type User } from '$lib/user';
 	import { userStore } from '$lib/stores/userStore';
 	import { enhance } from '$app/forms';
+	import { Button } from 'flowbite-svelte';
 	export let user: User;
 	export let followed: boolean | undefined;
 
-    let route: string;
-    $: route = followed ? '/profile?/unfollow' : '/profile?/follow';
+	let route: string;
+	$: route = followed ? '/profile?/unfollow' : '/profile?/follow';
 </script>
 
-<form method="POST" action={route} use:enhance>
+<form
+	method="POST"
+	action={route}
+	use:enhance={() => {
+		return async ({ update }) => {
+			update();
+			const possNullUser = await getUser(user.uid);
+			if (possNullUser) {
+				user = possNullUser;
+			}
+		};
+	}}
+>
 	<input type="hidden" name="followedUid" value={user.uid} />
 	<input type="hidden" name="currentUid" value={$userStore} />
-	<button class="py-1 px-4 bg-blue-400 hover:bg-blue-500 rounded text-m font-medium">
-		{followed ? 'Unfollow' : 'Follow'}</button
-	>
+	{#if followed !== undefined}
+		<Button class="bg-blue-600 hover:bg-blue-700 focus:ring-0" size="sm" type="submit">{followed ? 'Unfollow' : 'Follow'}</Button>
+	{/if}
 </form>
