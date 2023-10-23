@@ -10,7 +10,7 @@
 	import { userProfileStore } from '$lib/stores/userStore';
 	import SearchUserCard from './search/SearchUserCard.svelte';
 	import type { ObjectType } from '$lib/post';
-	export let showModal: boolean;
+	export let onObjectCardClicked : any;
 	export let objectSelected: any;
 	export let userSearchOn: boolean = true;
 
@@ -116,7 +116,7 @@
 			{#each songs as song}
 				<button
 					on:click={() => {
-						showModal = true;
+						onObjectCardClicked();
 						objectSelected = song;
 					}}
 				>
@@ -127,7 +127,7 @@
 			{#each artists as artist}
 				<button
 					on:click={() => {
-						showModal = true;
+						onObjectCardClicked();
 						objectSelected = artist;
 					}}
 				>
@@ -138,7 +138,7 @@
 			{#each albums as album}
 				<button
 					on:click={() => {
-						showModal = true;
+						onObjectCardClicked();
 						objectSelected = album;
 					}}
 					><SearchAlbumCard {album} />

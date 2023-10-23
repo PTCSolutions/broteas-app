@@ -11,6 +11,7 @@ export const actions = {
         const uid = data.get('uid') as string;
         const objectId = data.get('objectId') as string;
         const objectType = data.get('objectType') as ObjectType;
+        console.log("Im running")
         if (text != null && objectId != null && uid != null && objectType != null) {
             const post: Post = {
                 creatorId: uid,

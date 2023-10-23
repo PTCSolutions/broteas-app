@@ -14,13 +14,14 @@
 	console.log(disabled);
 	export let object: any;
 	export let objectType: string = 'track';
+	// Allows the widget to affect the state of an external modal.
+	export let showModal;
 </script>
 
 {#if object != null}
 	<div class="p-4 rounded-lg bg-white dark:bg-gray-800 dark:text-white overflow-hidden w-[550px]">
 		<form method="POST" action="/?/newPost" use:enhance={({ }) => {
 			return async ({ update }) => {
-				window.location.href = "/";
 				await update();
 			};
 		}}>
@@ -46,7 +47,8 @@
 					<input value={objectType} type="hidden" name="objectType" />
 					<input value={uid} type="hidden" name="uid" />
 				<div class="w-1/3">
-					<Button text="Post" {disabled} />
+					<!-- // On click, close modal -->
+					<Button text="Post" {disabled} onClick={() => showModal = false}/>
 				</div>
 			</div>
 		</form>

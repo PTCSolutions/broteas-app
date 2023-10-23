@@ -1,11 +1,11 @@
 <script lang="ts">
 	import MenuItem from './MenuItem.svelte';
 	import { userProfileStore } from '$lib/stores/userStore';
-	import Modal from './Modal.svelte';
+	import { Modal } from 'flowbite-svelte';
 	import NewPost from './NewPost.svelte';
 
-	let showModal: boolean = false;
 	let showSettings: boolean = false;
+	let showModal = false;
 </script>
 
 <aside
@@ -70,6 +70,8 @@
 	</button>
 {/if}
 
-<Modal bind:showModal>
-	<NewPost />
+
+<Modal bind:open={showModal} outsideclose class=" w-auto">
+	<NewPost bind:showModal/>
 </Modal>
+  
