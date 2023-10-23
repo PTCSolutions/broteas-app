@@ -13,7 +13,7 @@
 <div class="flex flex-col bg-white dark:bg-gray-800 dark:text-white overflow-hidden w-[550px]">
 	<!-- On clikcing an objectcard change from search to object page-->
 	{#if search}
-		<div class="font-medium mx-4 text-xl text-black mb-1">
+		<div class="font-medium mx-4 text-xl mb-1">
 			Search for a song, artist or album to talk about
 		</div>
 		<SearchWidget onObjectCardClicked={() => search = false} userSearchOn={false} bind:objectSelected/>
