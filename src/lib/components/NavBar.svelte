@@ -29,9 +29,9 @@
 	</div>
 
 	<div class="grow" />
+	<!--TODO: Use flowbite navbar and dropdown for this-->
 	<button
-		on:mouseover={() => (showSettings = !showSettings)}
-		on:focus={() => (showSettings = !showSettings)}
+		on:click={() => {showSettings = !showSettings}}
 		class="my-1 py-1 px-2 rounded-md hover:bg-gray-300 dark:text-white dark:hover:bg-gray-600 text-md text-left"
 		>Settings</button
 	>
@@ -54,8 +54,6 @@
 {#if showSettings}
 	<button
 		on:mouseleave={() => (showSettings = false)}
-		on:mouseover={() => (showSettings = true)}
-		on:focus={() => (showSettings = true)}
 		class=" z-30 p-2 bg-gray-100 ml-28 bottom-4 fixed rounded-lg flex flex-col border-2"
 	>
 		<a
