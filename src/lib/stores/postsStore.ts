@@ -36,7 +36,7 @@ export const subscribeToFeedPosts = async (uid: string) => {
 };
 
 export const subscribeToUsersPosts = async (creatorId: string) => {
-    const querySnapshot = query(collection(db, "posts"), where("creatorId", "==", creatorId), limit(100));
+    const querySnapshot = query(collection(db, "posts"), where("creatorId", "==", creatorId), orderBy("date", "desc"), limit(100));
     const callback = onSnapshot(
         querySnapshot,
         (q) => {
