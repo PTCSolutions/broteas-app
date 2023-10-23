@@ -25,6 +25,7 @@
 >
 	<input type="hidden" name="followedUid" value={user.uid} />
 	<input type="hidden" name="currentUid" value={$userStore} />
+	<!-- TODO: Make this load in nicer-->
 	{#if followed !== undefined}
 		<Button class="bg-blue-600 hover:bg-blue-700 focus:ring-0" size="sm" type="submit">{followed ? 'Unfollow' : 'Follow'}</Button>
 	{/if}
