@@ -19,7 +19,7 @@
 	</div>
 	<div class="flex flex-row items-center gap-4">
 		<div>People who can your posts:</div>
-		<Button size={'xs'}>{selectedPostVisibility}</Button>
+		<Button size={'xs'} class="focus:ring-0">{selectedPostVisibility}</Button>
 		<Dropdown bind:open={postVisibilityDropdown}>
 			{#each postVisibilityOptions as option}
 				<DropdownItem
@@ -33,7 +33,7 @@
 	</div>
 	<div class="flex flex-row items-center gap-4">
 		<div>People who can your comments:</div>
-		<Button size={'xs'}>{selectedCommentVisibility}</Button>
+		<Button size={'xs'} class="focus:ring-0">{selectedCommentVisibility}</Button>
 		<Dropdown bind:open={commentVisibilityDropdown}>
 			{#each commentVisibilityOptions as option}
 				<DropdownItem
@@ -47,7 +47,7 @@
 	</div>
 	<div class="flex flex-row items-center gap-4">
 		<div>Show suggested posts:</div>
-		<Button size={'xs'}>{selectedSuggestedPosts}</Button>
+		<Button size={'xs'} class="focus:ring-0">{selectedSuggestedPosts}</Button>
 		<Dropdown bind:open={suggestedPostsDropdown}>
 			{#each suggestedPostOptions as option}
 				<DropdownItem
