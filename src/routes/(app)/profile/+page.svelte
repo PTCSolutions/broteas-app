@@ -1,13 +1,10 @@
 <script lang="ts">
 	import PostGrid from '$lib/components/posts/PostGrid.svelte';
 	import ProfileBanner from '$lib/components/user/ProfileBanner.svelte';
-	import { getPostsForUser } from '$lib/post';
 	import { subscribeToUsersPosts, usersPosts } from '$lib/stores/postsStore';
-	import { userProfileStore } from '$lib/stores/userStore';
-	import { onMount } from 'svelte';
-	onMount(() => {
-		subscribeToUsersPosts($userProfileStore?.user?.uid!);
-	});
+	import { userStore, userProfileStore } from '$lib/stores/userStore';
+	// Once user's uid has loaded, subscribe to their posts  
+	$: if ($userStore) subscribeToUsersPosts($userStore!);
 </script>
 
 <div class="h-full p-4 overflow-hidden flex flex-col">

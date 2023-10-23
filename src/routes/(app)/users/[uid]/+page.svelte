@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { User } from '$lib/user.js';
-	import { getPostsForUser } from '$lib/post.js';
 	import PostGrid from '$lib/components/posts/PostGrid.svelte';
 	import ProfileBanner from '$lib/components/user/ProfileBanner.svelte';
 	export let data;
@@ -8,8 +7,9 @@
 	import { onMount } from 'svelte';
 	import { usersPosts, subscribeToUsersPosts } from '$lib/stores/postsStore.js';
 	onMount(() => {
-		subscribeToUsersPosts(user?.uid!);
-
+		if (user?.uid != undefined) {
+			subscribeToUsersPosts(user?.uid!);
+		}
 	});
 </script>
 
