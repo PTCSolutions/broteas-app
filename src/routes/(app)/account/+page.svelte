@@ -40,22 +40,22 @@
 						<input
 							name={'firstName'}
 							type="text"
-							class="my-1 border border-black rounded-md px-2"
+							class="my-1 border border-black rounded-md px-2 py-0"
 							value={user.firstName}
 						/>
 					</div>
-					<div class="flex flex-row gap-2 items-center">
+					<div class="flex flex-row gap-2 items-center mb-1">
 						<div>Last Name:</div>
 						<input
 							name={'lastName'}
 							type="text"
-							class="my-1 border border-black rounded-md px-2"
+							class="my-1 border border-black rounded-md px-2 py-0"
 							value={user.lastName}
 						/>
 					</div>
-					<div>Username: {user.username}</div>
+					<div class="mb-1">Username: {user.username}</div>
 					<div>Email: {user.email}</div>
-					<div class="w-1/12 mt-2"><Button>Save</Button></div>
+					<div class="w-1/12 mt-2"><Button type="button" class="focus:ring-0">Save</Button></div>
 					<input type="hidden" value={user.uid} name="uid" />
 				</form>
 			{:else}
