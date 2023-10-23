@@ -53,7 +53,6 @@
 
 {#if showSettings}
 	<button
-		on:mouseleave={() => (showSettings = false)}
 		class=" z-30 p-2 bg-gray-100 ml-28 bottom-4 fixed rounded-lg flex flex-col border-2"
 	>
 		<a
