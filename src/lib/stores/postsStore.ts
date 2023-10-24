@@ -14,13 +14,12 @@ export const subscribeToFeedPosts = async (uid: string) => {
             const posts: PostMeta[] = [];
             q.forEach((doc) => {
                 const post = doc.data();
-                if (post.creatorId != uid) {
-                    post.postId = doc.id
-                    if (post.date != null) {
-                        post.date = (post.date as Timestamp).toDate();
-                    }
-                    posts.push(post as PostMeta);
+                post.postId = doc.id
+                if (post.date != null) {
+                    post.date = (post.date as Timestamp).toDate();
                 }
+                posts.push(post as PostMeta);
+
             });
             feedPosts.update(() => {
                 // console.log('💥 querySnapshot: New data: ', posts);
