@@ -6,6 +6,6 @@ export async function load({parent}) {
     // If its undefined, because it hasnt been set yet, then set it to the empty string
     // This matches the value we set to, when the user logs out
     if (uid == "") {
-        throw redirect(302, "/login");
+        throw redirect(302, "/welcome");
     };
 }

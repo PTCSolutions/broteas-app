@@ -16,16 +16,19 @@
 {#if ready}
 <div class="w-full, min-h-screen background flex flex-col items-center pt-32">
 	<div class="flex flex-col gap-20 w-9/12">
-		<div class="text-6xl font-semibold tracking-widest" in:fade={{ duration: 2000 }}>
+		<div class="text-6xl font-semibold tracking-widest" in:fade={{ duration: 1500 }}>
 			DISCUSS, DISCOVER, <span class="font-bold text-red-600">DISCO</span>
 		</div>
-		<div class="w-1/2 flex flex-col gap-10" in:fly={{ y: 200, duration: 2000, delay: 1000, easing: cubicInOut }}>
-			<div class="text-4xl leading-snug">
+		<div class="w-1/2 flex flex-col gap-10" >
+			<div class="text-4xl leading-snug" in:fly={{ y: 200, duration: 1500, delay: 750,  }}>
 				Disco is a new platform for communities centred around a love for music
 			</div>
-            <div class="text-2xl leading-none">
+            <div class="text-2xl leading-none" in:fly={{ y: 200, duration: 1500, delay: 750,  }}>
 				Share your favourite albums, discuss the songs you love, and learn more about your favourite artists...
-                all on Disco!
+                all on Disco
+			</div>
+            <div class="text-xl leading-none" in:fade={{ duration: 1500, delay: 1750 }}>
+				<a href="/login">Log In</a> or <a href="/signup">Sign Up</a> and get grooving today!
 			</div>
 		</div>
 	</div>
@@ -37,4 +40,8 @@
 		background: linear-gradient(169deg, #ebebeb 6.63%, #f3eaea 98.31%);
 		font-family: 'Inter', sans-serif;
 	}
+
+    a {
+        font-weight: 500;
+    }
 </style>
