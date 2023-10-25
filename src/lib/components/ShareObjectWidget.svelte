@@ -11,7 +11,6 @@
 	// Disable button if there is no uid
 	let disabled: boolean;
 	$: disabled = uid == '' || uid == null;
-	console.log(disabled);
 	export let object: any;
 	export let objectType: string = 'track';
 	// Allows the widget to affect the state of an external modal.
@@ -19,36 +18,42 @@
 </script>
 
 {#if object != null}
-	<div class="p-4 rounded-lg bg-white dark:bg-gray-800 dark:text-white overflow-hidden w-[550px]">
-		<form method="POST" action="/?/newPost" use:enhance={({ }) => {
-			return async ({ update }) => {
-				await update();
-			};
-		}}>
-			<div class="flex flex-col items-center gap-4">
-
-					<!-- <img class="rounded w-1/4 h-1/4" src={getObjectImageSrc(object)} alt="" /> -->
-					{#if objectType == 'track'}
-						<SearchSongCard song={object} />
-					{:else if objectType == 'artist'}
-						<SearchArtistCard artist={object} />
-					{:else if objectType == 'album'}
-						<SearchAlbumCard album={object} />
-					{:else}
-						<div />
-					{/if}
-					<textarea
-						name="text"
-						autocomplete="off"
-						placeholder={`Talk about ${object.name}!`}
-						class="bg-white dark:bg-gray-600 dark:text-white appearance-none border border-black rounded w-full h-20 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-purple-500 resize-none"
-					/>
-					<input value={object.id} type="hidden" name="objectId" />
-					<input value={objectType} type="hidden" name="objectType" />
-					<input value={uid} type="hidden" name="uid" />
+	<div
+		class="p-4 rounded-lg bg-white dark:bg-gray-800 dark:text-white overflow-hidden w-[550px] h-full"
+	>
+		<form
+			method="POST"
+			action="/?/newPost"
+			use:enhance={({}) => {
+				return async ({ update }) => {
+					await update();
+				};
+			}}
+			class="h-full"
+		>
+			<div class="flex flex-col items-center h-full justify-between ">
+				<!-- <img class="rounded w-1/4 h-1/4" src={getObjectImageSrc(object)} alt="" /> -->
+				{#if objectType == 'track'}
+					<SearchSongCard song={object} />
+				{:else if objectType == 'artist'}
+					<SearchArtistCard artist={object} />
+				{:else if objectType == 'album'}
+					<SearchAlbumCard album={object} />
+				{:else}
+					<div />
+				{/if}
+				<textarea
+					name="text"
+					autocomplete="off"
+					placeholder={`Talk about ${object.name}!`}
+					class="bg-white dark:bg-gray-600 dark:text-white appearance-none border border-black rounded w-full grow py-2 px-4 my-4 text-gray-700 leading-tight focus:outline-none focus:border-purple-500 resize-none"
+				/>
+				<input value={object.id} type="hidden" name="objectId" />
+				<input value={objectType} type="hidden" name="objectType" />
+				<input value={uid} type="hidden" name="uid" />
 				<div class="w-1/3">
 					<!-- // On click, close modal -->
-					<Button text="Post" {disabled} onClick={() => showModal = false}/>
+					<Button text="Post" {disabled} onClick={() => (showModal = false)} />
 				</div>
 			</div>
 		</form>
