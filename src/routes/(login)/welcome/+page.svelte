@@ -1,38 +1,35 @@
 <script>
 	import { onMount } from 'svelte';
-	import { cubicIn, cubicInOut, elasticIn, linear } from 'svelte/easing';
 	import { fade, fly } from 'svelte/transition';
 	let ready = false;
 	onMount(() => (ready = true));
 </script>
 
-<!-- CD Image With tagline at the top overlapping-->
-<!-- <div class="w-full min-h-screen background pt-16">
-    <div class="flex flex-col items-center justify-center">
-    <div class="text-6xl z-10 absolute top-32" in:fade>DISCUSS, DISCOVER, <span class="font-semibold">DISCO</span></div>
-    <img src="/CD.svg" alt="CD" class="w-7/12 ">
-    </div>
-</div> -->
 {#if ready}
-<div class="w-full, min-h-screen background flex flex-col items-center pt-32">
-	<div class="flex flex-col gap-20 w-9/12">
-		<div class="text-6xl font-semibold tracking-widest" in:fade={{ duration: 1500 }}>
-			DISCUSS, DISCOVER, <span class="font-bold text-red-600">DISCO</span>
-		</div>
-		<div class="w-1/2 flex flex-col gap-10" >
-			<div class="text-4xl leading-snug" in:fly={{ y: 200, duration: 1500, delay: 750,  }}>
-				Disco is a new platform for communities centred around a love for music
+	<div class="h-full min-h-screen overflow-hidden background">
+		<div class="w-full h-full min-h-screen flex flex-row gap-8 px-20 py-16 items-center">
+			<div class="flex flex-col gap-6 w-full">
+				<div in:fade={{ duration: 1500 }}>
+					<img src="/D1SCO_Logo.png" alt="Logo" />
+				</div>
+
+				<div class="text-3xl" in:fly={{ y: 200, duration: 1500, delay: 750 }}>
+					The new platform for communities centred around a love for music
+				</div>
+				<div class="text-3xl" in:fly={{ y: 200, duration: 1500, delay: 750 }}>
+					Share your favourite albums, discuss the songs you love, and learn more about your
+					favourite artists
+				</div>
+				<div class="h-8"></div>
+				<div class="text-2xl" in:fade={{ duration: 1500, delay: 1750 }}>
+					<a class="font-semibold hover:underline" href="/login">Log In</a> or <a class="font-semibold hover:underline" href="/signup">Sign Up</a> and get grooving today!
+				</div>
 			</div>
-            <div class="text-2xl leading-none" in:fly={{ y: 200, duration: 1500, delay: 750,  }}>
-				Share your favourite albums, discuss the songs you love, and learn more about your favourite artists...
-                all on Disco
-			</div>
-            <div class="text-xl leading-none" in:fade={{ duration: 1500, delay: 1750 }}>
-				<a href="/login">Log In</a> or <a href="/signup">Sign Up</a> and get grooving today!
+			<div class="w-full flex flex-col items-center">
+				<img class="object-resize max-h-[500px]" src="/PostEx.png" alt="Post Example" />
 			</div>
 		</div>
 	</div>
-</div>
 {/if}
 
 <style>
@@ -40,8 +37,4 @@
 		background: linear-gradient(169deg, #ebebeb 6.63%, #f3eaea 98.31%);
 		font-family: 'Inter', sans-serif;
 	}
-
-    a {
-        font-weight: 500;
-    }
 </style>
