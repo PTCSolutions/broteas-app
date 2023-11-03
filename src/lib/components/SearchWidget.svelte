@@ -43,7 +43,7 @@
 				try {
 					objects = await searchSpotify(searchText, searchCatagory, $accessToken ?? '');
 				} catch (e) {
-					console.log(e);
+					objects = [];
 				}
 			} else {
 				users = await searchForOtherUsers(searchText, $userProfileStore?.user!);

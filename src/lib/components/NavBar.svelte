@@ -53,18 +53,18 @@
 
 {#if showSettings}
 	<button
-		class=" z-30 p-2 bg-gray-100 ml-28 bottom-4 fixed rounded-lg flex flex-col border-2"
+		class=" z-30 p-2 bg-gray-100 dark:bg-gray-800 ml-28 bottom-4 fixed rounded-lg flex flex-col border-2"
 	>
 		<a
 			on:click={() => (showSettings = false)}
 			href="/profile"
-			class="my-1 py-1 px-2 rounded-md hover:bg-gray-300 dark:text-white dark:hover:bg-gray-600 text-md text-left"
+			class="my-1 py-1 px-2 w-full rounded-md hover:bg-gray-300 dark:text-white dark:hover:bg-gray-600 text-md text-left"
 			>Profile</a
 		>
 		<a
 			on:click={() => (showSettings = false)}
 			href="/account"
-			class="my-1 py-1 px-2 rounded-md hover:bg-gray-300 dark:text-white dark:hover:bg-gray-600 text-md text-left"
+			class="my-1 py-1 px-2 w-full rounded-md hover:bg-gray-300 dark:text-white dark:hover:bg-gray-600 text-md text-left"
 			>Account</a
 		>
 	</button>
