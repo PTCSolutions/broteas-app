@@ -4,11 +4,12 @@
 	import Input from '$lib/components/forms/Input.svelte';
 	import Radio from '$lib/components/forms/Radio.svelte';
 	import { accessToken } from '$lib/stores/accessTokenStore';
-	import { searchForOtherUsers, type User } from '$lib/user';
-	import { userProfileStore } from '$lib/stores/userStore';
-	import SearchUserCard from './search/SearchUserCard.svelte';
-	import SearchObjectCard from './search/SearchObjectCard.svelte';
+    import ShareObjectCard from './share/ShareObjectCard.svelte';
 	import type { ObjectType } from '$lib/post';
+
+	// Exports
+	export let onObjectCardClicked: any;
+	export let objectSelected: any;
 
 	// Options for search type radio menu
 	const options = [
@@ -23,30 +24,20 @@
 		{
 			value: 'album',
 			label: 'Album'
-		},
-		{
-			value: 'user',
-			label: 'User'
 		}
 	];
 
-	type SearchType = ObjectType | 'user';
-	let searchCatagory: SearchType = 'track';
+	let searchCatagory: ObjectType = 'track';
 	let searchText: string = '';
 	let objects: Array<PostObject> = [];
-	let users: User[] = [];
 
 	// Function which either searches Spotify or our userbase
-	async function search(searchText: string, searchCatagory: SearchType) {
+	async function search(searchText: string, searchCatagory: ObjectType) {
 		if (searchText != null) {
-			if (searchCatagory != 'user') {
-				try {
-					objects = await searchSpotify(searchText, searchCatagory, $accessToken ?? '');
-				} catch (e) {
-					console.log(e);
-				}
-			} else {
-				users = await searchForOtherUsers(searchText, $userProfileStore?.user!);
+			try {
+				objects = await searchSpotify(searchText, searchCatagory, $accessToken ?? '');
+			} catch (e) {
+				console.log(e);
 			}
 		}
 	}
@@ -71,16 +62,17 @@
 	</div>
 
 	<div class="h-2" />
-	<div class="flex flex-col h-[700px] overflow-auto">
+	<div class="flex flex-col h-80 overflow-auto">
 		<div class="h-2" />
-		{#if searchCatagory != 'user'}
-			{#each objects as object}
-				<SearchObjectCard {object} />
-			{/each}
-		{:else}
-			{#each users as user}
-				<SearchUserCard {user} followed={$userProfileStore?.user?.following?.includes(user.uid)} />
-			{/each}
-		{/if}
+		{#each objects as object}
+			<button
+				on:click={() => {
+					onObjectCardClicked();
+					objectSelected = object;
+				}}
+			>
+				<ShareObjectCard {object} />
+			</button>
+		{/each}
 	</div>
 </div>

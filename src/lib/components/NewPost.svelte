@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SearchWidget from './SearchWidget.svelte';
+	import SearchToShareWidget from './SearchToShareWidget.svelte';
 	import type { Song, Album, Artist } from '$lib/spotify';
 	import ShareObjectWidget from '$lib/components/ShareObjectWidget.svelte';
 	import { horizontalSlide } from '$lib/transition/transition';
@@ -20,7 +20,7 @@
 		<div class="font-medium mx-4 text-xl mb-1">
 			Search for a song, artist or album to talk about
 		</div>
-		<SearchWidget onObjectCardClicked={() => search = false} userSearchOn={false} bind:objectSelected />
+		<SearchToShareWidget onObjectCardClicked={() => search = false} bind:objectSelected />
 		</div>
 	{:else}
 	<div in:fly={{x: 550, delay: 400, duration: 400, }} class="h-full">
