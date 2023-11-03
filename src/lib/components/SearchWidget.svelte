@@ -1,6 +1,6 @@
 <script lang="ts">
 	// Imports
-	import type { Song, Artist, Album, PostObject } from '$lib/spotify';
+	import { type PostObject, searchSpotify } from '$lib/spotify';
 	import Input from '$lib/components/forms/Input.svelte';
 	import Radio from '$lib/components/forms/Radio.svelte';
 	import { accessToken } from '$lib/stores/accessTokenStore';
@@ -8,6 +8,7 @@
 	import { userProfileStore } from '$lib/stores/userStore';
 	import SearchUserCard from './search/SearchUserCard.svelte';
 	import SearchObjectCard from './search/SearchObjectCard.svelte';
+	import type { ObjectType } from '$lib/post';
 
 	// Exports
 	export let onObjectCardClicked: any;
@@ -35,43 +36,17 @@
 			label: 'User'
 		});
 
-	type SearchType = 'track' | 'artist' | 'album' | 'user';
+	type SearchType = ObjectType | 'user';
 	let searchCatagory: SearchType = 'track';
 	let searchText: string = '';
 	let objects: Array<PostObject> = [];
 	let users: User[] = [];
 
-	// Function which returns a list of songs from spotify
-	// TODO: Move to another place
-	async function search(searchText: string, searchCatagory: SearchType | 'user') {
+	// Function which either searches Spotify or our userbase
+	async function search(searchText: string, searchCatagory: SearchType) {
 		if (searchText != null) {
 			if (searchCatagory != 'user') {
-				const response = await fetch(
-					`https://api.spotify.com/v1/search?q=${searchText}&type=${searchCatagory}`,
-					{
-						method: 'GET',
-						headers: {
-							// Accept: 'application/json'
-							Authorization: `Bearer ${$accessToken}`
-						}
-					}
-				);
-				if (response.status == 200) {
-					let json = await response.json();
-					switch (searchCatagory) {
-						case 'track':
-							objects = json.tracks.items;
-							break;
-						case 'artist':
-							objects = json.artists.items;
-							break;
-						case 'album':
-							objects = json.albums.items;
-							break;
-						default:
-							console.log('error');
-					}
-				}
+				objects = await searchSpotify(searchText, searchCatagory, $accessToken ?? '');
 			} else {
 				users = await searchForOtherUsers(searchText, $userProfileStore?.user!);
 			}

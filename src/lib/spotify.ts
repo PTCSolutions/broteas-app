@@ -230,3 +230,34 @@ export async function getArtistAlbums(artistId: string, access_token: string): P
         throw Error;
     }
 }
+
+export async function searchSpotify(searchText: string, searchCatagory: ObjectType, access_token: string): Promise<Array<PostObject>> {
+    const response = await fetch(
+        `https://api.spotify.com/v1/search?q=${searchText}&type=${searchCatagory}`,
+        {
+            method: 'GET',
+            headers: {
+                // Accept: 'application/json'
+                Authorization: `Bearer ${access_token}`
+            }
+        }
+    );
+    if (response.status == 200) {
+        const json = await response.json();
+        switch (searchCatagory) {
+            case 'track':
+                return json.tracks.items;
+
+            case 'artist':
+                return json.artists.items;
+
+            case 'album':
+                return json.albums.items;
+
+            default:
+                throw Error;
+        }
+    } else {
+        throw Error;
+    }
+}
