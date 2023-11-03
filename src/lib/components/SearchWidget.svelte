@@ -1,61 +1,49 @@
 <script lang="ts">
-	import type { Song, Artist, Album } from '$lib/spotify';
+	// Imports
+	import type { Song, Artist, Album, PostObject } from '$lib/spotify';
 	import Input from '$lib/components/forms/Input.svelte';
 	import Radio from '$lib/components/forms/Radio.svelte';
-	import SearchSongCard from './search/SearchSongCard.svelte';
-	import SearchArtistCard from './search/SearchArtistCard.svelte';
-	import SearchAlbumCard from './search/SearchAlbumCard.svelte';
 	import { accessToken } from '$lib/stores/accessTokenStore';
 	import { searchForOtherUsers, type User } from '$lib/user';
 	import { userProfileStore } from '$lib/stores/userStore';
 	import SearchUserCard from './search/SearchUserCard.svelte';
-	import type { ObjectType } from '$lib/post';
-	export let onObjectCardClicked : any;
+	import SearchObjectCard from './search/SearchObjectCard.svelte';
+
+	// Exports
+	export let onObjectCardClicked: any;
 	export let objectSelected: any;
 	export let userSearchOn: boolean = true;
 
-	const options = userSearchOn
-		? [
-				{
-					value: 'track',
-					label: 'Song'
-				},
-				{
-					value: 'artist',
-					label: 'Artist'
-				},
-				{
-					value: 'album',
-					label: 'Album'
-				},
-				{
-					value: 'user',
-					label: 'User'
-				}
-		  ]
-		: [
-				{
-					value: 'track',
-					label: 'Song'
-				},
-				{
-					value: 'artist',
-					label: 'Artist'
-				},
-				{
-					value: 'album',
-					label: 'Album'
-				}
-		  ];
+	// Options for search type radio menu
+	const options = [
+		{
+			value: 'track',
+			label: 'Song'
+		},
+		{
+			value: 'artist',
+			label: 'Artist'
+		},
+		{
+			value: 'album',
+			label: 'Album'
+		}
+	];
+	userSearchOn &&
+		options.push({
+			value: 'user',
+			label: 'User'
+		});
 
-	let searchCatagory: ObjectType = 'track';
+	type SearchType = 'track' | 'artist' | 'album' | 'user';
+	let searchCatagory: SearchType = 'track';
 	let searchText: string = '';
-	let songs: Array<Song> = [];
-	let artists: Array<Artist> = [];
-	let albums: Array<Album> = [];
+	let objects: Array<PostObject> = [];
 	let users: User[] = [];
+
 	// Function which returns a list of songs from spotify
-	async function search(searchText: string, searchCatagory: ObjectType | "user") {
+	// TODO: Move to another place
+	async function search(searchText: string, searchCatagory: SearchType | 'user') {
 		if (searchText != null) {
 			if (searchCatagory != 'user') {
 				const response = await fetch(
@@ -72,13 +60,13 @@
 					let json = await response.json();
 					switch (searchCatagory) {
 						case 'track':
-							songs = json.tracks.items;
+							objects = json.tracks.items;
 							break;
 						case 'artist':
-							artists = json.artists.items;
+							objects = json.artists.items;
 							break;
 						case 'album':
-							albums = json.albums.items;
+							objects = json.albums.items;
 							break;
 						default:
 							console.log('error');
@@ -112,41 +100,20 @@
 	<div class="h-2" />
 	<div class="flex flex-col h-80 overflow-auto">
 		<div class="h-2" />
-		{#if searchCatagory == 'track'}
-			{#each songs as song}
-				<button
-					on:click={() => {
-						onObjectCardClicked();
-						objectSelected = song;
-					}}
-				>
-					<SearchSongCard {song} />
-				</button>
-			{/each}
-		{:else if searchCatagory == 'artist'}
-			{#each artists as artist}
-				<button
-					on:click={() => {
-						onObjectCardClicked();
-						objectSelected = artist;
-					}}
-				>
-					<SearchArtistCard {artist} />
-				</button>
-			{/each}
-		{:else if searchCatagory == 'album'}
-			{#each albums as album}
-				<button
-					on:click={() => {
-						onObjectCardClicked();
-						objectSelected = album;
-					}}
-					><SearchAlbumCard {album} />
-				</button>
-			{/each}
-		{:else if searchCatagory == 'user'}
+		{#if searchCatagory == 'user'}
 			{#each users as user}
 				<SearchUserCard {user} followed={$userProfileStore?.user?.following?.includes(user.uid)} />
+			{/each}
+		{:else}
+			{#each objects as object}
+				<button
+					on:click={() => {
+						onObjectCardClicked();
+						objectSelected = object;
+					}}
+				>
+					<SearchObjectCard {object} />
+				</button>
 			{/each}
 		{/if}
 	</div>
