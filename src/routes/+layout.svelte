@@ -15,7 +15,7 @@
 		console.log(window.innerWidth)
 		if (window.innerWidth < 800) {
 			console.log("mobile");
-			goto('/mobile');
+			goto('/mobile', {invalidateAll: true});
 		}
 		// Set store values
 		$accessToken = access_token;

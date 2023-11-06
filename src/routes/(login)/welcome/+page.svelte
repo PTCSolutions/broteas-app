@@ -1,8 +1,15 @@
 <script>
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
+	import { goto } from '$app/navigation';
 	let ready = false;
-	onMount(() => (ready = true));
+	onMount(() => {
+		if (window.innerWidth < 800) {
+			console.log('mobile');
+			goto('/mobile');
+		}
+		ready = true;
+	});
 </script>
 
 {#if ready}
@@ -20,9 +27,10 @@
 					Share your favourite albums, discuss the songs you love, and learn more about your
 					favourite artists
 				</div>
-				<div class="h-8"></div>
+				<div class="h-8" />
 				<div class="text-2xl" in:fade={{ duration: 1500, delay: 1750 }}>
-					<a class="font-semibold hover:underline" href="/login">Log In</a> or <a class="font-semibold hover:underline" href="/signup">Sign Up</a> and get grooving today!
+					<a class="font-semibold hover:underline" href="/login">Log In</a> or
+					<a class="font-semibold hover:underline" href="/signup">Sign Up</a> and get grooving today!
 				</div>
 			</div>
 			<div class="w-full flex flex-col items-center">

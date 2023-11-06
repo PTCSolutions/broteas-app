@@ -1,15 +1,6 @@
 <script lang="ts">
-	// import type { User } from '$lib/user';
-	// import { getUser } from '$lib/user';
-	// import { userProfileStore } from '$lib/stores/userStore';
-	// import { deletePost, likePost, type PostMeta } from '$lib/post';
-	// import { getObjectJson } from '$lib/spotify';
-	// import { accessToken } from '$lib/stores/accessTokenStore';
-	// import { format } from 'timeago.js';
-	// import PostObjectWidget from './widgets/PostObjectWidget.svelte';
-	// import ProfilePicture from '../user/ProfilePicture.svelte';
 	import { fade } from 'svelte/transition';
-	// import { onMount } from 'svelte';
+
 	// The post in question
 	export let url: string;
 
