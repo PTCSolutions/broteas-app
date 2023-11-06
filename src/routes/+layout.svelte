@@ -10,12 +10,13 @@
 	// Set access token and uid at base layout so the rest of the app can access
 	let uid = data.uid;
 	let access_token = data.token;
-	
+
 	onMount(() => {
-		console.log(window.innerWidth)
+		// Check if the device is small screen (the invalidate all means the page 
+		// reloads when directed so it doesnt get stuck on welcome page)
 		if (window.innerWidth < 800) {
-			console.log("mobile");
-			goto('/mobile', {invalidateAll: true});
+			console.log('mobile');
+			goto('/mobile', { invalidateAll: true });
 		}
 		// Set store values
 		$accessToken = access_token;
