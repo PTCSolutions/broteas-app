@@ -3,7 +3,6 @@
 
     function copy() {
         navigator.clipboard.writeText(`Here's a link to join D1SCO. It's a place to discuss, discover and enjoy music.\n\nhttps://d1sco.vercel.app/signup/?c=${code}`);
-        alert("Copied!");
     }
 </script>
 
