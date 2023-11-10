@@ -3,28 +3,34 @@
 
 	let code: string = $userProfileStore?.user?.invite_code.code ?? "";
 
+	let copied =false;
+
     function copy() {
         navigator.clipboard.writeText(`Here's a link to join D1SCO. It's a place to discuss, discover and enjoy music.\n\nhttps://d1sco.vercel.app/signup/?c=${code}`);
+		copied = true;
+		setTimeout(() => {
+			copied = false
+		}, 2000);
     }
 </script>
 
 <div class="ticket">
 	<div class="absolute mx-10 my-3 flex flex-col gap-2 font-medium">
 		<div class="w-full h-[2px] bg-black" />
-		<p>
-			Here's a link to join D1SCO. It's a place to discuss, discover and enjoy music. <br />
+		<p class="z-30">
+			Here's an exclusive link to join D1SCO. It's a place to discuss, discover and enjoy music. <br />
 			<br />{`https://d1sco.vercel.app/signup?c=${code}`}
 		</p>
         <div class="w-full h-[2px] bg-black" />
 		<button on:click={copy} class="w-full rounded flex flex-col items-center bg-white bg-opacity-20 py-1 hover:font-bold hover:bg-opacity-30 font-semibold z-30"
-			>Copy Link</button
+			>{copied ? "Copied!" : "Copy Link"}</button
 		>
 	</div>
 </div>
 
 <style>
 	.ticket {
-		width: 400px;
+		width: 420px;
 		height: 180px;
 		/* margin: 0 auto; */
 		margin-top: 100px;
@@ -47,7 +53,7 @@
 		position: absolute;
 		left: 50%;
 
-		width: 340px;
+		width: 360px;
 		height: 180px;
 
 		padding: 20px;
@@ -64,7 +70,7 @@
 		position: absolute;
 		left: 50%;
 
-		width: 360px;
+		width: 380px;
 		height: 180px;
 
 		background: linear-gradient(
