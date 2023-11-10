@@ -1,5 +1,7 @@
 <script lang="ts">
-    export let code: String;
+	import { userProfileStore } from "$lib/stores/userStore";
+
+	let code: string = $userProfileStore?.user?.invite_code.code ?? "";
 
     function copy() {
         navigator.clipboard.writeText(`Here's a link to join D1SCO. It's a place to discuss, discover and enjoy music.\n\nhttps://d1sco.vercel.app/signup/?c=${code}`);
@@ -14,7 +16,7 @@
 			<br />{`https://d1sco.vercel.app/signup?c=${code}`}
 		</p>
         <div class="w-full h-[2px] bg-black" />
-		<button on:click={copy} class="w-full rounded flex flex-col items-center bg-white bg-opacity-20 py-1 hover:font-bold hover:bg-opacity-20 font-semibold z-30"
+		<button on:click={copy} class="w-full rounded flex flex-col items-center bg-white bg-opacity-20 py-1 hover:font-bold hover:bg-opacity-30 font-semibold z-30"
 			>Copy Link</button
 		>
 	</div>
