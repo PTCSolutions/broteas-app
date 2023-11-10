@@ -2,12 +2,14 @@ import { doc, setDoc, updateDoc, increment } from "firebase/firestore";
 import { profileColours } from "./user";
 import { db } from "./firebase";
 
+export const codeLength = 5;
+
 export function makeCode() {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     const charactersLength = characters.length;
     let counter = 0;
-    while (counter < 5) {
+    while (counter < codeLength) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
         counter += 1;
     }

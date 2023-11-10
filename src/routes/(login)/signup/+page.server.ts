@@ -3,7 +3,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { createUserWithEmailAndPassword, type UserCredential } from 'firebase/auth';
 import type { FirebaseError } from 'firebase/app';
 import { getUserNames } from '$lib/user.js';
-import { newUser, validateCode } from '$lib/signup';
+import { codeLength, newUser, validateCode } from '$lib/signup';
 import { collection, getDocs, limit, query, where } from 'firebase/firestore';
 
 // Aciton submitting sign up form.
@@ -35,14 +35,20 @@ export const actions = {
         // Now check if invite code is valid
         if (!validateCode(invite_code)) {
             return fail(400, { error: "Code must only contain uppercase letters and numbers", location: "code" });
+        } else if (invite_code.length > codeLength){
+            return fail(400, { error: "Code must only be 5 digits long", location: "code" });
         }
         const q = query(collection(db, "users"), where("invite_code.code", "==", invite_code), limit(1));
         const querySnapshot = await getDocs(q);
         // User whose code is being used
         if (querySnapshot.empty) {
             return fail(400, { error: "Invalid invite code", location: "code" })
+        } 
+        const code_user_doc = querySnapshot.docs[0];
+        if (querySnapshot.docs[0].data().invite_code.times_used > 5) {
+            return fail(400, { error: `Code has been used too many times`, location: "code" })
         }
-        const code_user = querySnapshot.docs[0].id;
+        const code_user = code_user_doc.id;
         try {
             const userCredential: UserCredential = await createUserWithEmailAndPassword(auth, email, password);
             // Set uid to uid of created user
