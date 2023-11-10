@@ -77,7 +77,7 @@
 					id="code"
 					type="text"
 					placeholder="Invite Code"
-					unboundValue={$page.url.searchParams.get("code") || ""}
+					unboundValue={$page.url.searchParams.get("c") || ""}
 				/>
 				{#if form?.error != undefined && form?.location == 'code'}
 					<!-- TODO: Have used normal css because cant get tailwind to work-->
