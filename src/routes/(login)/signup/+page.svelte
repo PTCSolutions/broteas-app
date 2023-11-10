@@ -72,7 +72,17 @@
 					<div class="text-red-500">{form.error}</div>
 				{/if}
 			</div>
-
+			<div class="flex flex-col gap-2">
+				<Input
+					id="code"
+					type="text"
+					placeholder="Invite Code"
+				/>
+				{#if form?.error != undefined && form?.location == 'code'}
+					<!-- TODO: Have used normal css because cant get tailwind to work-->
+					<div class="text-red-500">{form.error}</div>
+				{/if}
+			</div>
 			<div class="w-full"><Button text="Join" /></div>
 			<div>
 				Already have an account? <a class="text-blue-500 font-medium" href="/login">Login</a>

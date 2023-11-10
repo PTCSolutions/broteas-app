@@ -6,7 +6,7 @@ import type { PostMeta } from '$lib/post';
 export const feedPosts: Writable<{ posts: PostMeta[], loading: boolean }> = writable({ posts: [], loading: true });
 export const usersPosts: Writable<{ posts: PostMeta[], loading: boolean }> = writable({ posts: [], loading: true });
 
-export const subscribeToFeedPosts = async (uid: string) => {
+export const subscribeToFeedPosts = async () => {
     const querySnapshot = query(collection(db, "posts"), orderBy("date", "desc"), limit(100));
     const callback = onSnapshot(
         querySnapshot,

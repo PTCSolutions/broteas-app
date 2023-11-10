@@ -1,7 +1,9 @@
-import { doc, setDoc, getDoc, DocumentSnapshot, updateDoc, arrayUnion, arrayRemove, query, collection, where, getDocs } from "firebase/firestore";
+import { doc, getDoc, DocumentSnapshot, updateDoc, arrayUnion, arrayRemove, query, collection, where, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 
 type ProfileColour = "blue" | "cream" | "purple" | "rose";
+export const profileColours: ProfileColour[] = ["blue", "cream", "purple", "rose"];
+
 
 export interface User {
     firstName: string;
@@ -12,26 +14,9 @@ export interface User {
     following: Array<string>;
     followers: Array<string>;
     profile_colour: ProfileColour
-}
-
-const profileColours: ProfileColour[] = ["blue", "cream", "purple", "rose"]
-
-export async function newUser(user: User) {
-    try {
-        await setDoc(doc(db, "users", user.uid,),
-            {
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                following: user.following,
-                followers: user.followers,
-                username: user.username,
-                // Profile colour is a random int between 0 and length of profile_colours list
-                profile_colour: Math.floor(Math.random() * profileColours.length)
-            }
-        );
-    } catch (e) {
-        console.error("Error adding document: ", e);
+    invite_code: {
+        code: string,
+        times_used: number,
     }
 }
 
@@ -63,7 +48,8 @@ export async function getUser(uid: string): Promise<User | null> {
                 username: data.username,
                 // Modulo profile color integer to ensure it is not out of bounds for 
                 // profile colours list
-                profile_colour: profileColours[data.profile_colour % profileColours.length]
+                profile_colour: profileColours[data.profile_colour % profileColours.length],
+                invite_code: data.invite_code
             };
             return user;
         }
@@ -148,7 +134,8 @@ async function searchForUsers(searchText: string | null): Promise<User[]> {
                     username: data.username,
                     // Modulo profile color integer to ensure it is not out of bounds for 
                     // profile colours list
-                    profile_colour: profileColours[data.profile_colour % profileColours.length]
+                    profile_colour: profileColours[data.profile_colour % profileColours.length],
+                    invite_code: data.invite_code
                 };
                 users.push(user);
             }

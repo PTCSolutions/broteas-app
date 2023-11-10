@@ -1,8 +1,10 @@
-import { auth } from '$lib/firebase';
+import { auth, db } from '$lib/firebase';
 import { fail, redirect } from '@sveltejs/kit';
 import { createUserWithEmailAndPassword, type UserCredential } from 'firebase/auth';
 import type { FirebaseError } from 'firebase/app';
-import { getUserNames, newUser } from '$lib/user.js';
+import { getUserNames } from '$lib/user.js';
+import { newUser } from '$lib/signup';
+import { collection, getDocs, limit, query, where } from 'firebase/firestore';
 
 // Aciton submitting sign up form.
 /** @type {import('./$types').Actions} */
@@ -15,6 +17,7 @@ export const actions = {
         const username = data.get('username') as string;
         const firstName = data.get('firstName') as string;
         const lastName = data.get('lastName') as string;
+        const invite_code = data.get('code') as string;
         let uid;
         let success = false;
         // Give errors for invalid usernames
@@ -29,6 +32,14 @@ export const actions = {
         if (usernames.includes(username)) {
             return fail(400, { error: "Username already exists", location: "username" });
         }
+        // Now check if invite code is valid
+        const q = query(collection(db, "users"), where("invite_code.code", "==", invite_code), limit(1));
+        const querySnapshot = await getDocs(q);
+        // User whose code is being used
+        if (querySnapshot.empty) {
+            return fail(400, { error: "Invalid invite code", location: "code" })
+        }
+        const code_user = querySnapshot.docs[0].id;
         try {
             const userCredential: UserCredential = await createUserWithEmailAndPassword(auth, email, password);
             // Set uid to uid of created user
@@ -57,7 +68,8 @@ export const actions = {
                 email: email,
                 followers: [],
                 following: [],
-            });
+            },
+            code_user);
             throw redirect(303, '/');
         }
         return fail(400, { error: "Try again: Unknown error", location: "" });
