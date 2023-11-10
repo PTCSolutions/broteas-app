@@ -13,7 +13,7 @@
 	export let showModal : boolean;
 </script>
 
-<div class="flex flex-col bg-white dark:bg-gray-800 dark:text-white overflow-hidden w-[550px] h-[450px]">
+<div class="flex flex-col bg-white dark:bg-gray-800 text-black dark:text-white overflow-hidden w-[550px] h-[450px]">
 	<!-- On clikcing an objectcard change from search to object page-->
 	{#if search}
 	<div out:fly={{x: -550, duration: 400, }} class="h-full">
