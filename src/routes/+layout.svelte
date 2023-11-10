@@ -23,7 +23,7 @@
 		$userStore = uid;
 		// Important so that user document in firestore is subscribed to
 		subscribeToUser();
-		subscribeToFeedPosts(uid);
+		subscribeToFeedPosts();
 	});
 </script>
 
