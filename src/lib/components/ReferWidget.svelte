@@ -3,7 +3,7 @@
 </script>
 
 <div
-	class="flex flex-col items-center gap-2 text-black bg-white dark:bg-gray-800 dark:text-white overflow-hidden w-[420px] h-[300px]"
+	class="flex flex-col items-center gap-2 text-black bg-white dark:bg-gray-800 dark:text-white overflow-hidden w-[420px] h-[280px]"
 >
 	
 	<div class="font-medium mx-4 text-xl mb-1">Invite your friends to join D1SCO</div>
