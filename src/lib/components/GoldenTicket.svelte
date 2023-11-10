@@ -12,7 +12,7 @@
 		<div class="w-full h-[2px] bg-black" />
 		<p>
 			Here's a link to join D1SCO. It's a place to discuss, discover and enjoy music. <br />
-			<br />https://d1sco.vercel.app/signup/?c={code}
+			<br />{`https://d1sco.vercel.app/signup?code={code}`}
 		</p>
         <div class="w-full h-[2px] bg-black" />
 		<button on:click={copy} class="w-full rounded flex flex-col items-center bg-white bg-opacity-20 py-1 hover:font-bold hover:bg-opacity-20 font-semibold z-30"

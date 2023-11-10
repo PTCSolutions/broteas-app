@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { applyAction, enhance } from '$app/forms';
+	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	import Button from '$lib/components/forms/Button.svelte';
 	import Input from '$lib/components/forms/Input.svelte';
@@ -77,6 +77,7 @@
 					id="code"
 					type="text"
 					placeholder="Invite Code"
+					unboundValue={$page.url.searchParams.get("code") || ""}
 				/>
 				{#if form?.error != undefined && form?.location == 'code'}
 					<!-- TODO: Have used normal css because cant get tailwind to work-->

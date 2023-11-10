@@ -1,5 +1,5 @@
 import { doc, setDoc, updateDoc, increment } from "firebase/firestore";
-import { profileColours, type User } from "./user";
+import { profileColours } from "./user";
 import { db } from "./firebase";
 
 export function makeCode() {

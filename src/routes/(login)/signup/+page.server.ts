@@ -3,7 +3,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { createUserWithEmailAndPassword, type UserCredential } from 'firebase/auth';
 import type { FirebaseError } from 'firebase/app';
 import { getUserNames } from '$lib/user.js';
-import { newUser } from '$lib/signup';
+import { newUser, validateCode } from '$lib/signup';
 import { collection, getDocs, limit, query, where } from 'firebase/firestore';
 
 // Aciton submitting sign up form.
@@ -33,6 +33,9 @@ export const actions = {
             return fail(400, { error: "Username already exists", location: "username" });
         }
         // Now check if invite code is valid
+        if (!validateCode(invite_code)) {
+            return fail(400, { error: "Code must only contain uppercase letters and numbers", location: "code" });
+        }
         const q = query(collection(db, "users"), where("invite_code.code", "==", invite_code), limit(1));
         const querySnapshot = await getDocs(q);
         // User whose code is being used
