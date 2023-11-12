@@ -12,7 +12,7 @@
 
 <!-- TODO: Get this to Use progressive enhancement so that we can get nice transitions if js enabled-->
 <form
-	class="z-10 fixed right-0 top-0 w-1/2 p-8 h-full"
+	class="z-10 fixed right-0 top-0 w-1/2 px-12 py-20 h-full"
 	method="POST"
 	use:enhance={() => {
 		return ({ result, update }) => {
@@ -21,7 +21,7 @@
 		};
 	}}
 >
-	<div class="p-16 w-full gap-6 flex flex-col h-full justify-center">
+	<div class="p-12 w-full gap-6 flex flex-col h-full justify-center bg-white rounded-xl">
 		<div class="text-6xl font-bold">Sign up</div>
 		<div class="flex gap-4">
 			<div class="w-1/2">
