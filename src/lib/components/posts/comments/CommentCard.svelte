@@ -6,18 +6,17 @@
 	import Button from '$lib/components/forms/Button.svelte';
 	import { getSubComments } from '$lib/comment';
 	import ProfilePicture from '$lib/components/user/ProfilePicture.svelte';
+	import { slide } from 'svelte/transition';
 	// Get the uid of the currentUser from store
 	let currentUid: string | undefined;
 	$: currentUid = $userProfileStore?.user?.uid;
 	export let comment: PostComment;
-	let commentor: User | null;
-	getUser(comment.commentorId).then((user) => {
-		commentor = user;
-	});
 	let replyShowing: boolean = false;
 	let subcommentsShowing: boolean = false;
 </script>
 
+<!--Get the user who made the comment-->
+{#await getUser(comment.commentorId) then commentor}
 <div class="flex flex-col gap-2 p-2 bg-white dark:bg-gray-600 rounded-lg items-start">
 	<div class="flex-row flex items-center w-full">
 		<ProfilePicture user={commentor || null} />
@@ -74,9 +73,10 @@
 				<div />
 			{:then comments}
 				{#each comments as comment (comment.id)}
-					<svelte:self {comment} />
+					<svelte:self {comment}/>
 				{/each}
 			{/await}
 		</div>
 	{/if}
 </div>
+{/await}
