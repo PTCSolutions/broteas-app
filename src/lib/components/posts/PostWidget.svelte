@@ -32,7 +32,7 @@
 	let getObjectJsonFunction = () => getObjectJson(post.objectId, $accessToken!, post.objectType);
 </script>
 
-<a href={`/posts/${post.postId}`} class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white rounded-lg hover:shadow-sm">
+<div class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white rounded-lg hover:shadow-sm">
 	<div class="p-4 flex-col w-full">
 		<div class="flex-row flex items-center w-full">
 			{#if poster}
@@ -86,4 +86,4 @@
 		</div>
 		<div class="h-2" />
 	</div>
-</a>
+</div>
