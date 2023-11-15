@@ -11,9 +11,9 @@
 <aside
 	class="flex-col flex w-32 bg-gray-100 dark:bg-gray-800 dark:border-gray-600 min-h-screen p-2 border-r-2 fixed"
 >
-	<div class="w-full items-center flex flex-col mt-2">
+	<div class="w-full items-center flex flex-col mt-4">
 		<a href="/">
-			<img class="w-20 h-20" src="/BROLOGOWHITE.png" alt="" />
+			<img class="w-[90px]" src="/D1SCO_Logo.png" alt="" />
 		</a>
 	</div>
 	<div class="grow" />
