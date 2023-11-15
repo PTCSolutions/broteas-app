@@ -32,7 +32,7 @@
 	let getObjectJsonFunction = () => getObjectJson(post.objectId, $accessToken!, post.objectType);
 </script>
 
-<div class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white rounded-lg hover:shadow-sm">
+<a href={`/posts/${post.postId}`} class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white rounded-lg hover:shadow-sm">
 	<div class="p-4 flex-col w-full">
 		<div class="flex-row flex items-center w-full">
 			{#if poster}
@@ -44,7 +44,7 @@
 				</div>
 				<div class="grow" />
 				{#if currentUid == poster?.uid}
-					<button on:click={deletePostFunction}
+					<button on:click|preventDefault={deletePostFunction}
 						><img class="w-[1.5vw] aspect-square" src="delete_icon.svg" alt="delete icon" /></button
 					>
 				{/if}
@@ -86,4 +86,4 @@
 		</div>
 		<div class="h-2" />
 	</div>
-</div>
+</a>
