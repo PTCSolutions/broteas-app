@@ -62,7 +62,7 @@
 				<div>{error}</div>
 			{/await}
 			<div class="flex-col flex justify-center items-center pl-2 grow">
-				<button on:click={likePostFuntion}>
+				<button on:click|preventDefault={likePostFuntion}>
 					<span
 						class="material-symbols-outlined"
 						style={`font-variation-settings: 'FILL' ${
