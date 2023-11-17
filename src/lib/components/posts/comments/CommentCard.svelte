@@ -4,7 +4,6 @@
 	import { getUser, type User } from '$lib/user';
 	import { format } from 'timeago.js';
 	import Button from '$lib/components/forms/Button.svelte';
-	import { getSubComments } from '$lib/comment';
 	import ProfilePicture from '$lib/components/user/ProfilePicture.svelte';
 	import {comments} from "$lib/stores/commentsStore.js"
 	import { enhance } from '$app/forms';
@@ -13,11 +12,17 @@
 	// Get the uid of the currentUser from store
 	let currentUid: string | undefined;
 	$: currentUid = $userProfileStore?.user?.uid;
+	// The comment to display in comment card
 	export let comment: PostComment;
+	// The original post of comment
+	export let postId: string;
+	// Should reply button / subComments show?
 	let replyShowing: boolean = false;
 	let subcommentsShowing: boolean = false;
+	// Child comments list
 	let childComments : PostComment[]
 	$: childComments = $comments.comments.filter((childComment) => childComment.parentId == comment.id);
+	// The commentor
 	let commentor: User;
 	onMount(async () => {
 		let user = await getUser(comment.commentorId);
@@ -61,7 +66,7 @@
 	</div>
 
 	{#if replyShowing}
-		<form method="POST" action={`/posts/${comment.postId}/?/newSubComment`} use:enhance>
+		<form method="POST" action={`/posts/${postId}/?/newSubComment`} use:enhance>
 			<div class="flex flex-row items-center gap-4">
 				<!-- <img class="rounded w-1/4 h-1/4" src={getObjectImageSrc(object)} alt="" /> -->
 				<textarea
@@ -81,7 +86,7 @@
 	{#if subcommentsShowing}
 		<div class="flex flex-col ml-4">
 				{#each childComments as comment (comment.id)}
-					<svelte:self {comment}/>
+					<svelte:self {comment} {postId}/>
 				{/each}
 		</div>
 	{/if}
