@@ -98,7 +98,6 @@ export async function getPostsForObject(objectId: string): Promise<Array<PostCom
                 commentorId: data!.creatorId,
                 text: data!.text,
                 parentId: doc.id,
-                postId: doc.id,
                 date: (data!.date as Timestamp).toDate(),
                 subCommentIds: data!.commentIds,
             };

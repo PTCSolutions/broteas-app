@@ -6,7 +6,6 @@ export interface PostComment {
     id: string;
     commentorId: string;
     parentId: string;
-    postId: string;
     text: string;
     date: Date;
     subCommentIds: Array<string>
@@ -24,7 +23,6 @@ export async function getComments(postId: string) {
             const comment: PostComment = {
                 commentorId: data.commentorId,
                 parentId: data.parentId,
-                postId: postId,
                 date: (data!.date as Timestamp).toDate(),
                 id: doc.id,
                 text: data.text,
@@ -49,7 +47,6 @@ export async function getSubComments(postId: string, commentId: string,) {
             const comment: PostComment = {
                 commentorId: data.commentorId,
                 parentId: data.parentId,
-                postId: postId,
                 date: (data!.date as Timestamp).toDate(),
                 id: doc.id,
                 text: data.text,
