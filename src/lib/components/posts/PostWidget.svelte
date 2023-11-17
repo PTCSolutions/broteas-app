@@ -61,8 +61,8 @@
 			{:catch error}
 				<div>{error}</div>
 			{/await}
-			<div class="flex-col flex justify-center items-center pl-2 grow">
-				<button on:click|preventDefault={likePostFuntion}>
+			<div class="flex-col flex justify-center items-center pl-1 grow">
+				<button class="hover:bg-gray-200 dark:hover:bg-gray-500 p-2 rounded" on:click|preventDefault={likePostFuntion}>
 					<span
 						class="material-symbols-outlined"
 						style={`font-variation-settings: 'FILL' ${
@@ -72,7 +72,7 @@
 				</button>
 				<div class="text-xs">{post.likes.length}</div>
 				<div class="h-4" />
-				<a href={`/posts/${post.postId}`}>
+				<a class="hover:bg-gray-200 dark:hover:bg-gray-500 p-2 rounded"  href={`/posts/${post.postId}`}>
 					<span class="material-symbols-outlined">mode_comment</span>
 				</a>
 				<div class="text-xs">{post.commentIds.length}</div>
