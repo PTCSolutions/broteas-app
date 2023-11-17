@@ -9,13 +9,17 @@
 	import PostObjectWidget from '$lib/components/posts/widgets/PostObjectWidget.svelte';
 	import { format } from 'timeago.js';
 	import ProfilePicture from '$lib/components/user/ProfilePicture.svelte';
+	import { enhance } from '$app/forms';
+	import {comments} from "$lib/stores/commentsStore.js"
 
 	export let data;
 	let post: PostMeta | undefined | null = data.post;
 	// let object: PostObjectInfo | null;
 	let poster: User | undefined | null = data.poster;
-	let comments: PostComment[] | undefined = data.comments;
 	let object: PostObject | undefined = data.object;
+	// Top comments
+	let topComments: PostComment[];
+	$: topComments = $comments.comments.filter((comment) => comment.parentId == post?.postId)
 </script>
 
 {#if post && object}
@@ -42,13 +46,13 @@
 			<div class="h-2" />
 			<div class="text-xl font-medium">Comments</div>
 
-			{#if comments}
-				{#each comments as comment (comment.id)}
+			{#if topComments}
+				{#each topComments as comment (comment.id)}
 					<CommentCard {comment} />
 				{/each}
 			{/if}
 			<div class="h-2" />
-			<form method="POST" action="?/newComment">
+			<form method="POST" action="?/newComment" use:enhance>
 				<div class="flex flex-row items-center gap-4">
 					<textarea
 						name="text"

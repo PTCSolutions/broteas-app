@@ -126,6 +126,6 @@ export async function deleteComment(postId: string, commentId: string) {
     await deleteDoc(doc(db, "posts", postId, "comments", commentId));
     // Remove reference to comment in post document
     await updateDoc(doc(db, "posts", postId), {
-        commentIds: arrayRemove(commentId)
+        subCommentIds: arrayRemove(commentId)
     });
 }

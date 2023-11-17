@@ -6,18 +6,29 @@
 	import Button from '$lib/components/forms/Button.svelte';
 	import { getSubComments } from '$lib/comment';
 	import ProfilePicture from '$lib/components/user/ProfilePicture.svelte';
-	import { slide } from 'svelte/transition';
+	import {comments} from "$lib/stores/commentsStore.js"
+	import { enhance } from '$app/forms';
+	import { fade } from 'svelte/transition';
+	import { onMount } from 'svelte';
 	// Get the uid of the currentUser from store
 	let currentUid: string | undefined;
 	$: currentUid = $userProfileStore?.user?.uid;
 	export let comment: PostComment;
 	let replyShowing: boolean = false;
 	let subcommentsShowing: boolean = false;
+	let childComments : PostComment[]
+	$: childComments = $comments.comments.filter((childComment) => childComment.parentId == comment.id);
+	let commentor: User;
+	onMount(async () => {
+		let user = await getUser(comment.commentorId);
+		if (user != null) {
+			commentor = user;
+		}
+	});
 </script>
 
 <!--Get the user who made the comment-->
-{#await getUser(comment.commentorId) then commentor}
-<div class="flex flex-col gap-2 p-2 bg-white dark:bg-gray-600 rounded-lg items-start">
+<div class="flex flex-col gap-2 p-2 bg-white dark:bg-gray-600 rounded-lg items-start" in:fade>
 	<div class="flex-row flex items-center w-full">
 		<ProfilePicture user={commentor || null} />
 		<div class="w-2" />
@@ -29,7 +40,7 @@
 		<div class="grow" />
 		<div class="text-sm">{format(comment.date)}</div>
 		{#if currentUid == commentor?.uid}
-			<form method="POST" action="?/deleteComment">
+			<form method="POST" action="?/deleteComment" use:enhance>
 				<input type="hidden" value={comment.id} name="commentId" />
 				<button><span class="material-symbols-outlined"> delete </span></button>
 			</form>
@@ -50,7 +61,7 @@
 	</div>
 
 	{#if replyShowing}
-		<form method="POST" action={`/posts/${comment.postId}/?/newSubComment`}>
+		<form method="POST" action={`/posts/${comment.postId}/?/newSubComment`} use:enhance>
 			<div class="flex flex-row items-center gap-4">
 				<!-- <img class="rounded w-1/4 h-1/4" src={getObjectImageSrc(object)} alt="" /> -->
 				<textarea
@@ -69,14 +80,9 @@
 	{/if}
 	{#if subcommentsShowing}
 		<div class="flex flex-col ml-4">
-			{#await getSubComments(comment.postId, comment.id)}
-				<div />
-			{:then comments}
-				{#each comments as comment (comment.id)}
+				{#each childComments as comment (comment.id)}
 					<svelte:self {comment}/>
 				{/each}
-			{/await}
 		</div>
 	{/if}
 </div>
-{/await}
