@@ -14,8 +14,6 @@
 	$: currentUid = $userProfileStore?.user?.uid;
 	// The comment to display in comment card
 	export let comment: PostComment;
-	// The original post of comment
-	export let postId: string;
 	// Should reply button / subComments show?
 	let replyShowing: boolean = false;
 	let subcommentsShowing: boolean = false;
@@ -33,7 +31,7 @@
 </script>
 
 <!--Get the user who made the comment-->
-<div class="flex flex-col gap-2 p-2 bg-white dark:bg-gray-600 rounded-lg items-start" in:fade>
+<div class="flex flex-col gap-2 p-2 bg-white dark:bg-gray-600 rounded-lg items-start" transition:fade>
 	<div class="flex-row flex items-center w-full">
 		<ProfilePicture user={commentor || null} />
 		<div class="w-2" />
@@ -47,6 +45,7 @@
 		{#if currentUid == commentor?.uid}
 			<form method="POST" action="?/deleteComment" use:enhance>
 				<input type="hidden" value={comment.id} name="commentId" />
+				<input type="hidden" value={comment.parentId} name="parentId" />
 				<button><span class="material-symbols-outlined"> delete </span></button>
 			</form>
 		{/if}
@@ -66,7 +65,7 @@
 	</div>
 
 	{#if replyShowing}
-		<form method="POST" action={`/posts/${postId}/?/newSubComment`} use:enhance>
+		<form method="POST" action={`?/newSubComment`} use:enhance>
 			<div class="flex flex-row items-center gap-4">
 				<!-- <img class="rounded w-1/4 h-1/4" src={getObjectImageSrc(object)} alt="" /> -->
 				<textarea
@@ -86,7 +85,7 @@
 	{#if subcommentsShowing}
 		<div class="flex flex-col ml-4">
 				{#each childComments as comment (comment.id)}
-					<svelte:self {comment} {postId}/>
+					<svelte:self {comment}/>
 				{/each}
 		</div>
 	{/if}

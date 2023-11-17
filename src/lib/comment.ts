@@ -100,16 +100,16 @@ export async function newSubComment(postId: string, parentId: string, commentorI
         );
         // Add reference to comment in post document
         try {
-            if(postId == parentId) {
+            if (postId == parentId) {
                 await updateDoc(doc(db, "posts", postId), {
                     commentIds: arrayUnion(docRef.id)
                 });
             } else {
                 await updateDoc(doc(db, "posts", postId, "comments", parentId), {
-                subCommentIds: arrayUnion(docRef.id)
-            });
+                    subCommentIds: arrayUnion(docRef.id)
+                });
             }
-            
+
         } catch (error) {
             console.log(error);
         }
@@ -119,10 +119,16 @@ export async function newSubComment(postId: string, parentId: string, commentorI
     }
 }
 // Delete a comment
-export async function deleteComment(postId: string, commentId: string) {
+export async function deleteComment(postId: string, commentId: string, parentId: string ) {
     await deleteDoc(doc(db, "posts", postId, "comments", commentId));
-    // Remove reference to comment in post document
-    await updateDoc(doc(db, "posts", postId), {
-        subCommentIds: arrayRemove(commentId)
-    });
+    // Delete reference to comment in relevant location
+    if (postId == parentId) {
+        await updateDoc(doc(db, "posts", postId), {
+            commentIds: arrayRemove(commentId)
+        });
+    } else {
+        await updateDoc(doc(db, "posts", postId, "comments", parentId), {
+            subCommentIds: arrayRemove(commentId)
+        });
+    }
 }

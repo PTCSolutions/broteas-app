@@ -15,7 +15,8 @@ export const actions = {
     deleteComment: async ({ request, params }) => {
         const data = await request.formData();
         const commentId = data.get('commentId') as string;
-        await deleteComment(params.id, commentId);
+        const parentId = data.get('parentId') as string;
+        await deleteComment(params.id, commentId, parentId);
     },
     newSubComment: async ({ request, params }) => {
         const data = await request.formData();

@@ -48,7 +48,7 @@
 
 			{#if topComments}
 				{#each topComments as comment (comment.id)}
-					<CommentCard {comment} postId={post.postId} />
+					<CommentCard {comment} />
 				{/each}
 			{/if}
 			<div class="h-2" />
