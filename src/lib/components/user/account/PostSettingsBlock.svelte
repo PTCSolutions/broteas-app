@@ -18,7 +18,7 @@
 		Posts<span class="text-sm">{` [In development]`}</span>
 	</div>
 	<div class="flex flex-row items-center gap-4">
-		<div>People who can your posts:</div>
+		<div>People who can see your posts:</div>
 		<Button size={'xs'} class="focus:ring-0">{selectedPostVisibility}</Button>
 		<Dropdown bind:open={postVisibilityDropdown}>
 			{#each postVisibilityOptions as option}
@@ -32,7 +32,7 @@
 		</Dropdown>
 	</div>
 	<div class="flex flex-row items-center gap-4">
-		<div>People who can your comments:</div>
+		<div>People who can see your comments:</div>
 		<Button size={'xs'} class="focus:ring-0">{selectedCommentVisibility}</Button>
 		<Dropdown bind:open={commentVisibilityDropdown}>
 			{#each commentVisibilityOptions as option}
