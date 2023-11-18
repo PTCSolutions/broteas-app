@@ -2,9 +2,9 @@
 	import Button from '$lib/components/forms/Button.svelte';
 	import { enhance } from '$app/forms';
 	import { userProfileStore } from '$lib/stores/userStore';
-	import SearchSongCard from './search/SearchSongCard.svelte';
-	import SearchArtistCard from './search/SearchArtistCard.svelte';
-	import SearchAlbumCard from './search/SearchAlbumCard.svelte';
+	import SearchSongCard from '../search/SearchSongCard.svelte';
+	import SearchArtistCard from '../search/SearchArtistCard.svelte';
+	import SearchAlbumCard from '../search/SearchAlbumCard.svelte';
 
 	let uid: string | undefined;
 	$: uid = $userProfileStore?.user?.uid;

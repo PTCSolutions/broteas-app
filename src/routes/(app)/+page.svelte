@@ -4,7 +4,7 @@
 	import { fade } from 'svelte/transition';
 	import PostGrid from '$lib/components/posts/PostGrid.svelte';
 	import { DarkMode } from 'flowbite-svelte';
-	import ReferButton from '$lib/components/ReferButton.svelte';
+	import ReferButton from '$lib/components/refer/ReferButton.svelte';
 	let name: string | undefined;
 	$: name = $userProfileStore?.user?.firstName;
 </script>

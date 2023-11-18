@@ -1,7 +1,7 @@
 <script lang="ts">
 	import SearchToShareWidget from './SearchToShareWidget.svelte';
 	import type { Song, Album, Artist } from '$lib/spotify';
-	import ShareObjectWidget from '$lib/components/ShareObjectWidget.svelte';
+	import ShareObjectWidget from '$lib/components/new_post/ShareObjectWidget.svelte';
 	import { horizontalSlide } from '$lib/transition/transition';
 	import { fly } from 'svelte/transition';
 	import { linear } from 'svelte/easing';

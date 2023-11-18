@@ -4,7 +4,7 @@
 	import Input from '$lib/components/forms/Input.svelte';
 	import Radio from '$lib/components/forms/Radio.svelte';
 	import { accessToken } from '$lib/stores/accessTokenStore';
-    import ShareObjectCard from './share/ShareObjectCard.svelte';
+    import ShareObjectCard from '../share/ShareObjectCard.svelte';
 	import type { ObjectType } from '$lib/post';
 
 	// Exports
