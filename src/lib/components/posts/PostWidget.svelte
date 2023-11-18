@@ -10,8 +10,8 @@
 	import ProfilePicture from '../user/ProfilePicture.svelte';
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
-	import NewsPost from './NewsPost.svelte';
 	import { getNewsJSON } from '$lib/news';
+	import PostNewsWidget from './widgets/PostNewsWidget.svelte';
 	// The post in question
 	export let post: PostMeta;
 	// Get the uid of the currentUser from store
@@ -71,7 +71,7 @@
 					<div />
 				{:then json}
 					<div class="w-5/6 aspect-square" in:fade>
-						<NewsPost object={json}/>
+						<PostNewsWidget object={json}/>
 					</div>
 				{:catch error}
 					<div>{error}</div>
