@@ -13,11 +13,11 @@ export interface User {
     email: string;
     following: Array<string>;
     followers: Array<string>;
-    profile_colour: ProfileColour
+    profile_colour: ProfileColour;
     invite_code: {
         code: string,
         times_used: number,
-    }
+    },
 }
 
 export async function updateUser(firstName: string, lastName: string, uid: string) {
@@ -49,7 +49,7 @@ export async function getUser(uid: string): Promise<User | null> {
                 // Modulo profile color integer to ensure it is not out of bounds for 
                 // profile colours list
                 profile_colour: profileColours[data.profile_colour % profileColours.length],
-                invite_code: data.invite_code
+                invite_code: data.invite_code,
             };
             return user;
         }
@@ -196,3 +196,31 @@ export async function getUserNames(): Promise<string[]> {
     );
     return usernames;
 }
+
+export async function getRefresh(uid: string): Promise<string | null> {
+    if (uid) {
+        const docSnapshot: DocumentSnapshot = await getDoc(doc(db, "users", uid));
+        if (docSnapshot.exists()) {
+            const data = docSnapshot.data();
+            if (data.access_token && data.refresh_token) {
+                return data.refresh_token
+            } else {
+                return null;
+            }
+        }
+    }
+    return null;
+}
+
+export async function addRefresh(uid: string, refresh_token: string) {
+    try {
+        await updateDoc(doc(db, "users", uid),
+            {
+                refresh_token: refresh_token
+            }
+        );
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
+}
+

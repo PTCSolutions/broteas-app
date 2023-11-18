@@ -1,19 +1,20 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import EditAccount from '$lib/components/user/account/EditAccount.svelte';
 	import SpotifySettings from '$lib/components/user/account/SpotifySettings.svelte';
-	import type { User } from '$lib/user.js';
-	import { Button, Dropdown, DropdownItem, Input } from 'flowbite-svelte';
-
-	export let data: User;
-	$: user = data;
-	let edit = false;
+	import { spotifyUser } from '$lib/stores/spotifyUserStore.js';
+	import { userProfileStore } from '$lib/stores/userStore.js';
+	export let data;
+	$: console.log("DATA IS!", data)
+	if (data.spotify_user) {
+		console.log("This is braxy")
+		$spotifyUser = data.spotify_user;
+	}
 </script>
 
 <div class="h-full p-4 overflow-hidden flex flex-col gap-4">
-	{#if user}
+	{#if $userProfileStore?.user}
 		<div class="text-4xl font-semibold">Manage your account</div>
-		<EditAccount {user} />
-		<SpotifySettings {user} />
+		<EditAccount user={$userProfileStore?.user} />
+		<SpotifySettings />
 	{/if}
 </div>

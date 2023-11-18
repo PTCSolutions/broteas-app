@@ -1,9 +1,16 @@
 import { CLIENT_SECRET, CLIENT_ID } from '$env/static/private';
+import { spotifyLoginFromRefresh } from '$lib/auth/spotify_login';
 
 // Load in the uid of the current user from cookies
 /** @type {import('./$types').LayoutServerLoad} */
-export async function load({cookies}) {
-    // Get access token and save to cookies
+export async function load({ cookies, url }) {
+    // Get uid from cookies
+    let uid = cookies.get('uid');
+    // If its undefined, because it hasnt been set yet, then set it to the empty string
+    // This matches the value we set to, when the user logs out
+    if (uid == undefined) {
+        uid = "";
+    }
     const response = await fetch("https://accounts.spotify.com/api/token",
         {
             method: "POST",
@@ -12,16 +19,12 @@ export async function load({cookies}) {
             },
             body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
         });
-    const token = await response.json();
-    // Get uid from cookies
-    let uid = cookies.get('uid');
-    // If its undefined, because it hasnt been set yet, then set it to the empty string
-    // This matches the value we set to, when the user logs out
-    if (uid == undefined) {
-        uid = "";
-    }
-	return {
-		uid : uid,
-        token: token.access_token
-	};
+    const general_token = await response.json();
+    const spotify_user = await spotifyLoginFromRefresh(uid, url, CLIENT_ID, CLIENT_SECRET)
+
+    return {
+        uid: uid,
+        general_token: general_token.access_token,
+        spotify_user: spotify_user
+    };
 }
