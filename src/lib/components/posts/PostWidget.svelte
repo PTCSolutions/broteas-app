@@ -10,6 +10,8 @@
 	import ProfilePicture from '../user/ProfilePicture.svelte';
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
+	import { getNewsJSON } from '$lib/news';
+	import PostNewsWidget from './widgets/PostNewsWidget.svelte';
 	// The post in question
 	export let post: PostMeta;
 	// Get the uid of the currentUser from store
@@ -17,9 +19,11 @@
 	$: currentUid = $userProfileStore?.user?.uid;
 	let poster: User;
 	onMount(async () => {
-		let user = await getUser(post.creatorId);
-		if (user != null) {
-			poster = user;
+		if (post.creatorId) {
+			let user = await getUser(post.creatorId);
+			if (user != null) {
+				poster = user;
+			}
 		}
 	});
 	// Import like, delete post, get song functions
@@ -29,10 +33,20 @@
 			likePost(post.postId, currentUid);
 		}
 	};
-	let getObjectJsonFunction = () => getObjectJson(post.objectId, $accessToken!, post.objectType);
+	let getObjectJsonFunction = () => {
+		if (post.objectType == "news") {
+			return getNewsJSON(post.objectId, post.objectType);
+		} else {
+			return getObjectJson(post.objectId, $accessToken!, post.objectType);
+		}
+		
+	};
 </script>
 
-<a href={`/posts/${post.postId}`} class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white rounded-lg hover:shadow-sm">
+<a
+	href={`/posts/${post.postId}`}
+	class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white rounded-lg hover:shadow-sm"
+>
 	<div class="p-4 flex-col w-full">
 		<div class="flex-row flex items-center w-full">
 			{#if poster}
@@ -52,17 +66,33 @@
 		</div>
 		<div class="h-4" />
 		<div class="flex-row flex">
-			{#await getObjectJsonFunction()}
-				<div />
-			{:then json}
-				<div class="w-5/6 aspect-square" in:fade>
-					<PostObjectWidget object={json} />
-				</div>
-			{:catch error}
-				<div>{error}</div>
-			{/await}
+			{#if post.objectType == 'news'}
+				{#await getObjectJsonFunction()}
+					<div />
+				{:then json}
+					<div class="w-5/6 aspect-square" in:fade>
+						<PostNewsWidget object={json}/>
+					</div>
+				{:catch error}
+					<div>{error}</div>
+				{/await}
+			{:else}
+				{#await getObjectJsonFunction()}
+					<div />
+				{:then json}
+					<div class="w-5/6 aspect-square" in:fade>
+						<PostObjectWidget object={json} />
+					</div>
+				{:catch error}
+					<div>{error}</div>
+				{/await}
+			{/if}
+
 			<div class="flex-col flex justify-center items-center pl-1 grow">
-				<button class="hover:bg-gray-200 dark:hover:bg-gray-500 p-2 rounded" on:click|preventDefault={likePostFuntion}>
+				<button
+					class="hover:bg-gray-200 dark:hover:bg-gray-500 p-2 rounded"
+					on:click|preventDefault={likePostFuntion}
+				>
 					<span
 						class="material-symbols-outlined"
 						style={`font-variation-settings: 'FILL' ${
@@ -72,7 +102,10 @@
 				</button>
 				<div class="text-xs">{post.likes.length}</div>
 				<div class="h-4" />
-				<a class="hover:bg-gray-200 dark:hover:bg-gray-500 p-2 rounded"  href={`/posts/${post.postId}`}>
+				<a
+					class="hover:bg-gray-200 dark:hover:bg-gray-500 p-2 rounded"
+					href={`/posts/${post.postId}`}
+				>
 					<span class="material-symbols-outlined">mode_comment</span>
 				</a>
 				<div class="text-xs">{post.commentIds.length}</div>
@@ -80,10 +113,12 @@
 				<span class="material-symbols-outlined">share</span>
 			</div>
 		</div>
-		<div class="h-4" />
-		<div class="font-medium line-clamp-5">
-			{post.text}
-		</div>
-		<div class="h-2" />
+		{#if post.objectType != 'news'}
+			<div class="h-4" />
+			<div class="font-medium line-clamp-5">
+				{post.text}
+			</div>
+			<div class="h-2" />
+		{/if}
 	</div>
 </a>

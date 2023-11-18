@@ -17,9 +17,9 @@
 		</a>
 	</div>
 	<div class="grow" />
-	<div class="flex-col flex gap-8">
-		<MenuItem title="Home" href="/" />
-		<!-- <MenuItem title="News" href="/news" /> -->
+	<div class="flex-col flex gap-4">
+		<MenuItem title="Explore" href="/" />
+		<MenuItem title="Feed" href="/feed" />
 		<MenuItem title="Search" href="/search" />
 		<button
 			on:click={() => (showModal = true)}

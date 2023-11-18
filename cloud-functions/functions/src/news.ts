@@ -2,6 +2,7 @@ import * as functions from "firebase-functions";
 import linkPreviewGenerator = require("link-preview-generator");
 import * as admin from "firebase-admin";
 
+
 const runtimeOpts = {
   timeoutSeconds: 60,
   memory: "2GB" as const,
@@ -25,6 +26,18 @@ exports.newsMetaData = functions
             .doc(docId)
             .update(json);
 
+        await admin.firestore()
+            .collection("posts")
+            .doc()
+            .set(
+                {
+                  objectType: "news",
+                  objectId: docId,
+                  date: admin.firestore.FieldValue.serverTimestamp(),
+                  likes: [],
+                  commentIds: [],
+                }
+            );
         return null;
       } catch (error) {
         console.log(error);

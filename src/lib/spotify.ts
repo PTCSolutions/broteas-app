@@ -177,7 +177,7 @@ export function asAlbum(object: PostObject): Album {
 
 // Get the json info of the song in the post widget
 export async function getObjectJson(objectId: string, access_token: string, objectType: ObjectType) {
-    if (access_token != null) {
+    if (access_token != null && objectType != "news") {
         try {
             const response = await fetch(`https://api.spotify.com/v1/${objectType}s/${objectId}`, {
                 method: 'GET',
