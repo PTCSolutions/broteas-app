@@ -22,7 +22,7 @@
 					};
 				}}
 			>
-				<div class="flex flex-row gap-2 items-center">
+				<div class="flex flex-row gap-2 items-center mb-2">
 					<div class="text-xl">Profile</div>
 					<button
 						type="button"
@@ -40,14 +40,14 @@
 					<div>First Name</div>
 					{#if edit}
 						<Input
-							class="w-50 border-none focus:ring-0"
+							class="w-50 border-none focus:ring-0 text-base"
 							name={'firstName'}
 							type="text"
 							value={user.firstName}
 						/>
 					{:else}
 						<Input
-							class="w-50 border-none focus:ring-0 cursor-default"
+							class="w-50 border-none focus:ring-0 cursor-default text-base"
 							name={'firstName'}
 							type="text"
 							readonly
@@ -59,14 +59,14 @@
 					<div>Last Name</div>
 					{#if edit}
 						<Input
-							class="w-50 border-none focus:ring-0"
+							class="w-50 border-none focus:ring-0 text-base"
 							name={'lastName'}
 							type="text"
 							value={user.lastName}
 						/>
 					{:else}
 						<Input
-							class="w-50 border-none focus:ring-0 cursor-default"
+							class="w-50 border-none focus:ring-0 cursor-default text-base"
 							name={'lastName'}
 							type="text"
 							readonly
