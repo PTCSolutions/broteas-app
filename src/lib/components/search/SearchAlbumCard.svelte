@@ -3,7 +3,7 @@
 	export let album: Album;
 </script>
 
-<div class="w-12 h-12 bg-blue-500 rounded">
+<div class="w-12 h-12 rounded">
 	<img class="rounded" src={album.images[0].url} alt="" />
 </div>
 <div class="w-4" />
