@@ -10,6 +10,14 @@
 	import SearchObjectCard from './search/SearchObjectCard.svelte';
 	import type { ObjectType } from '$lib/post';
 
+	// Whether search widget is to be displayed in search
+	// page (FALSE) or in New post model (TRUE)
+	export let newPost: boolean = false;
+	// Actions to be completed on clicking object card
+	// and variable to store object clicked on
+	export let onObjectCardClicked: any = null;
+	export let objectSelected: PostObject | null = null;
+
 	// Options for search type radio menu
 	const options = [
 		{
@@ -24,24 +32,33 @@
 			value: 'album',
 			label: 'Album'
 		},
-		{
-			value: 'user',
-			label: 'User'
-		}
+		// If we are in new Post DONT show user option
+		...(newPost
+			? []
+			: [
+					{
+						value: 'user',
+						label: 'User'
+					}
+			  ])
 	];
-
+	// We can either search through objects or users
 	type SearchType = ObjectType | 'user';
-	let searchCatagory: SearchType = 'track';
+	// Default search category is track
+	let searchCategory: SearchType = 'track';
+	// Default search text is null
 	let searchText: string = '';
+	// Array of objects to display
 	let objects: Array<PostObject> = [];
+	// Array of users to display
 	let users: User[] = [];
 
 	// Function which either searches Spotify or our userbase
-	async function search(searchText: string, searchCatagory: SearchType) {
+	async function search(searchText: string, searchCategory: SearchType) {
 		if (searchText != null) {
-			if (searchCatagory != 'user') {
+			if (searchCategory != 'user') {
 				try {
-					objects = await searchSpotify(searchText, searchCatagory, $accessToken ?? '');
+					objects = await searchSpotify(searchText, searchCategory, $accessToken ?? '');
 				} catch (e) {
 					objects = [];
 				}
@@ -53,7 +70,7 @@
 	// Reactive declaration means search runs whenever the reactive variable it
 	// depends on (in this case `searchText`) changes. This is ensures that
 	// list of songs is always calibrated with searchText
-	$: search(searchText, searchCatagory);
+	$: search(searchText, searchCategory);
 </script>
 
 <div class="flex-col flex py-2 px-4">
@@ -67,20 +84,36 @@
 		/>
 		<div class="h-2" />
 
-		<Radio {options} bind:radioSelected={searchCatagory} />
+		<Radio {options} bind:radioSelected={searchCategory} />
 	</div>
 
 	<div class="h-2" />
-	<div class="flex flex-col h-[700px] overflow-auto">
+	<div class="flex flex-col overflow-auto height" style:--height={newPost ? '320px' : '700px'}>
 		<div class="h-2" />
-		{#if searchCatagory != 'user'}
+		{#if searchCategory != 'user'}
 			{#each objects as object}
-				<SearchObjectCard {object} />
+				<!--Complete action on clicking object card IF it exists-->
+				<button
+					on:click={() => {
+						onObjectCardClicked();
+						objectSelected = object;
+					}}
+				>
+					<SearchObjectCard {object} />
+				</button>
 			{/each}
-		{:else}
+		<!-- IT shouldnt be possible but this statement makes 
+		sure we are not in new post and displaying users -->
+		{:else if !newPost}
 			{#each users as user}
 				<SearchUserCard {user} followed={$userProfileStore?.user?.following?.includes(user.uid)} />
 			{/each}
 		{/if}
 	</div>
 </div>
+
+<style>
+	.height {
+		height: var(--height);
+	}
+</style>

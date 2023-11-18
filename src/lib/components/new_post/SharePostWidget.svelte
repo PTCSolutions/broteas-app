@@ -5,13 +5,15 @@
 	import SearchSongCard from '../search/SearchSongCard.svelte';
 	import SearchArtistCard from '../search/SearchArtistCard.svelte';
 	import SearchAlbumCard from '../search/SearchAlbumCard.svelte';
+	import SearchObjectCard from '../search/SearchObjectCard.svelte';
+	import type { PostObject } from '$lib/spotify';
 
 	let uid: string | undefined;
 	$: uid = $userProfileStore?.user?.uid;
 	// Disable button if there is no uid
 	let disabled: boolean;
 	$: disabled = uid == '' || uid == null;
-	export let object: any;
+	export let object: PostObject;
 	export let objectType: string = 'track';
 	// Allows the widget to affect the state of an external modal.
 	export let showModal;
@@ -33,15 +35,7 @@
 		>
 			<div class="flex flex-col items-center h-full justify-between ">
 				<!-- <img class="rounded w-1/4 h-1/4" src={getObjectImageSrc(object)} alt="" /> -->
-				{#if objectType == 'track'}
-					<SearchSongCard song={object} />
-				{:else if objectType == 'artist'}
-					<SearchArtistCard artist={object} />
-				{:else if objectType == 'album'}
-					<SearchAlbumCard album={object} />
-				{:else}
-					<div />
-				{/if}
+				<SearchObjectCard object={object}/>
 				<textarea
 					name="text"
 					autocomplete="off"

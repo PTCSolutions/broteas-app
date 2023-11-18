@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { ObjectType } from '$lib/post';
 	import type { PostObject } from '$lib/spotify';
 	import { asSong, asArtist, asAlbum } from '$lib/spotify';
 	import SearchAlbumCard from './SearchAlbumCard.svelte';
