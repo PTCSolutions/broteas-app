@@ -2,7 +2,7 @@
 	import { feedPosts, subscribeToFeedPosts } from '$lib/stores/postsStore';
 	import PostGrid from '$lib/components/posts/PostGrid.svelte';
 	import { DarkMode } from 'flowbite-svelte';
-	import ReferButton from '$lib/components/ReferButton.svelte';
+	import ReferButton from '$lib/components/refer/ReferButton.svelte';
     import { userProfileStore } from '$lib/stores/userStore';
     	// Once user's uid has loaded, subscribe to their feed posts  
 	$: if ($userProfileStore) subscribeToFeedPosts();
