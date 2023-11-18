@@ -1,66 +1,15 @@
 <script lang="ts">
-	import { fade } from 'svelte/transition';
+	import type { NewsMeta } from '$lib/news';
 
-	// The post in question
-	export let url: string;
-
-	async function getLinkPreview(url: string) {
-		const response = await fetch(
-			`https://europe-west2-project-broteas.cloudfunctions.net/linkPreview-linkPreview/?url=${encodeURI(url)}`
-		);
-		const json = await response.json();
-		console.log(json);
-        return json;
-	}
+	export let object: NewsMeta;
 </script>
 
-<div class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white rounded-lg">
-	<div class="p-4 flex-col w-full">
-		<div class="flex-row flex items-center w-full">
-			<!-- {#if poster}
-				<ProfilePicture user={poster || null} />
-				<div class="w-2" />
-				<div class="flex-col flex">
-					<a class="hover:underline" href={`/users/${poster?.uid}`}>@{poster?.username}</a>
-					<div class="text-xs">{format(post.date)}</div>
-				</div>
-				<div class="grow" />
-				{#if currentUid == poster?.uid}
-					<button on:click={deletePostFunction}
-						><img class="w-[1.5vw] aspect-square" src="delete_icon.svg" alt="delete icon" /></button
-					>
-				{/if}
-			{/if} -->
-		</div>
-		<div class="h-4" />
-		<div class="flex-row flex">
-			{#await getLinkPreview(url)}
-				<div />
-			{:then json}
-				<div class="w-5/6 aspect-square" in:fade>{json.title}</div>
-			{:catch error}
-				<div>{error}</div>
-			{/await}
-			<div class="flex-col flex justify-center items-center pl-2 grow">
-				<button>
-					<span class="material-symbols-outlined" style={`font-variation-settings: 'FILL' ${0}`}
-						>favorite</span
-					>
-				</button>
-				<div class="text-xs">0</div>
-				<div class="h-4" />
-
-					<span class="material-symbols-outlined">mode_comment</span>
-
-				<div class="text-xs">0</div>
-				<div class="h-4" />
-				<span class="material-symbols-outlined">share</span>
-			</div>
-		</div>
-		<div class="h-4" />
-		<div class="font-medium">
-			<!-- {post.text} -->
-		</div>
-		<div class="h-2" />
+<div class="w-full h-auto flex flex-col gap-2 dark:bg-gray-600 dark:text-white rounded-lg">
+	<img class="rounded" src={object.img} alt="img" />
+	<div class="flex flex-row gap-1 items-center">
+		<img class="h-4 w-4" src={object.favicon} alt="img" />
+		<div class="text-sm">{object.domain}</div>
 	</div>
+	<div class="text-lg font-semibold">{object.title}</div>
+	<div>{object.description}</div>
 </div>

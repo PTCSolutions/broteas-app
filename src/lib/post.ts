@@ -10,7 +10,7 @@ export interface Post {
     objectType: ObjectType;
 }
 
-export type ObjectType = "artist" | "track" | "album"
+export type ObjectType = "artist" | "track" | "album" | "news";
 // Uncomment this when we want to read posts
 export interface PostMeta extends Post {
     postId: string;
