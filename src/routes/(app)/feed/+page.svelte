@@ -18,6 +18,9 @@
 		</div>
 		<DarkMode />
 	</div>
+    {#if $userProfileStore?.user?.following.length == 0}
+		<div class="mt-6 text-lg">Posts from the people you follow appear on your feed. Search for a user by their username to follow them now!</div>
+	{/if}
 	{#if $feedPosts?.loading === false}
 		<!-- Should each post individually fade in, or the whole grid fade in as one-->
 		<PostGrid posts={$feedPosts.posts} />
