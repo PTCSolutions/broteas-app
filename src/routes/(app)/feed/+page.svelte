@@ -1,8 +1,11 @@
 <script lang="ts">
-	import { feedPosts } from '$lib/stores/postsStore';
+	import { feedPosts, subscribeToFeedPosts } from '$lib/stores/postsStore';
 	import PostGrid from '$lib/components/posts/PostGrid.svelte';
 	import { DarkMode } from 'flowbite-svelte';
 	import ReferButton from '$lib/components/ReferButton.svelte';
+    import { userProfileStore } from '$lib/stores/userStore';
+    	// Once user's uid has loaded, subscribe to their feed posts  
+	$: if ($userProfileStore) subscribeToFeedPosts();
 </script>
 
 <div class="flex-col flex items-start min-h-screen px-4">
