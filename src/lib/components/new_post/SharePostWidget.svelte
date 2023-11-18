@@ -33,9 +33,9 @@
 			}}
 			class="h-full"
 		>
-			<div class="flex flex-col items-center h-full justify-between ">
+			<div class="flex flex-col items-center h-full justify-between">
 				<!-- <img class="rounded w-1/4 h-1/4" src={getObjectImageSrc(object)} alt="" /> -->
-				<SearchObjectCard object={object}/>
+				<SearchObjectCard object={object} linkToObject={true}/>
 				<textarea
 					name="text"
 					autocomplete="off"

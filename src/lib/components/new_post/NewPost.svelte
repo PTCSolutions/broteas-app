@@ -1,10 +1,7 @@
 <script lang="ts">
-	import SearchToShareWidget from './SearchToShareWidget.svelte';
-	import type { Song, Album, Artist, PostObject } from '$lib/spotify';
+	import type {PostObject } from '$lib/spotify';
 	import SharePostWidget from '$lib/components/new_post/SharePostWidget.svelte';
-	import { horizontalSlide } from '$lib/transition/transition';
 	import { fly } from 'svelte/transition';
-	import { linear } from 'svelte/easing';
 	import SearchWidget from '../SearchWidget.svelte';
 	// Should the modal display the search widget
 	export let search: boolean = true;
@@ -23,7 +20,7 @@
 			<div class="font-medium mx-4 text-xl mb-1">
 				Search for a song, artist or album to talk about
 			</div>
-			<SearchWidget onObjectCardClicked={() => (search = false)} bind:objectSelected />
+			<SearchWidget onObjectCardClicked={() => (search = false)} bind:objectSelected newPost={true}/>
 		</div>
 	{:else if objectSelected != null}
 		<div in:fly={{ x: 550, delay: 400, duration: 400 }} class="h-full">

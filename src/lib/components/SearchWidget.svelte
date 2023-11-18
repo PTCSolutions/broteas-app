@@ -99,7 +99,7 @@
 						objectSelected = object;
 					}}
 				>
-					<SearchObjectCard {object} />
+					<SearchObjectCard {object} linkToObject={!newPost}/>
 				</button>
 			{/each}
 		<!-- IT shouldnt be possible but this statement makes 
