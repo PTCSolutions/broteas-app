@@ -28,14 +28,16 @@ export async function load({ cookies, url }) {
     if (uid == undefined) {
         uid = "";
     }
+    // If there is a code in search params its cos user just logged in
+    // If we dont already have a spotify user from a refresh token then
+    // use code to get spotify user 
     if (url.searchParams.get('code') && !get(spotifyUser)) {
-        console.log("dfs")
         const spotify_user = await spotifyLoginFromCode(uid, url, CLIENT_ID, CLIENT_SECRET)
-        console.log("USer is", spotify_user);
         return {
             spotify_user: spotify_user
         };
     } 
+    // Other wise just return spotify user that already does or doesnt exist
     return {
         spotify_user: get(spotifyUser)
     }
