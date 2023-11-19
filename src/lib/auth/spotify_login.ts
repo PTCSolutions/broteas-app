@@ -4,10 +4,10 @@ import { addRefresh, getRefresh } from "$lib/user";
 export async function spotifyLoginFromRefresh(uid: string, url: URL, clientId: string, clientSecret:string): Promise<SpotifyUser | null> {
     // get stored refresh token from firebase
     const refresh_token = await getRefresh(uid);
-    console.log("Acces token", refresh_token)
     let access_token;
     // If refresh saved
     if (refresh_token) {
+        console.log(refresh_token);
         // Get access_token using refresh
         const response = await fetch("https://accounts.spotify.com/api/token",
             {
@@ -16,15 +16,14 @@ export async function spotifyLoginFromRefresh(uid: string, url: URL, clientId: s
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Authorization": "Basic " + btoa(`${clientId}:${clientSecret}`)
                 },
-                body: `grant_type=refresh_token&code=${refresh_token}&redirect_uri=http://${url.host}`
+                body: `grant_type=refresh_token&refresh_token=${refresh_token}`
             });
-        console.log("Acces token", response.json())
         // If call succeeds update access token and refresh token in firebase
         if (response.status == 200) {
             const data = await response.json()
+            console.log("DAta is ", data);
             access_token = data.access_token;
-            await addRefresh(uid, data.refresh_token);
-            // If refresh token invalid, return null
+        // If refresh token invalid, return null
         } else {
             return null;
         }
