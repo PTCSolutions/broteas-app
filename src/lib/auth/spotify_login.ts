@@ -18,7 +18,7 @@ export async function spotifyLoginFromRefresh(uid: string, url: URL, clientId: s
                 },
                 body: `grant_type=refresh_token&refresh_token=${refresh_token}`
             });
-        // If call succeeds update access token and refresh token in firebase
+        // If call succeeds update access token 
         if (response.status == 200) {
             const data = await response.json()
             console.log("DAta is ", data);
