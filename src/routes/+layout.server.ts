@@ -20,7 +20,8 @@ export async function load({ cookies, url }) {
             body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
         });
     const general_token = await response.json();
-    const spotify_user = await spotifyLoginFromRefresh(uid, url, CLIENT_ID, CLIENT_SECRET)
+    const spotify_user = await spotifyLoginFromRefresh(uid, url, CLIENT_ID, CLIENT_SECRET);
+    console.log("In layour", spotify_user)
 
     return {
         uid: uid,

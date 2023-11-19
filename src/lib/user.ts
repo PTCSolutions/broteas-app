@@ -202,7 +202,7 @@ export async function getRefresh(uid: string): Promise<string | null> {
         const docSnapshot: DocumentSnapshot = await getDoc(doc(db, "users", uid));
         if (docSnapshot.exists()) {
             const data = docSnapshot.data();
-            if (data.access_token && data.refresh_token) {
+            if (data.refresh_token) {
                 return data.refresh_token
             } else {
                 return null;

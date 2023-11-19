@@ -4,9 +4,7 @@
 	import { spotifyUser } from '$lib/stores/spotifyUserStore.js';
 	import { userProfileStore } from '$lib/stores/userStore.js';
 	export let data;
-	$: console.log("DATA IS!", data)
 	if (data.spotify_user) {
-		console.log("This is braxy")
 		$spotifyUser = data.spotify_user;
 	}
 </script>
