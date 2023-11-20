@@ -30,6 +30,7 @@
 		subscribeToUser();
 		subscribeToExplorePosts();
 		$spotifyUser = spotify_user;
+		console.log("The spotify user in the store is: " + $spotifyUser?.name);
 	});
 </script>
 

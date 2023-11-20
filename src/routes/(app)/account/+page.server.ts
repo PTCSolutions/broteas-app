@@ -36,7 +36,7 @@ export async function load({ cookies, url }) {
         return {
             spotify_user: spotify_user
         };
-    } 
+    }
     // Other wise just return spotify user that already does or doesnt exist
     return {
         spotify_user: get(spotifyUser)

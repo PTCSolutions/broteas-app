@@ -21,7 +21,7 @@ export async function load({ cookies, url }) {
         });
     const general_token = await response.json();
     const spotify_user = await spotifyLoginFromRefresh(uid, url, CLIENT_ID, CLIENT_SECRET);
-    console.log("In layour", spotify_user)
+    console.log("In layout:", spotify_user)
 
     return {
         uid: uid,
