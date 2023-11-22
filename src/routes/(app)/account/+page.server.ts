@@ -1,5 +1,6 @@
 import { CLIENT_ID, CLIENT_SECRET } from '$env/static/private';
 import { spotifyLoginFromCode } from '$lib/auth/spotify_login.js';
+import { getRecentlyPlayed } from '$lib/spotify_user.js';
 import { spotifyUser } from '$lib/stores/spotifyUserStore.js';
 import { updateUser } from '$lib/user';
 import { get } from 'svelte/store';
@@ -37,8 +38,12 @@ export async function load({ cookies, url }) {
             spotify_user: spotify_user
         };
     }
+
+    const json = await getRecentlyPlayed(uid, CLIENT_ID, CLIENT_SECRET);
     // Other wise just return spotify user that already does or doesnt exist
     return {
-        spotify_user: get(spotifyUser)
+        spotify_user: get(spotifyUser),
+        uid: uid,
+        json: json,
     }
 }
