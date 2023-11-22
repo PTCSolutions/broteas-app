@@ -10,6 +10,7 @@
 	import SearchObjectCard from './search/SearchObjectCard.svelte';
 	import type { ObjectType } from '$lib/post';
 	import SearchSongCard from './search/SearchSongCard.svelte';
+	import { fade } from 'svelte/transition';
 
 	// Whether search widget is to be displayed in search
 	// page (FALSE) or in New post model (TRUE)
@@ -105,7 +106,7 @@
 	</div>
 
 	<div class="h-2" />
-	<div class="flex flex-col overflow-auto height" style:--height={newPost ? '320px' : '700px'}>
+	<div class={`flex flex-col overflow-auto ${newPost ? "h-[320px]" : "h-[700px]"}`}>
 		<div class="h-2" />
 		{#if searchCategory != 'user'}
 			{#each objects as object}
@@ -130,28 +131,24 @@
 			{#await getRecent()}
 				<div />
 			{:then json}
-				<div class="my-2 font-medium">or choose one of your recently played on Spotify:</div>
-				{#each json.items as item}
-					<button
-						on:click={() => {
-							onObjectCardClicked();
-							objectSelected = item.track;
-						}}
-					>
-						<div
-							class="flex-row flex bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white my-2 p-2 items-center rounded-lg w-full"
+				<div class="flex flex-col" in:fade>
+					<div class="my-2 font-medium">or choose one of your recently played on Spotify:</div>
+					{#each json.items as item}
+						<button
+							on:click={() => {
+								onObjectCardClicked();
+								objectSelected = item.track;
+							}}
 						>
-							<SearchSongCard song={item.track} />
-						</div>
-					</button>
-				{/each}
+							<div
+								class="flex-row flex bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white my-2 p-2 items-center rounded-lg w-full"
+							>
+								<SearchSongCard song={item.track} />
+							</div>
+						</button>
+					{/each}
+				</div>
 			{/await}
 		{/if}
 	</div>
 </div>
-
-<style>
-	.height {
-		height: var(--height);
-	}
-</style>
