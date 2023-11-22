@@ -31,24 +31,13 @@
 	<div class="grow" />
 	<!--TODO: Use flowbite navbar and dropdown for this-->
 	<button
-		on:click={() => {showSettings = !showSettings}}
+		on:click={() => {
+			showSettings = !showSettings;
+		}}
 		class="my-1 py-1 px-2 rounded-md hover:bg-gray-300 dark:text-white dark:hover:bg-gray-600 text-md text-left"
 		>Settings</button
 	>
 	<!-- <MenuItem title="Settings" href="/settings" small={true} /> -->
-
-	{#if $userProfileStore?.loading}
-		<div />
-		<!--If there is no logged in user show Login and signup buttons-->
-	{:else if $userProfileStore?.user?.uid == '' || $userProfileStore?.user?.uid == undefined}
-		<MenuItem title="Login" href="/login" small={true} />
-		<MenuItem title="Signup" href="/signup" small={true} />
-		<!-- Otherwise if users info has loaded, show them log out button-->
-	{:else}
-		<MenuItem title="Logout" href="/logout" small={true} logout={true} />
-
-		<!-- Otherwise show empty row-->
-	{/if}
 </aside>
 
 {#if showSettings}
@@ -67,11 +56,21 @@
 			class="my-1 py-1 px-2 w-full rounded-md hover:bg-gray-300 dark:text-white dark:hover:bg-gray-600 text-md text-left"
 			>Account</a
 		>
+		{#if $userProfileStore?.loading}
+			<div />
+			<!--If there is no logged in user show Login and signup buttons-->
+		{:else if $userProfileStore?.user?.uid == '' || $userProfileStore?.user?.uid == undefined}
+			<MenuItem title="Login" href="/login" small={true} />
+			<MenuItem title="Signup" href="/signup" small={true} />
+			<!-- Otherwise if users info has loaded, show them log out button-->
+		{:else}
+			<MenuItem title="Logout" href="/logout" small={true} logout={true} />
+
+			<!-- Otherwise show empty row-->
+		{/if}
 	</button>
 {/if}
 
-
 <Modal bind:open={showModal} outsideclose class=" w-auto">
-	<NewPost bind:showModal/>
+	<NewPost bind:showModal />
 </Modal>
-  
