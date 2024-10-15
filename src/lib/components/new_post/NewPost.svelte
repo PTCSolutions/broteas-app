@@ -12,12 +12,12 @@
 </script>
 
 <div
-	class="flex flex-col bg-white dark:bg-gray-800 text-black dark:text-white overflow-hidden w-[550px] h-[450px]"
+	class="flex flex-col bg-white dark:bg-gray-800 text-black dark:text-white overflow-hidden md:w-[550px] h-[450px]"
 >
 	<!-- On clikcing an objectcard change from search to object page-->
 	{#if search}
 		<div out:fly={{ x: -550, duration: 400 }} class="h-full">
-			<div class="font-medium mx-4 text-xl mb-1">
+			<div class="font-medium md:mx-4 text-xl mb-1">
 				Search for a song, artist or album to talk about
 			</div>
 			<SearchWidget onObjectCardClicked={() => (search = false)} bind:objectSelected newPost={true}/>

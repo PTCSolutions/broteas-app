@@ -3,7 +3,6 @@
 	import { userProfileStore } from '$lib/stores/userStore';
 	import { Modal } from 'flowbite-svelte';
 	import NewPost from './new_post/NewPost.svelte';
-	import MenuItemMobile from './MenuItemMobile.svelte';
 
 	let showSettings: boolean = false;
 	let showModal = false;
@@ -23,39 +22,6 @@
 		<MenuItem title="Explore" href="/" />
 		<MenuItem title="Feed" href="/feed" />
 		<MenuItem title="Search" href="/search" />
-		<button
-			on:click={() => (showModal = true)}
-			class="my-1 py-1 px-2 rounded-md hover:bg-gray-300 dark:text-white dark:hover:bg-gray-600 text-xl text-left"
-			>New Post</button
-		>
-	</div>
-
-	<div class="grow" />
-	<!--TODO: Use flowbite navbar and dropdown for this-->
-	<button
-		on:click={() => {
-			showSettings = !showSettings;
-		}}
-		class="my-1 py-1 px-2 rounded-md hover:bg-gray-300 dark:text-white dark:hover:bg-gray-600 text-md text-left"
-		>Settings</button
-	>
-	<!-- <MenuItem title="Settings" href="/settings" small={true} /> -->
-</aside>
-
-<!-- Mobile -->
- <aside
-	class="flex-row min-w-full h-16 bg-gray-100 dark:bg-gray-800 dark:border-gray-600 p-2 border-t-2 fixed bottom-0 md:hidden z-50"
->
-	<!-- <div class="w-full items-center flex flex-row mt-4">
-		<a href="/">
-			<img class="w-[90px]" src="/D1SCO_Logo.png" alt="" />
-		</a>
-	</div> -->
-	<!-- <div class="grow" /> -->
-	<div class="flex-row flex gap-4">
-		<MenuItemMobile title="Explore" href="/" />
-		<MenuItemMobile title="Feed" href="/feed" />
-		<MenuItemMobile title="Search" href="/search" />
 		<button
 			on:click={() => (showModal = true)}
 			class="my-1 py-1 px-2 rounded-md hover:bg-gray-300 dark:text-white dark:hover:bg-gray-600 text-xl text-left"

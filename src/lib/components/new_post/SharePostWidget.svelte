@@ -21,7 +21,7 @@
 
 {#if object != null}
 	<div
-		class="p-4 rounded-lg bg-white dark:bg-gray-800 dark:text-white overflow-hidden w-[550px] h-full"
+		class="md:p-4 pt-4 rounded-lg bg-white dark:bg-gray-800 dark:text-white overflow-hidden md:w-[550px] md:h-full"
 	>
 		<form
 			method="POST"
@@ -45,7 +45,7 @@
 				<input value={object.id} type="hidden" name="objectId" />
 				<input value={objectType} type="hidden" name="objectType" />
 				<input value={uid} type="hidden" name="uid" />
-				<div class="w-1/3">
+				<div class="md:w-1/3 w-full">
 					<!-- // On click, close modal -->
 					<Button text="Post" {disabled} onClick={() => (showModal = false)} />
 				</div>

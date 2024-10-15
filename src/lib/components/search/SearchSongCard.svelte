@@ -10,17 +10,18 @@
 </script>
 
 <div class="w-12 h-12 rounded">
-	<img class="rounded" src={song.album.images[0].url} alt="" />
+	<img class="rounded object-cover" src={song.album.images[0].url} alt="" />
 </div>
 <div class="w-4" />
 <div class="flex-col flex items-start">
-	<div class="text-lg font-medium">
+	<div class="text-lg font-medium line-clamp-1">
 		{song.name}
 	</div>
-	<a href={`/artists/${song.artists[0].id}`} class="hover:underline">
+	<a href={`/artists/${song.artists[0].id}`} class="hover:underline line-clamp-1 justify-start">
 		{song.artists[0].name}
 	</a>
 </div>
+<div class="w-4"></div>
 <div class="grow" />
 <div>
 	{millisToMinutesAndSeconds(song.duration_ms)}

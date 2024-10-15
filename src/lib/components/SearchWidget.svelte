@@ -91,7 +91,7 @@
 	$: search(searchText, searchCategory);
 </script>
 
-<div class="flex-col flex py-2 px-4">
+<div class="flex-col flex py-2 md:px-4">
 	<div class="flex flex-col">
 		<Input
 			id="search"
