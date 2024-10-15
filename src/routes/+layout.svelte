@@ -18,10 +18,10 @@
 	onMount(async () => {
 		// Check if the device is small screen (the invalidate all means the page 
 		// reloads when directed so it doesnt get stuck on welcome page)
-		if (window.innerWidth < 800) {
-			console.log('mobile');
-			goto('/mobile', { invalidateAll: true });
-		}
+		// if (window.innerWidth < 800) {
+		// 	console.log('mobile');
+		// 	goto('/mobile', { invalidateAll: true });
+		// }
 		if (uid )
 		// Set store values
 		$accessToken = access_token;

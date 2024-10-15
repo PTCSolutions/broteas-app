@@ -48,13 +48,12 @@
 	href={`/posts/${post.postId}`}
 	class="w-full h-auto flex flex-row bg-white dark:bg-gray-600 dark:text-white rounded-lg hover:shadow-sm"
 >
-	<div class="p-4 flex-col w-full">
+	<div class="md:p-4 p-3 flex-col w-full">
 		<div class="flex-row flex items-center w-full">
 			{#if poster}
 				<ProfilePicture user={poster || null} />
 				<div class="w-2" />
 				<div class="flex-col flex">
-					<!-- <a class="hover:underline" href={`/users/${poster?.uid}`}>@{poster?.username}</a> -->
 					<UsernameLink user={poster}/>
 					<div class="text-xs">{format(post.date)}</div>
 				</div>
@@ -72,7 +71,7 @@
 				{#await getObjectJsonFunction()}
 					<div />
 				{:then json}
-					<div class="w-5/6 aspect-square" in:fade>
+					<div class="md:w-5/6 aspect-square" in:fade>
 						<PostNewsWidget object={json}/>
 					</div>
 				{:catch error}
@@ -82,7 +81,7 @@
 				{#await getObjectJsonFunction()}
 					<div />
 				{:then json}
-					<div class="w-5/6 aspect-square" in:fade>
+					<div class="md:w-5/6 aspect-square" in:fade>
 						<PostObjectWidget object={json} />
 					</div>
 				{:catch error}
@@ -90,7 +89,8 @@
 				{/await}
 			{/if}
 
-			<div class="flex-col flex justify-center items-center pl-1 grow">
+			<!-- Action menu -->
+			<div class="flex-col flex justify-center items-center pl-2 grow">
 				<button
 					class="hover:bg-gray-200 dark:hover:bg-gray-500 p-2 rounded"
 					on:click|preventDefault={likePostFuntion}
@@ -113,8 +113,9 @@
 				<div class="text-xs">{post.commentIds.length}</div>
 				<div class="h-4" />
 				<span class="material-symbols-outlined">share</span>
-			</div>
+			</div> 
 		</div>
+
 		{#if post.objectType != 'news'}
 			<div class="h-4" />
 			<div class="font-medium line-clamp-5">
