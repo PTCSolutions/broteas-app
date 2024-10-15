@@ -12,6 +12,7 @@
 	import { onMount } from 'svelte';
 	import { getNewsJSON } from '$lib/news';
 	import PostNewsWidget from './widgets/PostNewsWidget.svelte';
+	import UsernameLink from './UsernameLink.svelte';
 	// The post in question
 	export let post: PostMeta;
 	// Get the uid of the currentUser from store
@@ -53,7 +54,8 @@
 				<ProfilePicture user={poster || null} />
 				<div class="w-2" />
 				<div class="flex-col flex">
-					<a class="hover:underline" href={`/users/${poster?.uid}`}>@{poster?.username}</a>
+					<!-- <a class="hover:underline" href={`/users/${poster?.uid}`}>@{poster?.username}</a> -->
+					<UsernameLink user={poster}/>
 					<div class="text-xs">{format(post.date)}</div>
 				</div>
 				<div class="grow" />
