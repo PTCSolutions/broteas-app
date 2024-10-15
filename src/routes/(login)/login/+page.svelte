@@ -11,7 +11,7 @@
 
 <!-- Use progressive enhancement so that we can get nice transitions if js enabled-->
 <form
-	class="z-10 fixed right-0 top-0 w-1/2 px-12 py-20 h-full"
+	class="z-10 md:fixed md:right-0 top-0 md:w-1/2 md:px-12 md:py-20 h-full mx-4 mt-8 md:m-0"
 	method="POST"
 	use:enhance={() => {
 		return ({ result, update }) => {
@@ -21,7 +21,7 @@
 	}}
 >
 	<!-- TODO: Make this use form validation instead of html validation-->
-	<div class="p-12 bg-white rounded-xl w-full gap-6 flex flex-col h-full justify-center">
+	<div class="md:p-12 p-6 bg-white rounded-xl w-full gap-6 flex flex-col h-full justify-center">
 		<div class="text-6xl font-bold">Login</div>
 		<div>
 			<Input id="email" type="email" placeholder="Email" />

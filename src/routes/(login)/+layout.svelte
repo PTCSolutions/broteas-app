@@ -7,7 +7,7 @@
 	let welcome = $page.url.pathname == '/welcome';
 </script>
 
-<div class="h-full min-h-screen overflow-hidden background">
+<div class="h-full min-h-screen overflow-hidden background hidden md:flex">
 	<div class="w-full h-full min-h-screen flex flex-row gap-8 px-20 py-16 items-center">
 		<div class="flex flex-col gap-6 w-full">
 			<!-- Only fade in if on the welcome page-->
@@ -37,6 +37,17 @@
 		<div class="w-full flex flex-col items-center">
 			<slot />
 		</div>
+	</div>
+</div>
+
+<div class="overflow-hidden md:hidden">
+	<img
+		class="z-0 overflow-hidden min-h-screen object-cover fixed bottom-0"
+		src="/DiscoHead.png"
+		alt=""
+	/>
+	<div class="flex flex-col">
+		<slot />
 	</div>
 </div>
 
